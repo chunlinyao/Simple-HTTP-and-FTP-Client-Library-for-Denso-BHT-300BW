@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="shift_jis"?>
 <BHTSettingInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="1.0.0">
     <EnviromentInfo>
-        <Model>BHT-1300Q</Model>
-        <FullModelName>BHT-1300Q</FullModelName>
-        <FileName>BHT1300Q.xml</FileName>
-        <Environment>Serial Communication (COM-CU)</Environment>
-        <Method>Set with Serial Communication (COM-CU)</Method>
-        <TransferType />
+        <Model>BHT-1300QWB</Model>
+        <FullModelName>BHT-1300QWB</FullModelName>
+        <FileName>BHT1300QWB.xml</FileName>
+        <Environment>シリアル通信(COM-CU)</Environment>
+        <Method>シリアル通信(COM-CU)で設定</Method>
+        <TransferType>serial</TransferType>
         <ViewType>basic</ViewType>
     </EnviromentInfo>
     <TransferringInfo>
-        <TransFolder>F:\Simple-HTTP-and-FTP-Client-Library-for-Denso-BHT-300BW\Obj\Transfer</TransFolder>
+        <TransFolder>E:\bhtsen\Obj\Transfer</TransFolder>
         <SerialPort>1</SerialPort>
     </TransferringInfo>
-    <CommonItem No="030451001" Type="num10" Value="0" InitValue="0" Applay="True" />
+    <CommonItem No="030451001" Type="num10" Value="0" InitValue="2" Applay="True" />
     <CommonItem No="020020460" Type="num10" Value="7" InitValue="7" Applay="True" />
     <CommonItem No="030452001" Type="num10" Value="2" InitValue="2" Applay="True" />
     <CommonItem No="030000000" Type="num10" Value="1" InitValue="1" Applay="True" />
@@ -231,4 +231,37 @@
     <CommonItem No="020022560" Type="num10" Value="0" InitValue="0" Applay="True" />
     <CommonItem No="020020700" Type="num10" Value="0" InitValue="0" Applay="Init" />
     <CommonItem No="020021220" Type="num10" Value="0" InitValue="0" Applay="Init" />
+    <CommonItem No="050170030" Type="string" Value="DW" InitValue="DW" Applay="True" />
+    <CommonItem No="050150010" Type="num10" Value="1" InitValue="1" Applay="True" />
+    <CommonItem No="050150040" Type="num10" Value="0" InitValue="0" Applay="True" />
+    <CommonItem No="050150400" Type="num10" Value="1" InitValue="1" Applay="Init" />
+    <CommonItem No="050150410" Type="num10" Value="0" InitValue="0" Applay="Init" />
+    <CommonItem No="050150420" Type="num10" Value="0" InitValue="0" Applay="Init" />
+    <CommonItem No="050000000" Type="string10" Value="00000000" InitValue="00000000" Applay="True" />
+    <CommonItem No="050230000" Type="num10" Value="1" InitValue="1" Applay="Init" />
+    <CommonItem No="050210100" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050210200" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050210300" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050210400" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050170120" Type="FileName" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050170100" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050170150" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050170110" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="050150200" Type="num10" Value="1" InitValue="1" Applay="Init" />
+    <CommonItem No="050150210" Type="num10" Value="30" InitValue="30" Applay="Init" />
+    <CommonItem No="050150220" Type="num10" Value="60" InitValue="60" Applay="Init" />
+    <CommonItem No="050150230" Type="num10" Value="30" InitValue="30" Applay="Init" />
+    <CommonItem No="050150240" Type="num10" Value="3" InitValue="3" Applay="Init" />
+    <CommonItem No="050170140" Type="string" Value="PreSharedKey" InitValue="PreSharedKey" Applay="Init" />
+    <CommonItem No="060040010" Type="string" Value="DENSO-BHT" InitValue="DENSO-BHT" Applay="True" />
+    <CommonItem No="060020010" Type="num10" Value="10" InitValue="10" Applay="True" />
+    <CommonItem No="060020020" Type="num10" Value="0" InitValue="0" Applay="True" />
+    <CommonItem No="060040020" Type="string16" Value="000000000000" InitValue="000000000000" Applay="True" />
+    <CommonItem No="060040030" Type="string16" Value="0000000000000000" InitValue="0000000000000000" Applay="True" />
+    <CommonItem No="060020030" Type="num10" Value="30" InitValue="30" Applay="True" />
+    <CommonItem No="060020050" Type="num10" Value="1" InitValue="1" Applay="True" />
+    <CommonItem No="060040540" Type="string" Value="" InitValue="" Applay="Init" />
+    <CommonItem No="060040040" Type="string16" Value="0000000000000000" InitValue="0000000000000000" Applay="True" />
+    <CommonItem No="060020040" Type="num10" Value="30" InitValue="30" Applay="True" />
+    <CommonItem No="060020060" Type="num10" Value="1" InitValue="1" Applay="True" />
 </BHTSettingInfo>

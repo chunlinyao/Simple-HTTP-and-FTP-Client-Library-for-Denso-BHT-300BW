@@ -1,5 +1,5 @@
 
-        source = F:\Simple-HTTP-and-FTP-Client-Library-for-Denso-BHT-300BW\barcode.src
+        source = E:\bhtsen\barcode.src
 
   ADDRESS INFORMATION
 
@@ -2072,16 +2072,16 @@
     LC.TNI.MEDDLE                04020500 
     LC.LST.ESC                   04020500 
     LC.RTN.ERR                   04020500 
-    LINES$                       03020A01 
+    LINES$                       03020A00 
     STARTTIME$                   03020900 
     LC.COL.CYAN                  04020500 
-    NAMES$                       03020A01 
-    NAMES$                       03020A01 
+    NAMES$                       03020A00 
+    NAMES$                       03020A00 
     BARCODE.EAN13$               04020500 
     LC.RTN.MTT                   04020500 
     LC.RAT.REVERSE               04020500 
     PREFIX$                      03020900 
-    IDX%                         03020A01 
+    IDX%                         03020A00 
     BARCODE.BARCODEKEY2$         01030200 
     LC.CUR.UNDERLINE             04020500 
     MAX0%                        03020900 
@@ -2090,7 +2090,7 @@
     INIPOS%                      03020900 
     MAX%                         03020B00 
     MAX%                         03020B00 
-    QUANTITIES%                  03020A01 
+    QUANTITIES%                  03020A00 
     BARCODE.CODE39$              04020500 
     LC.LED.BLUE                  04020500 
     LC.LST.F5                    04020500 
@@ -2117,7 +2117,7 @@
     LC.LED.GREEN                 04020500 
     UTIL.GETPAGEINFO%            02040200 
     MAXLEN%                      03020900 
-    HASENOUGH%                   03020A01 
+    HASENOUGH%                   03020A00 
     LC.LFC.CRLF                  04020500 
     LC.VIB.OFF                   04020500 
     LC.COL.BLACK                 04020500 
@@ -2135,7 +2135,7 @@
     UTIL.ERRLOG                  02040300 
     LC.BVL.MEDIAM                04020500 
     UTIL.STRCHARINDEX%           02040200 
-    CODES$                       03020A01 
+    CODES$                       03020A00 
     LC.RIN.OK                    04020500 
     LC.COL.RED                   04020500 
     LC.DCP.ADDWRITE              04020500 
@@ -2197,8 +2197,8 @@
     LC.DSP.ON                    04020500 
     UTIL.GETSECONDS%             02040200 
     LC.LST.ENT                   04020500 
-    IDS$                         03020A01 
-    IDS$                         03020A01 
+    IDS$                         03020A00 
+    IDS$                         03020A00 
     LC.LFD.SEPA                  04020500 
     LC.LST.ERR                   04020500 
     LC.BVL.NOVOL                 04020500 

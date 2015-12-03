@@ -63,7 +63,7 @@
         beep
         rt$ =input$(max%, #f.no%)
         print rt$
-        Barcode.BarcodeKey$ = Util.Trim$(rt$) 
+        Barcode.BarcodeKey3$ = Util.Trim$(rt$) 
         close #f.no%
         exit function
       else
@@ -72,12 +72,12 @@
         kb$ = input$(1)
         while kb$<>""
           if instr(esc$, kb$) then
-            Barcode.BarcodeKey$ = Util.Trim$(kb$)
+            Barcode.BarcodeKey3$ = Util.Trim$(kb$)
             exit function
           endif
           select kb$
           case chr$(13)
-            Barcode.BarcodeKey$ = Util.Trim$(rt$)
+            Barcode.BarcodeKey3$ = Util.Trim$(rt$)
             exit function
           case chr$(8)
             if len(rt$) then

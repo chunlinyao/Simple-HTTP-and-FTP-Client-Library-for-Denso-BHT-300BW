@@ -17,7 +17,7 @@
     out .pnBLTime, 5
     out .pnSysSts, .pvStsOn ' show system status
     out .pnARKey,0          ' auto key repeat OFF
-    out .pnMgLng,.pvSysMSG  ' Japanese message
+    out .pnMgLng,.pvSysMsg  ' Japanese message
 
     screen Lc.SCR.KANJI,Lc.WAT.NORMAL
     cls

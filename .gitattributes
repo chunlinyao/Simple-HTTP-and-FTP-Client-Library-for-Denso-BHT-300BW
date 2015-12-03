@@ -1,0 +1,14 @@
+*.ini eol=crlf
+*.bp4 eol=crlf
+*.DBG eol=crlf
+*.bp4_old eol=crlf
+*.src eol=crlf
+*.inc eol=crlf
+*.def eol=crlf
+*.bprj eol=crlf
+*.bsln eol=crlf
+*.bsuo eol=crlf
+*.sp4 eol=crlf
+*.bst eol=crlf
+*.cfg eol=crlf
+*.SPF eol=crlf

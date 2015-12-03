@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="gb2312" standalone="yes"?>
+<BHT_Solution_Information>
+  <SolutionInformation>
+    <Version />
+    <Model>BHT-1306Q</Model>
+    <IsConfigTool>1</IsConfigTool>
+  </SolutionInformation>
+  <ProjectInformation>
+    <StartupProjectName>init</StartupProjectName>
+    <Project>barcode.bprj</Project>
+    <Project>com.bprj</Project>
+    <Project>init.bprj</Project>
+    <Project>init2.bprj</Project>
+    <Project>input.bprj</Project>
+    <Project>itemcach.bprj</Project>
+    <Project>postcach.bprj</Project>
+    <Project>screen.bprj</Project>
+    <Project>ship.bprj</Project>
+    <Project>test.bprj</Project>
+    <Project>testbarc.bprj</Project>
+    <Project>testinpu.bprj</Project>
+    <Project>testutil.bprj</Project>
+    <Project>util.bprj</Project>
+    <Project>wh.bprj</Project>
+  </ProjectInformation>
+  <DebugInformation>
+    <Mode>0</Mode>
+    <SimulateDebugSetting>
+      <Barcode>
+        <Type>0</Type>
+      </Barcode>
+      <Serial>
+        <Type>0</Type>
+        <VirtualCOMs>
+          <COM1>-1</COM1>
+          <COM2>-1</COM2>
+          <COM3>-1</COM3>
+          <COM4>-1</COM4>
+          <COM5>-1</COM5>
+          <COM6>-1</COM6>
+          <COM7>-1</COM7>
+          <COM8>-1</COM8>
+          <COM9>-1</COM9>
+          <COM10>-1</COM10>
+        </VirtualCOMs>
+      </Serial>
+      <Socket>
+        <Type>0</Type>
+      </Socket>
+      <IsSystemInit>0</IsSystemInit>
+    </SimulateDebugSetting>
+    <SimulateDebugSdSetting>
+      <IsSdInsert>0</IsSdInsert>
+    </SimulateDebugSdSetting>
+    <RemoteDebugSetting>
+      <DebugMethod>0</DebugMethod>
+      <SerialPortNo />
+      <SerialBoudRate>115200</SerialBoudRate>
+    </RemoteDebugSetting>
+  </DebugInformation>
+</BHT_Solution_Information>

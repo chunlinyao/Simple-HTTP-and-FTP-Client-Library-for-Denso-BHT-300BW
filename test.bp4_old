@@ -1,6 +1,6 @@
 [Project]
 Number=1
-File1=com.src
+File1=test.src
 [Option]
 Language=BHT-BASIC4.0
 Build=Library
@@ -21,9 +21,9 @@ DimScope=0
 ArgCall=0
 WorkArray=0
 [Other]
-BHT40CPL=1.07
-BHT40LNK=1.04
-BHT40LIB=1.01
+BHT40CPL=1.04
+BHT40LNK=1.03
+BHT40LIB=1.00
 [Property]
 Major=0
 Minor=0

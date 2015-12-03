@@ -1,9 +1,13 @@
 [Project]
-Number=1
-File1=com.src
+Number=5
+File1=init.src
+File2=com.lb4
+File3=screen.lb4
+File4=util.lb4
+File5=input.lb4
 [Option]
 Language=BHT-BASIC4.0
-Build=Library
+Build=Program
 DebugOut=1
 ListOut=1
 TblOut=1

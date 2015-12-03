@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="gb2312" standalone="yes"?>
+<BHT_Project_Information>
+  <SourceFileList>
+    <File>init.src</File>
+  </SourceFileList>
+  <LibraryFileList>
+    <File>com.lb4</File>
+    <File>input.lb4</File>
+    <File>screen.lb4</File>
+    <File>util.lb4</File>
+  </LibraryFileList>
+  <IncludeFileList>
+    <File>bhtdef.inc</File>
+    <File>const.inc</File>
+  </IncludeFileList>
+  <Option>
+    <Language>BHT-BASIC4.0</Language>
+    <Build>Program</Build>
+    <DebugOut>1</DebugOut>
+    <ListOut>1</ListOut>
+    <TblOut>1</TblOut>
+    <CrossOut>1</CrossOut>
+    <SizeOut>1</SizeOut>
+    <ExInclude>1</ExInclude>
+    <MapOut>1</MapOut>
+    <UnDefVar>1</UnDefVar>
+    <JoinListOut>1</JoinListOut>
+    <ErrorOut>1</ErrorOut>
+    <PrgFormat>0</PrgFormat>
+    <ErrorScope>0</ErrorScope>
+    <AllStatic>0</AllStatic>
+    <DimScope>0</DimScope>
+    <ArgCall>0</ArgCall>
+    <WorkArray>0</WorkArray>
+  </Option>
+  <Other>
+    <BHT40CPL>1, 8, 0, 0</BHT40CPL>
+    <BHT40LNK>1, 7, 0, 0</BHT40LNK>
+    <BHT40LIB>1, 1, 0, 0</BHT40LIB>
+  </Other>
+  <Property>
+    <Major>0</Major>
+    <Minor>0</Minor>
+    <Revision>0</Revision>
+    <Comments />
+    <FileDescription />
+    <CompnyName />
+    <LegalTrademarks />
+    <ProductName />
+    <LegalCopyright />
+  </Property>
+</BHT_Project_Information>

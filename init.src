@@ -17,13 +17,13 @@
 
     cls
     locate 1,1
-    print "–{“–‚ÉÌßÛ¸Ş×Ñ‚ğXV‚µ‚Ü‚·‚©H"
+    print "È·¶¨¸üĞÂ³ÌĞòÂğ£¿"
     retYN$=Input.InputYesNo$
     print retYN$
     if retYN$="Y" then
       cls
       locate 1,1
-      print "Û°ÀŞ°‚ğÀŞ³İÛ°ÄŞ‚µ‚Ä‚¢‚Ü‚·..."
+      print "ÕıÔÚÏÂÔØÒıµ¼Æ÷..."
       private loader$(1)[20]
       loader$(0)=APP.Loader2Name$
       ret$=Com.Ftp.DownloadProgram$(loader$,1)
@@ -42,11 +42,11 @@ Main
   private dat$[13]
   private src.selectionData$(MENULENGTH)
 
-  src.selectionData$(0) = "1.“üŒÉ"
-  src.selectionData$(1) = "2.oŒÉ"
-  src.selectionData$(2) = "3.o‰×"
-  src.selectionData$(3) = "4.’I‰µ"
-  src.selectionData$(4) = "8.Ï½ÀXV"
+  src.selectionData$(0) = "1.Èë¿â"
+  src.selectionData$(1) = "2.³ö¿â"
+  src.selectionData$(2) = "3.³öºÉ"
+  src.selectionData$(3) = "4.ÅïĞ¶"
+  src.selectionData$(4) = "8.»ù´¡Êı¾İ¸üĞÂ"
 
   '------ init ------
   k$="1"
@@ -59,7 +59,7 @@ Main
     next i%
     locate ,,1 : cursor on
     print ""
-    input "‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢"; k$
+    print "ÇëÑ¡Ôñ"; k$ = input$(1)
     select k$
       case "1"
         APP.func%=APP.FUNC.INBOUND%

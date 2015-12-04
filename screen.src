@@ -7,6 +7,8 @@
 '$include:'bhtdef.inc'
 '$include:'const.inc'
 '$include:'screen.def'
+'$include:'util.def'
+'$include:'util.inc'
 
 '--------------------------------------------------------------------------
 ' init
@@ -94,11 +96,48 @@
     end if
     print "]ѡ [ENT]ȷ"
   end sub
+ 
+'--------------------------------------------------------------------------
+' Header display
+'-------------------------------------------------------------------------- 
+  sub Screen.Header(title$)
+    locate 1,1
+    OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
+    screen ,Lc.RAT.REVERSE
+    print Util.TruncateStr$(title$,1,16)
+    OUT .pnFont.Emph, .pvEmph.Off ' &h6081,0 ' Bold display
+    screen ,Lc.RAT.NORMAL
+  end sub
   
+  sub Screen.H1(title$)
+    OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
+    print Util.TruncateStr$(title$,1,16)
+    OUT .pnFont.Emph, .pvEmph.Off ' &h6081,0 ' Bold display
+  end sub
+
 '--------------------------------------------------------------------------
 ' Field display
 '--------------------------------------------------------------------------
- sub Screen.Field(label$, value$, type%)
- 	print using "&              &" label
- 	print using "[&            &]" value	
- end sub
+ function Screen.Field%(label$, value$, type$, rev%)
+	Screen.Field% = csrlin
+    'OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
+    if rev% = 1 then
+      screen ,Lc.RAT.REVERSE
+      print "                ";
+      locate 1
+    end if
+    print Util.TruncateStr$(label$,1,15);
+    print ":"
+    if rev% = 1 then
+      screen ,Lc.RAT.NORMAL
+    end if
+    'OUT .pnFont.Emph, .pvEmph.Off ' &h6081, 1 ' Bold display
+    '------1234567890123456---------------------
+    print " [             ]";
+    locate 3
+    if type$ = "num" then
+      print Util.PadLeftStr$(Util.TruncateStr$(value$,1,13),13)
+    else
+      print Util.TruncateStr$(value$,1,13)
+    end if
+ end function

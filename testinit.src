@@ -16,7 +16,7 @@ Main
   private dat$[13]
   private src.selectionData$(MENULENGTH)
 
-  src.selectionData$(0) = "1.条码"
+  src.selectionData$(0) = "1.yao"
   src.selectionData$(1) = "2.输入"
   src.selectionData$(2) = "3.工具"
   src.selectionData$(3) = "0.返回"

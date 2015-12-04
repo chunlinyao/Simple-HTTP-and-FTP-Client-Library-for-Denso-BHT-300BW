@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="gb2312" standalone="yes"?>
 <BHT_Project_Information>
   <SourceFileList>
-    <File>testinit.src</File>
+    <File>testsen.src</File>
   </SourceFileList>
   <LibraryFileList>
+    <File>barcode.bprj</File>
+    <File>com.bprj</File>
+    <File>input.bprj</File>
     <File>screen.bprj</File>
+    <File>test.bprj</File>
     <File>util.bprj</File>
   </LibraryFileList>
   <IncludeFileList />
@@ -12,13 +16,13 @@
     <Language>BHT-BASIC4.0</Language>
     <Build>Program</Build>
     <DebugOut>0</DebugOut>
-    <ListOut>0</ListOut>
+    <ListOut>1</ListOut>
     <TblOut>0</TblOut>
     <CrossOut>0</CrossOut>
     <SizeOut>0</SizeOut>
     <ExInclude>0</ExInclude>
     <MapOut>0</MapOut>
-    <UnDefVar>0</UnDefVar>
+    <UnDefVar>1</UnDefVar>
     <JoinListOut>0</JoinListOut>
     <ErrorOut>0</ErrorOut>
     <PrgFormat>0</PrgFormat>

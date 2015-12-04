@@ -1,0 +1,49 @@
+'##########################################################################
+'
+' test input.src
+'
+'##########################################################################
+
+'$include:'screen.inc'
+'$include:'screen.def'
+'$include:'input.inc'
+'$include:'test.inc'
+'$include:'input.def'
+'$include:'wh.def'
+
+
+'--------------------------------------------------------------------------
+ sub testScreenHeader
+    Screen.Header("长字段名字段名字段名字段名")
+ end sub
+ sub testScreenH1
+    Screen.H1("#121241字段名字段")
+ end sub
+  
+'--------------------------------------------------------------------------
+  sub testScreenField
+    dim ret%
+    ret%=Screen.Field%("test", "124", "num", 1)
+    ret%=Screen.Field%("长字段", "4很长的字段会怎么样", "text", 0)
+    ret%=Screen.Field%("长字段名字段名字段名字段名", "12asdfas4", "text", 1)
+
+  end sub
+
+  sub testInputYesNo
+    dim ret$
+    ret$=Input.InputYesNo$
+  end sub
+
+'--------------------------------------------------------------------------
+
+Main
+  Screen.Init
+  Test.Start
+  
+  testScreenHeader
+  testScreenH1
+  testScreenField
+  testInputYesNo
+  
+  Test.Finish
+  chain APP.TestLoaderName$

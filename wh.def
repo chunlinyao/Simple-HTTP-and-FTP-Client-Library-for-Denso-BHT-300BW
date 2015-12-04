@@ -16,7 +16,7 @@
   global APP.ProgramName3$: APP.ProgramName3$="itemcach.PD4"
 
   global APP.TestLoaderName$: APP.TestLoaderName$="testinit.PD4"
-  global APP.TestName1$: APP.TestName1$="testbarc.PD4"
+  global APP.TestName1$: APP.TestName1$="testsen.PD4"
   global APP.TestName2$: APP.TestName2$="testinpu.PD4"
   global APP.TestName3$: APP.TestName3$="testutil.PD4"
   

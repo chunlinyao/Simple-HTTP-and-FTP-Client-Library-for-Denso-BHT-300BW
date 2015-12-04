@@ -5,26 +5,33 @@
 '$include:'com.inc'
 '$include:'wh.def'
 
+
+'----
+  sub addProgram(byref cnt%,byref progs$(), byref name$)
+  	progs$(cnt%)=name$
+    cnt%=cnt%+1
+  end sub
 '------------------------------------------------------------
 ' update program
 '------------------------------------------------------------
   sub Init.UpdateProgram
     private ret$[1024]
     private programs$(10)[20]
+	private cnt%: cnt%=0
 
-    programs$(0)=APP.LoaderName$
-    programs$(1)=APP.ProgramName$
-    programs$(2)=APP.ProgramName2$
-    programs$(3)=APP.ProgramName3$
-    programs$(4)=APP.TestLoaderName$
-    programs$(5)=APP.TestName1$
-    programs$(6)=APP.TestName2$
-    programs$(7)=APP.TestName3$
+    addProgram(cnt%, programs$, APP.LoaderName$)
+    'addProgram(cnt%, programs$, APP.ProgramName$)
+    'addProgram(cnt%, programs$, APP.ProgramName2$)
+    'addProgram(cnt%, programs$, APP.ProgramName3$)
+    addProgram(cnt%, programs$, APP.TestLoaderName$)
+    addProgram(cnt%, programs$, APP.TestName1$)
+    'addProgram(cnt%, programs$, APP.TestName2$)
+    'addProgram(cnt%, programs$, APP.TestName3$)
 
     cls
     locate 1,1
     print "正在下载程序..."
-    ret$=Com.Ftp.DownloadProgram$(programs$,8)
+    ret$=Com.Ftp.DownloadProgram$(programs$,cnt%)
 
     print "正在下载配置文件..."
     ret$=Com.Ftp.DownloadData$(APP.CConfigName$,"16,64")

@@ -6,7 +6,7 @@
     <IsConfigTool>0</IsConfigTool>
   </SolutionInformation>
   <ProjectInformation>
-    <StartupProjectName>init</StartupProjectName>
+    <StartupProjectName>testsen</StartupProjectName>
     <Project>barcode.bprj</Project>
     <Project>com.bprj</Project>
     <Project>init.bprj</Project>
@@ -20,6 +20,7 @@
     <Project>testbarc.bprj</Project>
     <Project>testinit.bprj</Project>
     <Project>testinpu.bprj</Project>
+    <Project>testsen.bprj</Project>
     <Project>testutil.bprj</Project>
     <Project>util.bprj</Project>
     <Project>wh.bprj</Project>

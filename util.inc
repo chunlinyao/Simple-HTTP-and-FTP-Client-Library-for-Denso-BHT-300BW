@@ -9,6 +9,7 @@
   declare function Util.Max(a%,b%)
   declare sub Util.errlog(prefix$,werr,status%)
   declare function Util.TruncateStr$(src$,iniPos%,maxlen%)[100]
+  declare function Util.PadLeftStr$(src$,maxlen%)[100]
   declare function Util.StrCharIndex%(src$, byref idx%())
   declare function Util.IsCJK%(ch$)
   declare function Util.GetPageInfo%(byref src$, byref offset%, byref size%)

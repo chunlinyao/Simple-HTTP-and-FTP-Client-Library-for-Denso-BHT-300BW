@@ -333,13 +333,13 @@
     call Screen.Init
     call Screen.Footer
     locate 1,1
-    print "商品ﾏｽﾀを更新しています..."
+    print "ｲ憘ｷｸ�ﾐﾂﾖﾐ..."
     ret%= ItemCache.GetStoreFile%
     if ret%=-1 then
       call Screen.Init
       call Screen.Footer
       locate 1,1
-      print "商品が見つかりませんでした"
+      print "ｲ憘ｷﾎｴﾕﾒｵｽ"
       beep 2
       Input.InputAnyKey
       ItemCache.load%=0

@@ -252,6 +252,26 @@
     end if
   end function
 
+  function Util.Is1stGB%(ch$)
+    private v%: v%=asc(ch$)
+    if v%>=&h81 and v%<=&hfe then
+      Util.Is1stGB%=1
+    else
+      Util.Is1stGB%=0
+    end if
+  end function
+  
+  function Util.IsCJK%(ch$)
+    if Util.Is1stGB%(ch$) =1 then
+        Util.IsCJK%=1
+        exit function
+    end if
+    if Util.Is1stShiftJis%(ch$) = 1 then
+        Util.IsCJK%=1
+        exit function
+    end if
+        Util.IsCJK%=0
+  end function
 '--------------------------------------------------------------------------
 ' generate string character index
 '--------------------------------------------------------------------------
@@ -267,7 +287,7 @@
     while pos%<=slen%
       idx%(ptr%)=pos%
       ch$=mid$(src$,pos%,1)
-      if Util.Is1stShiftJis%(ch$)=1 then
+      if Util.IsCJK%(ch$)=1 then
         pos%=pos%+1
       end if
       pos%=pos%+1
@@ -302,7 +322,7 @@
 
     while pos%<=slen%
       ch$=mid$(tmpStr$,pos%,1)
-      if Util.Is1stShiftJis%(ch$)=1 then
+      if Util.IsCJK%(ch$)=1 then
         skip%=2
       else
         skip%=1
@@ -337,7 +357,7 @@
 '--------------------------------------------------------------------------
   sub Util.errlog(prefix$,werr,status%)
     private a$[1]
-    print "ERR: "+prefix$+": =>"+hex$(werr)+"@"+mid$(str$(status%),2)
-    input "忋偺忣曬傪婰榐偟偰娗棟幰偵抦傜偣偰偔偩偝偄: "; a$
+    print "ERR: "+prefix$+": =>"+ hex$(erl) + "&" +hex$(werr)+"@"+mid$(str$(status%),2)
+    input "以上信息请通知系统管理员: "; a$
   end sub
 

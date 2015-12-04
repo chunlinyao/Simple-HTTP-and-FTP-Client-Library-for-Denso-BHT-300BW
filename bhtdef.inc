@@ -77,6 +77,7 @@ const   .pnMgLng    = &h4
 
 const   .pvSysMSG   = &h00
 const   .pvEnglish  = &h01
+const   .pvChinese	= &h02
 
 '===== Alphabet Entry (Software Keyboard for BHT-100 Series) ==============
 const   .pnAlpCtrl  = &h5
@@ -1126,6 +1127,8 @@ const   .ftUsrNm    = 2
 const   .ftPswd     = 3
 const   .ftDefDir   = 4
 const   .ftDialNo   = 10
+const	.ftDisable  = 0
+const   .ftEnable   = 1
 
 '=====  Function #9  ======================================================
 const   .fcFSysSet  = 9
@@ -1143,7 +1146,10 @@ const   .fcDELE     = 12
 const   .fcRETRC    = 13
 
 '=====  Function #14  =====================================================
-const   .fcSTORC    = 13
+const   .fcSTORC    = 14
+
+'=====  Function #15  =====================================================
+const   .fcFTPPasv  = 15
 
 '****************************************
 '*  SS.FN3 Parameters Definition        *

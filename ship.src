@@ -1,5 +1,5 @@
 '------------------------------------------------------------
-' o‰×
+' ³öºÉ
 '--------------------------------------------------------------------------
 '$include:'const.inc'
 '$include:'util.def'
@@ -56,7 +56,7 @@
     call Screen.Init
     call Screen.Footer
     locate 1,1
-    print "“`•[‚ÌÊŞ°º°ÄŞ‚ğ½·¬İ‚µ‚Ä‚­‚¾‚³‚¢"
+    print "ÇëÉ¨ÃèÆ±¾İÌõÂë"
     locate ,,1 : cursor on
     SP.invoice.barcode$ = Barcode.BarcodeKey3$(Barcode.CODE39$,Barcode.NW7A$,Barcode.NW7D$)
     if instr(Input.CODE.ESC$, SP.invoice.barcode$)>0 then
@@ -81,12 +81,12 @@
     call Screen.Init
     call Screen.Footer
     locate 1,1
-    print "o‰×¤•iî•ñ‚ğæ“¾’†..."
+    print "³ö¿âÆ·ĞÅÏ¢»ñÈ¡..."
     ret$= Com.Http.Get$(Com.Http.URLPREFIX$+"/getOrderedItem.php?t="+SP.invoice.barcode$)
     if ret$="" then
       ' not found...
       locate 1,3
-      print "Œ©‚Â‚©‚è‚Ü‚¹‚ñ"
+      print "Î´ÕÒµ½"
       Input.InputAnyKey
       SP.GetOrders%=SP.SCREEN.SCANINVOICE
       exit function
@@ -99,7 +99,7 @@
     if SP.totalOrders%=0 then
       ' not found...
       locate 1,3
-      print "Œ©‚Â‚©‚è‚Ü‚¹‚ñ"
+      print "Î´ÕÒµ½"
       Input.InputAnyKey
       SP.GetOrders%=SP.SCREEN.SCANINVOICE
       exit function
@@ -135,7 +135,7 @@
       cnt%=cnt%+SP.checks%(i%)
     next
     if cnt%=0 then
-      print "Šm”F‚ªI—¹‚µ‚Ü‚µ‚½"
+      print "È·ÈÏ½áÊø"
       beep 3
       Input.InputAnyKey
       SP.ScanProduct%=SP.SCREEN.FINISHSHIPPING
@@ -153,12 +153,12 @@
           cnt2%=cnt2%+1
         else
           locate 1,3+SP.MAXITEMLINES*2
-          print "...‘¼...";
+          print "...ÆäËû...";
         end if
       end if
     next
     locate 1,1
-    print "¤•i‚ğ½·¬İ‚µ‚Ä‚­‚¾‚³‚¢"
+    print "ÇëÉ¨Ãè²úÆ·"
     locate 
     '--print "("+mid$(str$(cnt%),1)+"/"+mid$(str$(SP.groundTotalOrders%),1)+")"
     locate ,,1 : cursor off
@@ -179,7 +179,7 @@
     call Screen.Init
     call Screen.Footer
     locate 1,1
-    print "¤•iî•ñ‚ğŠm”F’†..."
+    print "²úÆ·ĞÅÏ¢È·ÈÏÖĞ.."
 
     '-- check the barcode
     private found%: found%=0
@@ -201,7 +201,7 @@ found.barcode:
       call Screen.Init
       call Screen.Footer
       locate 1,1
-      print "ˆá‚¤¤•i‚Å‚·B‚»‚Ì¤•i‚ÍÊß¯¹°¼Ş‚ÉŠÜ‚ß‚È‚¢‚Å‚­‚¾‚³‚¢"
+      print "ÆäËû²úÆ·£¬Îğ´ò°ü"
       beep 2
       Input.InputAnyKey
       SP.CheckProduct%=SP.SCREEN.SCANPRODUCT
@@ -210,7 +210,7 @@ found.barcode:
     end if
     exit function
 found.barcode.err:
-    print "‚·‚Å‚É½·¬İI—¹‚µ‚½¤•i‚Å‚·I‚»‚Ì¤•i‚ÍÊß¯¹°¼Ş‚É‚ÍŠÜ‚ß‚È‚¢‚Å‚­‚¾‚³‚¢"
+    print "ÒÑÖÕÁË£¬Îğ´ò°ü"
     beep 2
     Input.InputAnyKey
     SP.CheckProduct%=SP.SCREEN.SCANPRODUCT
@@ -225,14 +225,14 @@ found.barcode.err:
     call Screen.Init
     call Screen.Footer
     locate 1,1
-    print "I—¹ˆ—‚ğ‚µ‚Ä‚¢‚Ü‚·..."
+    print "ÕıÔÚ½áÊø..."
     ret$= Com.Http.Post$(Com.Http.URLPREFIX$+"/finishShipping.php","t="+SP.invoice.barcode$)
     if ret$="OK" then
-      '--print "Š®—¹!"
+      '--print "ÍêÁË!"
       '--Input.InputAnyKey
     else
-      print "I—¹ˆ—¸”s!"
-      print "‚à‚¤ˆê“xo‰×ˆ—‚ğ‚â‚è’¼‚µ‚Ä‚­‚¾‚³‚¢";
+      print "½áÊøÊ§°Ü!"
+      print "ÇëÖØĞÂ²Ù×÷³ö¿â´¦Àí";
       Input.InputAnyKey
     end if
     SP.FinishShipping%=SP.SCREEN.SCANINVOICE

@@ -6,6 +6,7 @@
 
 '$include:'barcode.inc'
 '$include:'test.inc'
+'$include:'wh.def'
 
 '--------------------------------------------------------------------------
   sub testBarcodeKey
@@ -25,3 +26,5 @@ Main
   testBarcodeKey
 
   Test.Finish
+  
+  chain APP.TestLoaderName$

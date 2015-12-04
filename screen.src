@@ -17,7 +17,7 @@
     out .pnBLTime, 5
     out .pnSysSts, .pvStsOn ' show system status
     out .pnARKey,0          ' auto key repeat OFF
-    out .pnMgLng,.pvSysMsg  ' Japanese message
+    out .pnMgLng, .pvChinese ' Chinese message
 
     screen Lc.SCR.KANJI,Lc.WAT.NORMAL
     cls
@@ -36,16 +36,16 @@
 
     screen Lc.SCR.ANK,Lc.WAT.NORMAL
 
-    locate 1,12
+    locate 1,20
     private i%
-    private cnt%:cnt%=22-len(prefix$+v$)
+    private cnt%:cnt%=20-len(prefix$+v$)
 
     for i%=1 to cnt%
       print " ";
     next
     print prefix$+v$;
 
-    locate 1,12
+    locate 1,20
     private e%: e%=APP.ELAPSEDTIME%
     if e%<>0 then
       print APP.DEBUGMSG$;
@@ -61,8 +61,9 @@
 ' footer Y/N
 '--------------------------------------------------------------------------
   sub Screen.FooterYesNo
-    locate 1,8
-    print "[M1]偼偄   [M2]偄偄偊"
+    locate 1,19
+'----------1234567890123456-------
+    print "[M1]是    [M2]否";
     Screen.Footer
   end sub
 
@@ -70,8 +71,9 @@
 ' footer "hit any key"
 '--------------------------------------------------------------------------
   sub Screen.FooterInputOK
-    locate 1,8
-    '--print "...钒傪墴偟偰偔偩偝偄"
+    locate 1,19
+'-------------1234567890123456-------
+    '--print "...请按任意键。";
   end sub
 
 '--------------------------------------------------------------------------
@@ -81,14 +83,22 @@
     locate 1,1
     print "[";
     if canUp%=1 then
-      print "仯";
+      print "▲";
     else
       print "  ";
     end if
     if canDown%=1 then
-      print "仴";
+      print "▼";
     else
       print "  ";
     end if
-    print "]慖     [ENT]妋"
+    print "]选 [ENT]确"
   end sub
+  
+'--------------------------------------------------------------------------
+' Field display
+'--------------------------------------------------------------------------
+ sub Screen.Field(label$, value$, type%)
+ 	print using "&              &" label
+ 	print using "[&            &]" value	
+ end sub

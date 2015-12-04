@@ -1,117 +1,117 @@
 '-----------------------------------------------
-' ’è”éŒ¾
+' ¶¨ÊýÐûÑÔ
 '-----------------------------------------------
-'Ÿ ’è”’è‹`¡ Boolean’è”(ƒtƒ‰ƒO—p) No	’è”–¼	’l	“à—e	”õl
-	const Lc.True = 1		'^	
-	const Lc.False = 0		'‹U	
+'¡ô ¶¨Êý¶¨Áx¡ö Boolean¶¨Êý(¥Õ¥é¥°ÓÃ) No	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	const Lc.True = 1		'Õæ	
+	const Lc.False = 0		'‚Î	
 
-'¡ •\Ž¦ƒ‚[ƒh’è”No	’è”–¼	’l	“à—e	”õl
-	const Lc.SCR.ANK = 0		'ANKƒ‚[ƒh
-	const Lc.SCR.KANJI = 1		'Š¿Žšƒ‚[ƒh
-	const Lc.SCR.SMKANJI = 2	'k¬Š¿Žšƒ‚[ƒh(Žg—p•s‰Â)
+'¡ö ±íÊ¾¥â©`¥É¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	const Lc.SCR.ANK = 0		'ANK¥â©`¥É
+	const Lc.SCR.KANJI = 1		'h×Ö¥â©`¥É
+	const Lc.SCR.SMKANJI = 2	'¿sÐ¡h×Ö¥â©`¥É(Ê¹ÓÃ²»¿É)
 
-'¡ ”{Šp‘®«’è”No	’è”–¼	’l	“à—e	”õl
-	const Lc.WAT.NORMAL = 0	'•W€ƒTƒCƒY
-	const Lc.WAT.WIDTH = 1		'‰¡”{Šp
-	const Lc.WAT.HEIGHT = 2	'c”{Šp	¦«—ˆŠg’£—p
-	const Lc.WAT.DOUBLE = 3	'Žl”{Šp	¦«—ˆŠg’£—p
+'¡ö ±¶½ÇÊôÐÔ¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	const Lc.WAT.NORMAL = 0	'˜ËœÊ¥µ¥¤¥º
+	const Lc.WAT.WIDTH = 1		'ºá±¶½Ç
+	const Lc.WAT.HEIGHT = 2	'¿k±¶½Ç	¡ù½«À´’ˆˆÓÃ
+	const Lc.WAT.DOUBLE = 3	'ËÄ±¶½Ç	¡ù½«À´’ˆˆÓÃ
 
-'¡ ”½“]‘®«’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.RAT.NORMAL : Lc.RAT.NORMAL = 0		'’Êí
-	Global Lc.RAT.REVERSE : Lc.RAT.REVERSE = 1		'”½“]
+'¡ö ·´ÜžÊôÐÔ¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.RAT.NORMAL : Lc.RAT.NORMAL = 0		'Í¨³£
+	Global Lc.RAT.REVERSE : Lc.RAT.REVERSE = 1		'·´Üž
 
-'¡ •\Ž¦ƒtƒHƒ“ƒg’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.DFT.NORMAL : Lc.DFT.NORMAL = 0	'•W€ƒtƒHƒ“ƒg
-	Global Lc.DFT.SMALL : Lc.DFT.SMALL = 1	'¬ƒtƒHƒ“ƒg
+'¡ö ±íÊ¾¥Õ¥©¥ó¥È¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.DFT.NORMAL : Lc.DFT.NORMAL = 0	'˜ËœÊ¥Õ¥©¥ó¥È
+	Global Lc.DFT.SMALL : Lc.DFT.SMALL = 1	'Ð¡¥Õ¥©¥ó¥È
 
-'¡ •¶ŽšFE”wŒiF’è”No	’è‹`–¼	’l	“à—e	”õl
-	Global Lc.COL.WHITE : Lc.COL.WHITE = &hFFFFFF00		'”’	
-	Global Lc.COL.RED : Lc.COL.RED = &hFF000000			'Ô	
-	Global Lc.COL.GREEN : Lc.COL.GREEN = &h00FF0000		'—Î	
-	Global Lc.COL.BLUE : Lc.COL.BLUE = &h0000FF00		'Â	
-	Global Lc.COL.BLACK : Lc.COL.BLACK = &h00000000		'•	
-	Global Lc.COL.CYAN : Lc.COL.CYAN = &h00FFFF00		'ƒVƒAƒ“	
-	Global Lc.COL.MAGENTA : Lc.COL.MAGENTA = &hFF00FF00	'ƒ}ƒ[ƒ“ƒ_	
-	Global Lc.COL.YELLOW : Lc.COL.YELLOW = &hFFFF0000	'‰©	
+'¡ö ÎÄ×ÖÉ«±³¾°É«¶¨ÊýNo	¶¨ÁxÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.COL.WHITE : Lc.COL.WHITE = &hFFFFFF00		'°×	
+	Global Lc.COL.RED : Lc.COL.RED = &hFF000000			'³à	
+	Global Lc.COL.GREEN : Lc.COL.GREEN = &h00FF0000		'¾v	
+	Global Lc.COL.BLUE : Lc.COL.BLUE = &h0000FF00		'Çà	
+	Global Lc.COL.BLACK : Lc.COL.BLACK = &h00000000		'ü\	
+	Global Lc.COL.CYAN : Lc.COL.CYAN = &h00FFFF00		'¥·¥¢¥ó	
+	Global Lc.COL.MAGENTA : Lc.COL.MAGENTA = &hFF00FF00	'¥Þ¥¼¥ó¥À	
+	Global Lc.COL.YELLOW : Lc.COL.YELLOW = &hFFFF0000	'»Æ	
 
-'¡ Ü‚è•Ô‚µ—L–³ƒtƒ‰ƒO’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.ALF.NO : Lc.ALF.NO = 0		'Ü‚è•Ô‚µ–³‚µ
-	Global Lc.ALF.YES : Lc.ALF.YES = 1	'Ü‚è•Ô‚µ—L‚è
+'¡ö ÕÛ¤ê·µ¤·ÓÐŸo¥Õ¥é¥°¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.ALF.NO : Lc.ALF.NO = 0		'ÕÛ¤ê·µ¤·Ÿo¤·
+	Global Lc.ALF.YES : Lc.ALF.YES = 1	'ÕÛ¤ê·µ¤·ÓÐ¤ê
 
-'¡ “ü—Íƒ‚[ƒh’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.CMD.NUMERIC : Lc.CMD.NUMERIC = 0			'”Žš
-	Global Lc.CMD.ALPHABET : Lc.CMD.ALPHABET = 1			'‰pŽš
-	Global Lc.CMD.ALPHANUMERIC : Lc.CMD.ALPHANUMERIC = 2	'‰p”Žš
+'¡ö ÈëÁ¦¥â©`¥É¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.CMD.NUMERIC : Lc.CMD.NUMERIC = 0			'Êý×Ö
+	Global Lc.CMD.ALPHABET : Lc.CMD.ALPHABET = 1			'Ó¢×Ö
+	Global Lc.CMD.ALPHANUMERIC : Lc.CMD.ALPHANUMERIC = 2	'Ó¢Êý×Ö
 
-'¡ ƒfƒtƒHƒ‹ƒg’l•\Ž¦Œã‚ÌƒJ[ƒ\ƒ‹ˆÊ’u’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.DCP.ADDWRITE : Lc.DCP.ADDWRITE = 0		'’Ç‰Á‘ž‚Ý
-	Global Lc.DCP.OVERWRITE : Lc.DCP.OVERWRITE = 1	'ã‘‚«
+'¡ö ¥Ç¥Õ¥©¥ë¥È‚Ž±íÊ¾áá¤Î¥«©`¥½¥ëÎ»ÖÃ¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.DCP.ADDWRITE : Lc.DCP.ADDWRITE = 0		'×·¼Ó•øÞz¤ß
+	Global Lc.DCP.OVERWRITE : Lc.DCP.OVERWRITE = 1	'ÉÏ•ø¤­
 
-'¡ ƒJ[ƒ\ƒ‹ƒXƒCƒbƒ`’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.CUR.NODISP : Lc.CUR.NODISP = 0			'•\Ž¦–³‚µ	¦«—ˆŠg’£—p
-	Global Lc.CUR.UNDERLINE : Lc.CUR.UNDERLINE = 1	'ƒAƒ“ƒ_[ƒ‰ƒCƒ“	¦«—ˆŠg’£—p
-	Global Lc.CUR.BLOCK : Lc.CUR.BLOCK = 2			'ƒuƒƒbƒN	
-	Global Lc.CUR.USER : Lc.CUR.USER = 255				'ƒ†[ƒU[’è‹`¶°¿Ù	¦«—ˆŠg’£—p
+'¡ö ¥«©`¥½¥ë¥¹¥¤¥Ã¥Á¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.CUR.NODISP : Lc.CUR.NODISP = 0			'±íÊ¾Ÿo¤·	¡ù½«À´’ˆˆÓÃ
+	Global Lc.CUR.UNDERLINE : Lc.CUR.UNDERLINE = 1	'¥¢¥ó¥À©`¥é¥¤¥ó	¡ù½«À´’ˆˆÓÃ
+	Global Lc.CUR.BLOCK : Lc.CUR.BLOCK = 2			'¥Ö¥í¥Ã¥¯	
+	Global Lc.CUR.USER : Lc.CUR.USER = 255				'¥æ©`¥¶©`¶¨Áx	¡ù½«À´’ˆˆÓÃ
 
-'¡ ƒuƒU[‰¹—Ê’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.BVL.NOVOL : Lc.BVL.NOVOL = 0	'‚È‚µ
-	Global Lc.BVL.SMALL : Lc.BVL.SMALL = 1	'¬
-	Global Lc.BVL.MEDIAM : Lc.BVL.MEDIAM = 2	'’†
-	Global Lc.BVL.LARGE : Lc.BVL.LARGE = 3	'‘å
+'¡ö ¥Ö¥¶©`ÒôÁ¿¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.BVL.NOVOL : Lc.BVL.NOVOL = 0	'¤Ê¤·
+	Global Lc.BVL.SMALL : Lc.BVL.SMALL = 1	'Ð¡
+	Global Lc.BVL.MEDIAM : Lc.BVL.MEDIAM = 2	'ÖÐ
+	Global Lc.BVL.LARGE : Lc.BVL.LARGE = 3	'´ó
 
-'¡ ƒr[ƒvo—ÍŽž‚ÌƒoƒCƒuƒŒ[ƒ^Ý’è’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.VIB.OFF : Lc.VIB.OFF = 0	'”ñì“®
-	Global Lc.VIB.ON : Lc.VIB.ON = 1		'ì“®
+'¡ö ¥Ó©`¥×³öÁ¦•r¤Î¥Ð¥¤¥Ö¥ì©`¥¿ÔO¶¨¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.VIB.OFF : Lc.VIB.OFF = 0	'·Ç×÷„Ó
+	Global Lc.VIB.ON : Lc.VIB.ON = 1		'×÷„Ó
 
-'¡ ƒuƒU[‰¹’ö’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.TNI.LOW : Lc.TNI.LOW = 0		'’á
-	Global Lc.TNI.MEDDLE : Lc.TNI.MEDDLE = 1	'’†
-	Global Lc.TNI.HIGH : Lc.TNI.HIGH = 2		'‚
+'¡ö ¥Ö¥¶©`Òô³Ì¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.TNI.LOW : Lc.TNI.LOW = 0		'µÍ
+	Global Lc.TNI.MEDDLE : Lc.TNI.MEDDLE = 1	'ÖÐ
+	Global Lc.TNI.HIGH : Lc.TNI.HIGH = 2		'¸ß
 
-'¡ ƒo[ƒR[ƒh“ÇŽæƒ‚[ƒh’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.BRM.M : Lc.BRM.M = 0	'ÓÒÝÀØ½²¯ÁÓ°ÄÞ
-	Global Lc.BRM.F : Lc.BRM.F = 1	'µ°ÄµÌÓ°ÄÞ
-	Global Lc.BRM.A : Lc.BRM.A = 2	'µÙÀÈ°ÄÞ½²¯ÁÓ°ÄÞ
-	Global Lc.BRM.C : Lc.BRM.C = 3	'˜A‘±“ÇŽæÓ°ÄÞ
+'¡ö ¥Ð©`¥³©`¥ÉÕiÈ¡¥â©`¥É¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.BRM.M : Lc.BRM.M = 0	'
+	Global Lc.BRM.F : Lc.BRM.F = 1	'
+	Global Lc.BRM.A : Lc.BRM.A = 2	'
+	Global Lc.BRM.C : Lc.BRM.C = 3	'ßB¾AÕiÈ¡
 
-'¡ LED§Œä’è”iƒo[ƒR[ƒh“ÇŽæŽžjNo	’è”–¼	’l	“à—e	”õl
-	Global Lc.LED.OFF : Lc.LED.OFF = 0		'LED“_“”‚È‚µ
-	Global Lc.LED.GREEN : Lc.LED.GREEN = 1	'—ÎLED“_“”
-	Global Lc.LED.RED : Lc.LED.RED = 2		'ÔLED“_“”
-	Global Lc.LED.BLUE : Lc.LED.BLUE = 3		'ÂLED“_“”
+'¡ö LEDÖÆÓù¶¨Êý£¨¥Ð©`¥³©`¥ÉÕiÈ¡•r£©No	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.LED.OFF : Lc.LED.OFF = 0		'LEDµãµÆ¤Ê¤·
+	Global Lc.LED.GREEN : Lc.LED.GREEN = 1	'¾vLEDµãµÆ
+	Global Lc.LED.RED : Lc.LED.RED = 2		'³àLEDµãµÆ
+	Global Lc.LED.BLUE : Lc.LED.BLUE = 3		'ÇàLEDµãµÆ
 
-'¡ “ü—ÍƒfƒoƒCƒX‚©‚ç‚Ì“ü—Í‘Ò‚¿–ß‚è’l’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.RIN.OK : Lc.RIN.OK = 1		'¬Œ÷
-	Global Lc.RIN.ESC : Lc.RIN.ESC = 2	'ƒGƒXƒP[ƒvƒL[“ü—Í
-	Global Lc.RIN.ERR :Lc.RIN.ERR = 0		'ƒGƒ‰[(ƒpƒ‰ƒ[ƒ^•s³)
+'¡ö ÈëÁ¦¥Ç¥Ð¥¤¥¹¤«¤é¤ÎÈëÁ¦´ý¤Á‘ø¤ê‚Ž¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.RIN.OK : Lc.RIN.OK = 1		'³É¹¦
+	Global Lc.RIN.ESC : Lc.RIN.ESC = 2	'¥¨¥¹¥±©`¥×¥­©`ÈëÁ¦
+	Global Lc.RIN.ERR :Lc.RIN.ERR = 0		'¥¨¥é©`(¥Ñ¥é¥á©`¥¿²»Õý)
 
-'¡ ”Ä—p–ß‚è’l’è”No	’è”–¼	’l	“à—e	”õl
+'¡ö šøÓÃ‘ø¤ê‚Ž¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
 	Global Lc.RTN.OK : Lc.RTN.OK = 0		'OK
 	Global Lc.RTN.NG : Lc.RTN.NG = 1		'NG
-	Global Lc.RTN.ERR : Lc.RTN.ERR = -1	'ERROR(ƒpƒ‰ƒ[ƒ^•s³)
-	Global Lc.RTN.WAR : Lc.RTN.WAR = -2	'WARNING(ƒ}ƒXƒ^Æ‡‚ÅAÆ‡ðŒ•s³Žž‚ÉŽg—p)
-	Global Lc.RTN.MTT : Lc.RTN.MTT = 2	'MoveToTail(ƒ}ƒXƒ^Æ‡‚ÅAŒã‰ñ‚µŽž‚ÉŽg—p)
+	Global Lc.RTN.ERR : Lc.RTN.ERR = -1	'ERROR(¥Ñ¥é¥á©`¥¿²»Õý)
+	Global Lc.RTN.WAR : Lc.RTN.WAR = -2	'WARNING(¥Þ¥¹¥¿ÕÕºÏ¤Ç¡¢ÕÕºÏÌõ¼þ²»Õý•r¤ËÊ¹ÓÃ)
+	Global Lc.RTN.MTT : Lc.RTN.MTT = 2	'MoveToTail(¥Þ¥¹¥¿ÕÕºÏ¤Ç¡¢áá»Ø¤·•r¤ËÊ¹ÓÃ)
 
-'¡@YModem‰üsƒR[ƒhŽw’è’è”No	’è”–¼	’l	“à—e	”õl
+'¡ö¡¡YModem¸ÄÐÐ¥³©`¥ÉÖ¸¶¨¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
 	Global Lc.LFC.CRLF : Lc.LFC.CRLF = 0	'CRLF	
 	Global Lc.LFC.LF : Lc.LFC.LF = 1		'LF	
 	Global Lc.LFC.CR : Lc.LFC.CR = 2		'CR	
-	Global Lc.LFC.NONE : Lc.LFC.NONE = 3	'‰üs‚È‚µ
+	Global Lc.LFC.NONE : Lc.LFC.NONE = 3	'¸ÄÐÐ¤Ê¤·
 
-'¡@ƒŒƒR[ƒh’†‚Ì‰üsƒR[ƒh‚Ìˆµ‚¢’è”No	’è”–¼	’l	“à—e	”õl
-	Global Lc.LFD.SEPA : Lc.LFD.SEPA = 0	'ƒf[ƒ^‚Æ‚µ‚Ä‚Ý‚È‚³‚È‚¢	
-	Global Lc.LFD.DATA : Lc.LFD.DATA = 1	'ƒf[ƒ^‚Æ‚Ý‚È‚·	
+'¡ö¡¡¥ì¥³©`¥ÉÖÐ¤Î¸ÄÐÐ¥³©`¥É¤Î’Q¤¤¶¨ÊýNo	¶¨ÊýÃû	‚Ž	ÄÚÈÝ	‚ä¿¼
+	Global Lc.LFD.SEPA : Lc.LFD.SEPA = 0	'¥Ç©`¥¿¤È¤·¤Æ¤ß¤Ê¤µ¤Ê¤¤	
+	Global Lc.LFD.DATA : Lc.LFD.DATA = 1	'¥Ç©`¥¿¤È¤ß¤Ê¤¹	
 
-'¡	ƒf[ƒ^ŽóMŽžƒXƒy[ƒXˆµ‚¢ƒtƒ‰ƒO
-	Global Lc.DSP.OFF : Lc.DSP.OFF = 0		'Ì§²ÙŽóMŽž½Íß°½‚ðÃÞ°À‚Æ‚µ‚Äˆµ‚í‚È‚¢
-	Global Lc.DSP.ON  : Lc.DSP.ON  = 1		'Ì§²ÙŽóMŽž½Íß°½‚ðÃÞ°À‚Æ‚µ‚Äˆµ‚¤
+'¡ö	¥Ç©`¥¿ÊÜÐÅ•r¥¹¥Ú©`¥¹’Q¤¤¥Õ¥é¥°
+	Global Lc.DSP.OFF : Lc.DSP.OFF = 0		'ÊÜÐÅ•r¤ò¤È¤·¤Æ’Q¤ï¤Ê¤¤
+	Global Lc.DSP.ON  : Lc.DSP.ON  = 1		'ÊÜÐÅ•r¤ò¤È¤·¤Æ’Q¤¦
 
-'¡	ƒŠƒXƒg‘I‘ð–ß‚è’l
-	Global Lc.LST.ENT : Lc.LST.ENT = 1		'EntƒL[‰Ÿ‰º
-	Global Lc.LST.ESC : Lc.LST.ESC = 2		'ƒGƒXƒP[ƒvƒL[“ü—Í
-	Global Lc.LST.F5  : Lc.LST.F5 = 3		'F5ƒL[‰Ÿ‰º
-	Global Lc.LST.F6  : Lc.LST.F6 = 4		'F6ƒL[‰Ÿ‰º
-	Global Lc.LST.F7  : Lc.LST.F7 = 5		'F7ƒL[‰Ÿ‰º
-	Global Lc.LST.F8  : Lc.LST.F8 = 6		'F8ƒL[‰Ÿ‰º
-	Global Lc.LST.ERR : Lc.LST.ERR = 0		'ƒGƒ‰[(ƒpƒ‰ƒ[ƒ^•s³)
+'¡ö	¥ê¥¹¥Èßx’k‘ø¤ê‚Ž
+	Global Lc.LST.ENT : Lc.LST.ENT = 1		'Ent¥­©`ÑºÏÂ
+	Global Lc.LST.ESC : Lc.LST.ESC = 2		'¥¨¥¹¥±©`¥×¥­©`ÈëÁ¦
+	Global Lc.LST.F5  : Lc.LST.F5 = 3		'F5¥­©`ÑºÏÂ
+	Global Lc.LST.F6  : Lc.LST.F6 = 4		'F6¥­©`ÑºÏÂ
+	Global Lc.LST.F7  : Lc.LST.F7 = 5		'F7¥­©`ÑºÏÂ
+	Global Lc.LST.F8  : Lc.LST.F8 = 6		'F8¥­©`ÑºÏÂ
+	Global Lc.LST.ERR : Lc.LST.ERR = 0		'¥¨¥é©`(¥Ñ¥é¥á©`¥¿²»Õý)
 '---------------END---------------

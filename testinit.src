@@ -1,0 +1,54 @@
+'------------------------------------------------------------
+' init driver
+'------------------------------------------------------------'$include:'input.inc'
+'$include:'screen.def'
+'$include:'screen.inc'
+'$include:'wh.def'
+
+
+'------------------------------------------------------------
+  const MENULENGTH = 5
+
+Main
+  private i%
+  private k$[1]
+  private ret$[40]
+  private dat$[13]
+  private src.selectionData$(MENULENGTH)
+
+  src.selectionData$(0) = "1.条码"
+  src.selectionData$(1) = "2.输入"
+  src.selectionData$(2) = "3.工具"
+  src.selectionData$(3) = "0.返回"
+
+  '------ init ------
+  k$="1"
+  while k$<>"0"
+    call Screen.Init
+    call Screen.Footer
+    for i%=0 to (menuLength-1)
+      '一列
+      'locate (i% mod 2)*12+1,2*(i%/2)+1
+      locate 1, 2*i% + 1
+      print src.selectionData$(i%)
+    next i%
+    locate ,,1 : cursor on
+    print ""
+    print "请选择"; 
+    k$ = input$(1)
+    select k$
+      case "1"
+        APP.func%=APP.FUNC.INBOUND%
+        chain APP.TestName1$
+      case "2"
+        APP.func%=APP.FUNC.OUTBOUND%
+        chain APP.TestName2$
+      case "3"
+        APP.func%=APP.FUNC.SHIPPING%
+        chain APP.TestName3$
+      case "0" '-- hidden command
+        chain APP.LoaderName$
+    end select
+  wend
+
+  erase src.selectionData$

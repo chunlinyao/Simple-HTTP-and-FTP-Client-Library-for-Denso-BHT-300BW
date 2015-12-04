@@ -1,5 +1,5 @@
 
-        source = E:\bhtsen\postcach.src
+        source = G:\Simple-HTTP-and-FTP-Client-Library-for-Denso-BHT-300BW\postcach.src
 
   ADDRESS INFORMATION
 
@@ -447,7 +447,7 @@
     BARCODE$                       : POSTCACHE.QUEUE%                  (00000312)     00000321 00000332
     CANDOWN%                       : SCREEN.HEADERUDLR                 (00000202)    
     CANUP%                         : SCREEN.HEADERUDLR                 (00000202)    
-    CH$                            : UTIL.IS1STSHIFTJIS%               (00000153)    
+    CH$                            : UTIL.ISCJK%                       (00000153)    
     CNT%                           : INPUT.SELECTLIST%                 (00000185)    
     CODES$                         : UTIL.PARSELISTTABDATA%            (00000156)    
     COM.CONFIGFILENAME$                                                (00000248)     00000248
@@ -644,7 +644,7 @@
     UTIL.ERRLOG                    : postcach-                         (00000150)    
     UTIL.GETPAGEINFO%              : postcach-                         (00000154)    
     UTIL.GETSECONDS%               : postcach-                         (00000158)     00000419
-    UTIL.IS1STSHIFTJIS%            : postcach-                         (00000153)    
+    UTIL.ISCJK%                    : postcach-                         (00000153)    
     UTIL.MAX                       : postcach-                         (00000149)    
     UTIL.MIN                       : postcach-                         (00000148)    
     UTIL.PARSELISTDATA%            : postcach-                         (00000155)    
@@ -737,7 +737,6 @@
     LC.LED.OFF                       04020500 
     SIZE%                            03020A00 
     SIZE%                            03020900 
-    UTIL.IS1STSHIFTJIS%              02040200 
     LC.RAT.NORMAL                    04020500 
     LC.COL.MAGENTA                   04020500 
     LC.LFC.LF                        04020500 
@@ -809,6 +808,7 @@
     MODE%                            03020900 
     COM.FTP.DOWNLOADPROGRAM$         02040200 
     LC.VIB.ON                        04020500 
+    UTIL.ISCJK%                      02040200 
     STREOL$                          04020500 
     LC.COL.GREEN                     04020500 
     LC.LFC.CR                        04020500 

@@ -1,110 +1,175 @@
 <?xml version="1.0" encoding="gb2312" standalone="yes"?>
 <BHT_Solution_Information>
+  <OpenFileInformation>
+    <OpenInfo>
+      <FileName>itemcach.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>itemcach.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>testinit.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>wh.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>wh.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>init.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>util.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>testutil.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>testinpu.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>testbarc.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>test.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>init2.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>com.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>bhtdef.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+  </OpenFileInformation>
   <SolutionExpand>
     <ProjectExpands>
       <ProjectExpand>
         <Name>barcode</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>com</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>init</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>init2</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>input</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>itemcach</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
-        <IncludeExpand>0</IncludeExpand>
+        <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>postcach</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>screen</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>ship</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>test</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>testbarc</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
+        <Name>testinit</Name>
+        <Expand>0</Expand>
+        <SourceExpand>1</SourceExpand>
+        <IncludeExpand>0</IncludeExpand>
+        <LibraryExpand>0</LibraryExpand>
+      </ProjectExpand>
+      <ProjectExpand>
         <Name>testinpu</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>testutil</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>util</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>wh</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
-        <IncludeExpand>0</IncludeExpand>
+        <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
     </ProjectExpands>

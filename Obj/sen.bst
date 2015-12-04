@@ -4,8 +4,8 @@
         <Model>BHT-1300QWB</Model>
         <FullModelName>BHT-1300QWB</FullModelName>
         <FileName>BHT1300QWB.xml</FileName>
-        <Environment>シリアル通信(COM-CU)</Environment>
-        <Method>シリアル通信(COM-CU)で設定</Method>
+        <Environment></Environment>
+        <Method></Method>
         <TransferType>serial</TransferType>
         <ViewType>basic</ViewType>
     </EnviromentInfo>

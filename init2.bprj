@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="shift_jis" standalone="yes"?>
+<?xml version="1.0" encoding="gb2312" standalone="yes"?>
 <BHT_Project_Information>
   <SourceFileList>
     <File>init2.src</File>
   </SourceFileList>
   <LibraryFileList>
-    <File>com.lb4</File>
-    <File>input.lb4</File>
-    <File>screen.lb4</File>
-    <File>util.lb4</File>
+    <File>com.bprj</File>
+    <File>input.bprj</File>
+    <File>screen.bprj</File>
+    <File>util.bprj</File>
   </LibraryFileList>
   <IncludeFileList />
   <Option>

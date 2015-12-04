@@ -11,6 +11,7 @@ FILE5="testbarc.pd4"
 FILE6="testinpu.pd4"
 FILE7="testutil.pd4"
 FILE8="wh.pd4"
+FILE9=CCONFIG.DAT,S,I,16,64
 [SIMULATE_EXEC_OPT]
 SERIAL=0
 SOCKET=0

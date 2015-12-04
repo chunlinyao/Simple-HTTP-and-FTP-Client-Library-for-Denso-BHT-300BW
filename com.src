@@ -231,7 +231,7 @@ socketclose.resume:
       '-- GET
       Com.Http.Sendbuff$="GET "+req$+" HTTP/1.0"+Com.Http.EOL$
       Com.Http.Sendbuff$=Com.Http.Sendbuff$+"Host: "+Com.Http.HOSTNAME$+Com.Http.EOL$
-      Com.Http.Sendbuff$=Com.Http.Sendbuff$+"User-Agent: BHT300BW"+Com.Http.EOL$
+      Com.Http.Sendbuff$=Com.Http.Sendbuff$+"User-Agent: BHT1306QWB"+Com.Http.EOL$
       Com.Http.Sendbuff$=Com.Http.Sendbuff$+Com.Http.EOLEOL$
     else
       '-- POST
@@ -359,6 +359,10 @@ recvdata.resume:
     para% = .ftDefDir
     call "ftp.fn3" .fcFSysGet para%,newDir$
 
+    'set passive mode
+    para% = .ftEnable
+    call "ftp.fn3" .fcFTPPasv ftpHandle%,para%
+
     '-- set current directory
     call "ftp.fn3" .fcCWD ftpHandle%, newDir$,reply%
     status%=Com.Status.FtpOpened
@@ -423,6 +427,7 @@ ftpclose.resume:
       private servFname$[20]
       for i%=0 to (size%-1)
         servFname$=files$(i%)
+        print
         print " ";
         print servFname$
         call "ftp.fn3" .fcRETR ftpHandle%,servFname$,clntFname$,crlf.type%,crlf.mode%,reply%,disp.mode%
@@ -608,22 +613,22 @@ recvfile.resume:
 
     private r$[1]
     if Com.Http.URLPREFIX$="" then
-      print "パスが設定されてません";
+      print "URLﾎｴﾉ靹ﾃ";
       input r$
     else
-      print "パス:["+Com.Http.URLPREFIX$+"]"
+      print "URL:["+Com.Http.URLPREFIX$+"]"
     end if
     if Com.Http.ADDRESS$="" then
-      print "HTTPｱﾄﾞﾚｽが設定されてません";
+      print "HTTPｵﾘﾖｷﾎｴﾉ靹ﾃ";
       input r$
     else
-      print "HTTPｱﾄﾞﾚｽ:["+Com.Http.ADDRESS$+"]"
+      print "HTTP:["+Com.Http.ADDRESS$+"]"
     end if
     if Com.Http.PORT%=0 then
-      print "HTTPﾎﾟｰﾄが設定されてません";
+      print "HTTPｶﾋｿﾚﾎｴﾉ靹ﾃ";
       input r$
     else
-      print "HTTPﾎﾟｰﾄ:["+str$(Com.Http.PORT%)+"]"
+      print "HTTPｶﾋｿﾚ:["+str$(Com.Http.PORT%)+"]"
       '--input r$
     end if
   end sub

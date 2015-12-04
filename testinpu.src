@@ -7,6 +7,7 @@
 '$include:'input.inc'
 '$include:'test.inc'
 '$include:'input.def'
+'$include:'wh.def'
 
 '--------------------------------------------------------------------------
   sub testInputAnyKey
@@ -89,3 +90,4 @@ Main
   testInput
 
   Test.Finish
+  chain APP.TestLoaderName$

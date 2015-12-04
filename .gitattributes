@@ -9,6 +9,8 @@
 *.bsln eol=crlf
 *.bsuo eol=crlf
 *.sp4 eol=crlf
+*.SP4 eol=crlf
+*.DAT eol=crlf
 *.bst eol=crlf
 *.cfg eol=crlf
 *.SPF eol=crlf

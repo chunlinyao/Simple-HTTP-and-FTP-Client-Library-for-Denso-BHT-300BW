@@ -16,13 +16,17 @@
     programs$(1)=APP.ProgramName$
     programs$(2)=APP.ProgramName2$
     programs$(3)=APP.ProgramName3$
+    programs$(4)=APP.TestLoaderName$
+    programs$(5)=APP.TestName1$
+    programs$(6)=APP.TestName2$
+    programs$(7)=APP.TestName3$
 
     cls
     locate 1,1
-    print "ÌßÛ¸Ş×Ñ‚ğÀŞ³İÛ°ÄŞ‚µ‚Ä‚¢‚Ü‚·..."
-    ret$=Com.Ftp.DownloadProgram$(programs$,4)
+    print "ÕıÔÚÏÂÔØ³ÌĞò..."
+    ret$=Com.Ftp.DownloadProgram$(programs$,8)
 
-    print "İ’è’lÌ§²Ù‚ğÀŞ³İÛ°ÄŞ‚µ‚Ä‚¢‚Ü‚·..."
+    print "ÕıÔÚÏÂÔØÅäÖÃÎÄ¼ş..."
     ret$=Com.Ftp.DownloadData$(APP.CConfigName$,"16,64")
     beep 1
   end sub

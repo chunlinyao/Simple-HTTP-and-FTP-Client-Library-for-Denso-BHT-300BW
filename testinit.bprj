@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="gb2312" standalone="yes"?>
 <BHT_Project_Information>
   <SourceFileList>
-    <File>com.src</File>
+    <File>testinit.src</File>
   </SourceFileList>
-  <LibraryFileList />
-  <IncludeFileList>
-    <File>com.def</File>
-    <File>com.inc</File>
-  </IncludeFileList>
+  <LibraryFileList>
+    <File>screen.bprj</File>
+  </LibraryFileList>
+  <IncludeFileList />
   <Option>
     <Language>BHT-BASIC4.0</Language>
-    <Build>Library</Build>
-    <DebugOut>1</DebugOut>
-    <ListOut>1</ListOut>
-    <TblOut>1</TblOut>
-    <CrossOut>1</CrossOut>
-    <SizeOut>1</SizeOut>
-    <ExInclude>1</ExInclude>
-    <MapOut>1</MapOut>
-    <UnDefVar>1</UnDefVar>
-    <JoinListOut>1</JoinListOut>
-    <ErrorOut>1</ErrorOut>
+    <Build>Program</Build>
+    <DebugOut>0</DebugOut>
+    <ListOut>0</ListOut>
+    <TblOut>0</TblOut>
+    <CrossOut>0</CrossOut>
+    <SizeOut>0</SizeOut>
+    <ExInclude>0</ExInclude>
+    <MapOut>0</MapOut>
+    <UnDefVar>0</UnDefVar>
+    <JoinListOut>0</JoinListOut>
+    <ErrorOut>0</ErrorOut>
     <PrgFormat>0</PrgFormat>
     <ErrorScope>0</ErrorScope>
     <AllStatic>0</AllStatic>

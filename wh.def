@@ -9,11 +9,16 @@
   global APP.FUNC.ITEMCACHE%: APP.FUNC.ITEMCACHE%=4
 
   '-- program name(s)
-  global APP.LoaderName$: APP.LoaderName$="INIT.PD4"
-  global APP.Loader2Name$: APP.Loader2Name$="INIT2.PD4"
-  global APP.ProgramName$: APP.ProgramName$="WH.PD4"
-  global APP.ProgramName2$: APP.ProgramName2$="SHIP.PD4"
-  global APP.ProgramName3$: APP.ProgramName3$="ITEMCACH.PD4"
+  global APP.LoaderName$: APP.LoaderName$="init.PD4"
+  global APP.Loader2Name$: APP.Loader2Name$="init2.PD4"
+  global APP.ProgramName$: APP.ProgramName$="wh.PD4"
+  global APP.ProgramName2$: APP.ProgramName2$="ship.PD4"
+  global APP.ProgramName3$: APP.ProgramName3$="itemcach.PD4"
 
+  global APP.TestLoaderName$: APP.TestLoaderName$="testinit.PD4"
+  global APP.TestName1$: APP.TestName1$="testbarc.PD4"
+  global APP.TestName2$: APP.TestName2$="testinpu.PD4"
+  global APP.TestName3$: APP.TestName3$="testutil.PD4"
+  
   global APP.CConfigName$: APP.CConfigName$="CCONFIG.DAT"
 

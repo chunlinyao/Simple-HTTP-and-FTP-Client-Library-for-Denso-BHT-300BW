@@ -27,7 +27,9 @@
     dim ret%
     ret%=Screen.Field%("长字段", "4很长的字段会怎么样", "cmd", 0)
     ret%=Screen.Field%("长字段名字段名字段名字段名", "12asdfas4", "text", 1)
-    ret%=Screen.Field%("test", "124", "num", 1)
+    call Screen.P("长字段名字段名段名字段")
+    call Screen.Span("单行文本单行文本单行文本单行文本单行文本")
+    ret%=Screen.Field%("", "124", "num", 1)
     locate 3, ret%+2
   end sub
 
@@ -48,7 +50,7 @@
       private labels$(10)[30]
       private values$(10)[200]
       private types$(10)[10]
-      private cnt%: cnt%=4
+      private cnt%: cnt%=5
       private idx%
       private ret%
       
@@ -56,16 +58,19 @@
       labels$(1)="字段2"
       labels$(2)="字段3"
       labels$(3)="扣除"
+      labels$(4)=""
       
       values$(0)="100010"
       values$(1)="400"
       values$(2)="你好"
       values$(3)="true"
+      values$(4)="S16K4700HC5-T6"
       
       types$(0)="link"
       types$(1)="num"
       types$(2)="text"
       types$(3)="checkbox"
+      types$(4)="text"
       
       for idx%=0 to cnt%-1
         fieldpos%(idx%)= Screen.Field%(labels$(idx%),values$(idx%),types$(idx%),0)

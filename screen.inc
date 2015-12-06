@@ -12,3 +12,5 @@
   declare function Screen.Field%(label$, value$, type$, rev%)
   declare sub Screen.Header(title$)
   declare sub Screen.H1(title$)
+  declare sub Screen.P(title$)
+  declare sub Screen.Span(title$)

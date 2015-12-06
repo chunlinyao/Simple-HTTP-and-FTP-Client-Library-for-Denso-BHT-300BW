@@ -117,6 +117,12 @@
     OUT .pnFont.Emph, .pvEmph.Off ' &h6081,0 ' Bold display
   end sub
 
+  sub Screen.P(title$)
+    print Util.Trim$(title$)
+  end sub
+  sub Screen.Span(title$)
+    print Util.TruncateStr$(title$,1,16)
+  end sub
 '--------------------------------------------------------------------------
 ' Field display
 '--------------------------------------------------------------------------
@@ -148,9 +154,13 @@
     '------1234567890123456---------------------
     select type$
       case "text"
-        gosub FIELD.TXTNUM
+        if label$<>"" then
+          gosub FIELD.TXTNUM
+        end if
       case "num"
-        gosub FIELD.TXTNUM
+        if label$<>"" then
+          gosub FIELD.TXTNUM
+        end if
       case "link"
       case "cmd"
       case "checkbox"
@@ -166,8 +176,12 @@ FIELD.CHKBOX
     return
     
 FIELD.LBLINPUT
-    print Util.TruncateStr$(label$,1,len(INPUT.EMPTYLINE$)-1);
-    print ":"
+    if label$ <> "" then
+      print Util.TruncateStr$(label$,1,len(INPUT.EMPTYLINE$)-1);
+      print ":"
+    else
+      gosub FIELD.TXTNUM
+    end if
     return
     
 FIELD.LBLCMD
@@ -178,14 +192,16 @@ FIELD.LBLCMD
     return
      
 FIELD.TXTNUM
-    print " [             ]";
-    locate 3
-    private maxLen%: maxLen%=len(INPUT.EMPTYLINE$)-3
-    if type$ = "num" then
-      print Util.PadLeftStr$(Util.TruncateStr$(value$,1,maxLen%),maxLen%)
-    else
-      print Util.TruncateStr$(value$,1,maxLen%)
-    end if
+    
+      print " [             ]";
+      locate 3
+      private maxLen%: maxLen%=len(INPUT.EMPTYLINE$)-3
+      if type$ = "num" then
+        print Util.PadLeftStr$(Util.TruncateStr$(value$,1,maxLen%),maxLen%)
+      else
+        print Util.TruncateStr$(value$,1,maxLen%)
+      end if
+    
     return
   
  end function

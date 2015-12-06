@@ -4,6 +4,8 @@
 '
 '##########################################################################
 
+'$include:'barcode.inc'
+'$include:'barcode.def'
 '$include:'screen.inc'
 '$include:'screen.def'
 '$include:'input.inc'
@@ -23,10 +25,17 @@
 '--------------------------------------------------------------------------
   sub testScreenField
     dim ret%
-    ret%=Screen.Field%("test", "124", "num", 1)
-    ret%=Screen.Field%("长字段", "4很长的字段会怎么样", "text", 0)
+    ret%=Screen.Field%("长字段", "4很长的字段会怎么样", "cmd", 0)
     ret%=Screen.Field%("长字段名字段名字段名字段名", "12asdfas4", "text", 1)
+    ret%=Screen.Field%("test", "124", "num", 1)
+    locate 3, ret%+2
+  end sub
 
+  sub testInputBarcode
+    dim ret$
+    ret$=Barcode.BarcodeKeySen$("4567")
+    print
+    print ret$
   end sub
 
   sub testInputYesNo
@@ -34,6 +43,37 @@
     ret$=Input.InputYesNo$
   end sub
 
+  sub testFieldSelect
+      private fieldpos%(10)
+      private labels$(10)[30]
+      private values$(10)[200]
+      private types$(10)[10]
+      private cnt%: cnt%=4
+      private idx%
+      private ret%
+      
+      labels$(0)="字段1"
+      labels$(1)="字段2"
+      labels$(2)="字段3"
+      labels$(3)="扣除"
+      
+      values$(0)="100010"
+      values$(1)="400"
+      values$(2)="你好"
+      values$(3)="true"
+      
+      types$(0)="link"
+      types$(1)="num"
+      types$(2)="text"
+      types$(3)="checkbox"
+      
+      for idx%=0 to cnt%-1
+        fieldpos%(idx%)= Screen.Field%(labels$(idx%),values$(idx%),types$(idx%),0)
+      next
+      ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,0,cnt%)
+      ok(ret%=1,"field.select")
+  end sub
+  
 '--------------------------------------------------------------------------
 
 Main
@@ -43,7 +83,13 @@ Main
   testScreenHeader
   testScreenH1
   testScreenField
+  testInputBarcode
   testInputYesNo
+  
+  Screen.Init
+  testScreenHeader
+  testScreenH1
+  testFieldSelect
   
   Test.Finish
   chain APP.TestLoaderName$

@@ -36,6 +36,75 @@
 '--------------------------------------------------------------------------
 ' barcode.or.key
 '--------------------------------------------------------------------------
+  function Barcode.BarcodeKey3Def$(bar$,bar2$,bar3$,default$)
+    private f.no%: f.no% = 1
+    private esc$: esc$ = Input.CODE.ESC$
+    private rt$[200]:rt$=default$
+    private kb$[1]
+    private pos%:pos%=pos(0)
+    private lin%:lin%=csrlin
+
+    print "             ";
+    locate pos%
+    print default$;
+    cursor on
+    while 1
+      if bar3$<>"" then
+        open "BAR:" as #f.no% code bar$,bar2$,bar3$
+      else
+        if bar2$<>"" then
+          open "BAR:" as #f.no% code bar$,bar2$
+        else
+          open "BAR:" as #f.no% code bar$
+        end if
+      end if
+      wait .pnEvent, (.pvEvKeyOn or .pvEvBarOn)
+      if loc(f.no%) then
+        beep
+        rt$ =input$(loc(f.no%), #f.no%)
+        locate pos%,lin%
+        print rt$;
+        Barcode.BarcodeKey3Def$ = Util.Trim$(rt$) 
+        close #f.no%
+        exit function
+      else
+        close #f.no%
+        kb$ = inkey$
+        while kb$<>""
+          if instr(esc$, kb$) then
+            Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
+            exit function
+          endif
+          select kb$
+          case chr$(13)
+            Barcode.BarcodeKey3Def$ = Util.Trim$(rt$)
+            exit function
+          case chr$(8)
+            if len(rt$) then
+              print chr$(8);
+              rt$ = left$(rt$,len(rt$)-1)
+            endif
+          case chr$(24) ' clear key
+            while len(rt$)
+              print chr$(8);
+              rt$=left$(rt$,len(rt$)-1)
+            wend
+          case else
+              print kb$;
+              rt$ = rt$ + kb$
+          end select
+          if rt$ ="" then
+            kb$=""
+          else
+            kb$=inkey$
+          endif
+        wend
+      endif
+    wend
+  end function
+'--------------------------------------------------------------------------
+' barcode.or.key
+'--------------------------------------------------------------------------
   function Barcode.BarcodeKey3$(bar$,bar2$,bar3$)
     private f.no%: f.no% = 1
     private max%
@@ -122,3 +191,9 @@
     Barcode.BarcodeKey$=Barcode.BarcodeKey3$(bar$,"","")
   end function
 
+'--------------------------------------------------------------------------
+' barcode.or.key sen
+'--------------------------------------------------------------------------
+  function Barcode.BarcodeKeySen$(default$)
+    Barcode.BarcodeKeySen$=Barcode.BarcodeKey3Def$(Barcode.QR$, Barcode.CODE39$, Barcode.CODE128$, default$)
+  end function

@@ -106,6 +106,8 @@ KEY.YN.M2
   function Input.InputUDLR$[1]
 
     private k$[1]
+    while inkey$<>""
+    wend
     while 1
       wait .pnEvent, (.pvEvKeyOn)
       k$=inkey$
@@ -131,7 +133,52 @@ KEY.YN.M2
       end select
     wend
   end function
-
+'---------------------------
+' Select field
+'---------------------------
+  function Input.SelectField%(byref fieldpos%(), byref labels$(), byref values$(), byref types$(),default%,cnt%)
+    private k$[1]
+    private pos%: pos%=default%
+    private selected%: selected%=0
+    private done%: done%=0
+    private idx%: idx%=0
+    while done%=0
+      for idx%=0 to cnt%-1
+        locate 1,fieldpos%(idx%)
+        fieldpos%(idx%)= Screen.Field%(labels$(idx%),values$(idx%),types$(idx%),pos%=idx%)
+      next
+      
+      ' key
+      k$=Input.InputUDLR$
+      select k$
+        case chr$(13) ' ENT
+          done%=1
+          selected%=1
+        case "D"      ' Escape
+          done%=1
+          selected%=0
+        case "E"      ' UP
+          if pos%>0 then
+            pos%=pos%-1
+          else
+            beep 1
+          end if
+        case "F"      ' DOWN
+          if pos%<cnt%-1 then
+            pos%=pos%+1
+          else
+            beep 1
+          end if
+        case "G"
+        case "H"
+        end select
+    wend
+    if selected%=1 then
+        Input.SelectField%=pos%
+    else
+        Input.SelectField%=-1
+    end if
+  end function
 '--------------------------------------------------------------------------
 ' Select list
 '--------------------------------------------------------------------------
@@ -149,7 +196,6 @@ KEY.YN.M2
     private idxlen%
     private idx%
     private linesPos%(500)
-    
     while done%=0
       idxlen%=Util.StrCharIndex%(lines$(pos%),linesPos%)
       locate 1,3

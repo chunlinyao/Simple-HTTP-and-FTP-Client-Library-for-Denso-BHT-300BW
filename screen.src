@@ -106,6 +106,8 @@
     locate 1,1
     OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
     screen ,Lc.RAT.REVERSE
+    print INPUT.EMPTYLINE$;
+    locate 1
     print Util.TruncateStr$(title$,1,16)
     OUT .pnFont.Emph, .pvEmph.Off ' &h6081,0 ' Bold display
     screen ,Lc.RAT.NORMAL

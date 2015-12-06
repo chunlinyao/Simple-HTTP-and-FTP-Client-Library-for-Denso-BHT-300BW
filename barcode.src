@@ -66,6 +66,7 @@
         print rt$;
         Barcode.BarcodeKey3Def$ = Util.Trim$(rt$) 
         close #f.no%
+        cursor off
         exit function
       else
         close #f.no%
@@ -73,11 +74,13 @@
         while kb$<>""
           if instr(esc$, kb$) then
             Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
+            cursor off
             exit function
           endif
           select kb$
           case chr$(13)
             Barcode.BarcodeKey3Def$ = Util.Trim$(rt$)
+            cursor off
             exit function
           case chr$(8)
             if len(rt$) then

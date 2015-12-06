@@ -17,3 +17,4 @@
   declare function Util.ParseListTabData%(byref src$, byref meta$, byref ids$(), idOffset%, byref names$(), byref codes$())
   declare function Util.ParseListTabData2%(byref src$, byref meta$, byref ids$(), byref names$(), byref quantities%(), byref hasEnough%())
   declare function Util.GetSeconds%(startTime$, endTime$)
+  declare function Util.Split%(byref src$, byref secs$(), d$)

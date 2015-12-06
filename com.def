@@ -47,7 +47,9 @@ const Com.Status.DeviceClosed=10
   global Com.Http.Sendbuff$[Com.SENDSIZE]
   global Com.Http.Recvbuff$[Com.RECVSIZE]
   global Com.Http.ADDRESS$[15]
+  global Com.Server.ADDRESS$[15]
   global Com.Http.PORT%
+  global Com.Server.PORT%
   global Com.Http.URLPREFIX$[100]
   global Com.Http.HOSTNAME$[100]
   global Com.EmptyFiles$(1)[10]

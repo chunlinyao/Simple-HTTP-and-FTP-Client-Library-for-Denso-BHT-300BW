@@ -607,6 +607,10 @@ recvfile.resume:
         Com.Http.PORT%=val(value$)
       case "http.hostname"
         Com.Http.HOSTNAME$=value$
+      case "server.address"
+        Com.Server.ADDRESS$=value$
+      case "server.port"
+        Com.Server.PORT%=val(value$)
       end select
     next
     close #fileNum%
@@ -629,6 +633,19 @@ recvfile.resume:
       input r$
     else
       print "HTTP端口:["+str$(Com.Http.PORT%)+"]"
+      '--input r$
+    end if
+    if Com.Server.ADDRESS$="" then
+      print "Server地址未设置";
+      input r$
+    else
+      print "Server:["+Com.Server.ADDRESS$+"]"
+    end if
+    if Com.Server.PORT%=0 then
+      print "Server端口未设置";
+      input r$
+    else
+      print "Server端口:["+str$(Com.Server.PORT%)+"]"
       '--input r$
     end if
   end sub

@@ -5,10 +5,11 @@
 '##########################################################################
 
 '-- shared const variables
-const Util.MAXIDLEN=20
-const Util.MAXSTRLEN=100
+  const Util.MAXIDLEN=20
+  const Util.MAXSTRLEN=100
 
 '-- shared variables
   global TAB$[1]:    TAB$=chr$(9)
   global STREOL$[1]: STREOL$=chr$(10)
+  global DELIMITER$[2]: DELIMITER$=chr$(9)+":"
 

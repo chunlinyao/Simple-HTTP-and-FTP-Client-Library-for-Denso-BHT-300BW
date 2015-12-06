@@ -199,25 +199,31 @@
 '--------------------------------------------------------------------------
 ' split message and data
 '--------------------------------------------------------------------------
-  function Util.ParseListData%(byref src$, byref lines$())
-    private lineEnd%
+  function Util.Split%(byref src$, byref secs$(), d$)
+    private idx%
     private ptr%
     private cnt%
-
-    cnt%=0 ' array index
-    ptr%=1 ' string pointer
-
-    lineEnd%=instr(src$,STREOL$)
-    while lineEnd%>0
-      lines$(cnt%)=mid$(src$,ptr%,lineEnd%-ptr%)
-      ptr%=lineEnd%+len(STREOL$)
+    
+    cnt%=0
+    ptr%=1
+    
+    idx%=instr(src$, d$)
+    while idx%>0
+      secs$(cnt%)=mid$(src$,ptr%,idx%-ptr%)
+      ptr%=idx%+len(d$)
       cnt%=cnt%+1
-      lineEnd%=instr(ptr%,src$,STREOL$)
+      idx%=instr(ptr%,src$,d$)
     wend
-    lines$(cnt%)=mid$(src$,ptr%)
+    secs$(cnt%)=mid$(src$,ptr%)
     cnt%=cnt%+1
-    Util.ParseListData%=cnt%
+    Util.Split%=cnt% 
   end function
+  
+  '----------------------------
+  function Util.ParseListData%(byref src$, byref lines$())
+    Util.ParseListData%=Util.Split%(src$, lines$, STREOL$)
+  end function
+
 
 '--------------------------------------------------------------------------
 ' get page info from meta string

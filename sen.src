@@ -1,0 +1,90 @@
+'##########################################################################
+'
+' test input.src
+'
+'##########################################################################
+
+'$include:'barcode.inc'
+'$include:'barcode.def'
+'$include:'screen.inc'
+'$include:'screen.def'
+'$include:'input.inc'
+'$include:'util.inc'
+'$include:'util.def'
+'$include:'input.def'
+'$include:'wh.def'
+
+  global username$
+  global password$
+
+'--------------------------------------------------------------------------
+ sub Login
+    Screen.Header("登录系统")
+    private fieldpos%(10)
+      private labels$(10)[30]
+      private values$(10)[200]
+      private types$(10)[10]
+      private cnt%: cnt%=3
+      private idx%
+      private ret%: ret%=0
+               
+      
+      labels$(0)="用户名"
+      labels$(1)="密码"
+      labels$(2)="登录"
+      
+      values$(0)=""
+      values$(1)=""
+      values$(2)=""
+      
+      types$(0)="text"
+      types$(1)="text"
+      types$(2)="cmd"
+     
+      for idx%=0 to cnt%-1
+          fieldpos%(idx%)= Screen.Field%(labels$(idx%),values$(idx%),types$(idx%),0)
+      next
+        
+      while 1
+        ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,ret%,cnt%)
+        select types$(ret%)
+          case "cmd"
+            gosub LOGIN.SAVE
+            exit sub
+          case "text"
+            locate 3,fieldpos%(ret%)+2
+            values$(ret%)=Barcode.BarcodeKeySen$(values$(ret%))
+            if ret%=0 and instr(values$(ret%), DELIMITER$) then
+            '用户名密码一起
+               dim tmp$[100]: tmp$=values$(ret%)
+               dim x%
+               x%=Util.Split%(tmp$, values$, DELIMITER$)
+               gosub LOGIN.SAVE
+               exit sub
+            end if
+        end select
+      wend
+    exit sub
+LOGIN.SAVE
+    username$=values$(0)
+    password$=values$(1)
+    return
+ end sub
+ 
+ sub MainLoop
+    print username$, password$
+    Input.InputAnyKey
+ end sub
+ sub testScreenH1
+    Screen.H1("#121241字段名字段")
+ end sub
+  
+'--------------------------------------------------------------------------
+'--------------------------------------------------------------------------
+
+Main
+  Screen.Init
+  Screen.Footer
+  Login
+  MainLoop
+  chain APP.LoaderName$

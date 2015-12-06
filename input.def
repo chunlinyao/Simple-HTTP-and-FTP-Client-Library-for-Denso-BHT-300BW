@@ -6,7 +6,6 @@
 
  const INPUT.NUMONLY=1
  const INPUT.ALPHNUM=0
-
   global INPUT.EMPTYLINE$
   INPUT.EMPTYLINE$="                "
 

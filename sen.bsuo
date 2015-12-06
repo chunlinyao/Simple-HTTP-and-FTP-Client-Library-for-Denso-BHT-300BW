@@ -2,19 +2,11 @@
 <BHT_Solution_Information>
   <OpenFileInformation>
     <OpenInfo>
-      <FileName>init.src</FileName>
+      <FileName>util.def</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
-      <FileName>testinit.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>wh.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>screen.inc</FileName>
+      <FileName>init2.src</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
@@ -22,7 +14,47 @@
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
+      <FileName>init.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>com.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>com.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>com.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>input.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>wh.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
       <FileName>testsen.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>barcode.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>barcode.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>barcode.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>input.def</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
@@ -30,11 +62,7 @@
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
-      <FileName>screen.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>testutil.src</FileName>
+      <FileName>const.inc</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
@@ -42,7 +70,19 @@
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
+      <FileName>screen.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
       <FileName>util.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>input.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>screen.src</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
   </OpenFileInformation>
@@ -64,7 +104,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>init</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
@@ -80,7 +120,7 @@
         <Name>input</Name>
         <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
-        <IncludeExpand>0</IncludeExpand>
+        <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
@@ -99,9 +139,16 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>screen</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
+        <LibraryExpand>0</LibraryExpand>
+      </ProjectExpand>
+      <ProjectExpand>
+        <Name>sen</Name>
+        <Expand>1</Expand>
+        <SourceExpand>1</SourceExpand>
+        <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
@@ -142,7 +189,7 @@
       <ProjectExpand>
         <Name>testsen</Name>
         <Expand>1</Expand>
-        <SourceExpand>0</SourceExpand>
+        <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
@@ -155,14 +202,14 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>util</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>wh</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>

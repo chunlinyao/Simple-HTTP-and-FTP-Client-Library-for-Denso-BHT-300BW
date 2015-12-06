@@ -20,7 +20,7 @@
 	private cnt%: cnt%=0
 
     addProgram(cnt%, programs$, APP.LoaderName$)
-    'addProgram(cnt%, programs$, APP.ProgramName$)
+    addProgram(cnt%, programs$, APP.ProgramName$)
     'addProgram(cnt%, programs$, APP.ProgramName2$)
     'addProgram(cnt%, programs$, APP.ProgramName3$)
     addProgram(cnt%, programs$, APP.TestLoaderName$)

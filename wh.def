@@ -11,7 +11,7 @@
   '-- program name(s)
   global APP.LoaderName$: APP.LoaderName$="init.PD4"
   global APP.Loader2Name$: APP.Loader2Name$="init2.PD4"
-  global APP.ProgramName$: APP.ProgramName$="wh.PD4"
+  global APP.ProgramName$: APP.ProgramName$="sen.PD4"
   global APP.ProgramName2$: APP.ProgramName2$="ship.PD4"
   global APP.ProgramName3$: APP.ProgramName3$="itemcach.PD4"
 

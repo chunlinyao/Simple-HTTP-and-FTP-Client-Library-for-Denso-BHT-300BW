@@ -50,7 +50,7 @@
   end sub
 
 '------------------------------------------------------------
-  const MENULENGTH = 5
+  const MENULENGTH = 1
 
 Main
   private i%
@@ -59,11 +59,7 @@ Main
   private dat$[13]
   private src.selectionData$(MENULENGTH)
 
-  src.selectionData$(0) = "1.入库"
-  src.selectionData$(1) = "2.出库"
-  src.selectionData$(2) = "3.出荷"
-  src.selectionData$(3) = "4.棚卸"
-  src.selectionData$(4) = "8.基础数据更新"
+  src.selectionData$(0) = "1.进入系统"
 
   '------ init ------
   k$="1"
@@ -73,7 +69,7 @@ Main
     for i%=0 to (menuLength-1)
       '一列
       'locate (i% mod 2)*12+1,2*(i%/2)+1
-      locate 1, 2*i% + 1
+      locate 3, 2*i% + 1
       print src.selectionData$(i%)
     next i%
     locate ,,1 : cursor on
@@ -84,20 +80,8 @@ Main
       case "1"
         APP.func%=APP.FUNC.INBOUND%
         chain APP.ProgramName$
-      case "2"
-        APP.func%=APP.FUNC.OUTBOUND%
-        chain APP.ProgramName$
-      case "3"
-        APP.func%=APP.FUNC.SHIPPING%
-        chain APP.ProgramName2$
-      case "4"
-        APP.func%=APP.FUNC.INVENTORY%
-        chain APP.ProgramName$
       case "5"
         call Init.RunTestProgram
-      case "8"
-        APP.func%=APP.FUNC.ITEMCACHE%
-        chain APP.ProgramName3$
       case "9" '-- hidden command
         call Init.UpdateProgram
     end select

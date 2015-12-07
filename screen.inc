@@ -14,3 +14,4 @@
   declare sub Screen.H1(title$)
   declare sub Screen.P(title$)
   declare sub Screen.Span(title$)
+  declare sub Screen.Color(c&,bg&)

@@ -13,9 +13,12 @@
 '$include:'util.def'
 '$include:'input.def'
 '$include:'wh.def'
+'$include:'com.def'
+'$include:'com.inc'
 
-  global username$
-  global password$
+
+  global username$[100]
+  global password$[100]
 
 '--------------------------------------------------------------------------
  sub Login
@@ -77,12 +80,30 @@ LOGIN.SAVE
  end sub
  
  sub MainLoop
-    print username$, password$
-    Input.InputAnyKey
+    Com.ReadConfig
+'nextscreen=主画面
+'错误恢复入口
+    '打开连接
+'while 1
+    '发送nextscreen请求
+    '接受请求
+    '解析请求
+    '有Error就显示
+
+'循环下一个画面的请求 while nextscreen=""
+    '渲染画面
+    '如果是首次渲染，有autofocus的进入编辑状态
+    '进入SelectField
+    '处理对应的选择，编辑或者提交 nextscreen=buton.value
+    '编辑后自动提交的控件，自动提交 nextscreen=field.autosubmit
+    
+'错误处理
+  '关闭连接
+  'if 网络错误 问用户从0开始还是刷新刚才的页面
+  ' nextscreen=refresnurl
+  ' 否则nextscreen=主画面
  end sub
- sub testScreenH1
-    Screen.H1("#121241字段名字段")
- end sub
+
   
 '--------------------------------------------------------------------------
 '--------------------------------------------------------------------------

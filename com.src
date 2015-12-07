@@ -611,6 +611,8 @@ recvfile.resume:
         Com.Server.ADDRESS$=value$
       case "server.port"
         Com.Server.PORT%=val(value$)
+      case "server.main"
+        Com.Server.MainScreen$=value$
       end select
     next
     close #fileNum%
@@ -646,6 +648,13 @@ recvfile.resume:
       input r$
     else
       print "Server端口:["+str$(Com.Server.PORT%)+"]"
+      '--input r$
+    end if
+    if Com.Server.MainScreen$="" then
+      print "Server 主画面未设置";
+      input r$
+    else
+      print "Server 主画面:["+Com.Server.MainScreen$+"]"
       '--input r$
     end if
   end sub

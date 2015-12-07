@@ -43,8 +43,39 @@
 '***                        YMODEM.FN3 Function #5 to #6 added          ***
 '***    1.11.00   2007.03   SS.FN3 Function #14 parameter added         ***
 '***    1.12.00   2007.10   DPM parameter added                         ***
+'***    1.13.00   2009. 5   SOUND, RPC, CLONE SQRC parameter added      ***
+'***                        UHFRFID.FN3 Function added                  ***
+'***    1.14.00   2010. 7   IME.FN3 Function added                      ***
+'***              2010. 8   SEARCH.FN3 Function #11 to #12 added        ***
+'***                        USB.FN3 Function added                      ***
+'***                        Power off backup, Block erase icon,         ***
+'***                        Open "BAR:" setting, Code mark type,        ***
+'***                        Confirmation screen of program restart,     ***
+'***                        Open "COM:" setting parameter added         ***
+'***    1.14.01   2011. 1   .syM6key modified                           ***
+'***                        UHFRFID.FN3 setting parameter added         ***
+'***    1.14.02   2011. 4   UHFRFID.FN3 Function #13 to #15 added       ***
+'***    1.15.00   2012. 2   I/O port &h6032 Effective Held-down Time of ***
+'***                        Menu Key added                              ***
+'***                        SYSTEM.FN3 MTP parammeter added             ***
+'***                        SEARCH.FN3 Function #11 to #12 added        ***
+'***                        USB.FN3 Function #20,#22 added              ***
+'***    1.16.00   2012. 4   SYSTEM.FN3 Key Click parammeter added       ***
+'***                        FTP.FN3 Function #15 added                  ***
+'***                        SOCKET.FN3 Function #51 added (DNS)         ***
+'***                        SOCKET.FN3 Function #60 to #65 added (SSL)  ***
+'***                        GRAPH.FN3 Function #10 added                ***
+'***                        I/O port &h6085 parammeter added            ***
+'***                        SOCKET.FN3 Function #44 parameter added     ***
+'***                        SYSTEM.FN3 Illumination control parammeter  ***
+'***                        added                                       ***
+'***    1.17.00   2013. 8   DEVCTRL.FN3 Function added                  ***
+'***                        SYSTEM.FN3 Function  #31 to #34 added       ***
+'***                        FILE.FN3 Function #41 to #45 added          ***
+'***                        USB.FN3 Function #4 added                   ***
+'***                        CRYPT.FN3 Function #1 to #13 added          ***
 '***                                                                    ***
-'***                    Copyright (C) 2004 DENSO WAVE INCORPORATED      ***
+'***                    Copyright (C) 2013 DENSO WAVE INCORPORATED      ***
 '***                    All rights reserved.                            ***
 '**************************************************************************
 '****************************************
@@ -55,6 +86,7 @@ const   .pnEvent    = &h0
 
 const   .pvEvKeyOn  = &h01
 const   .pvEvBarOn  = &h02
+const   .pvEvReadOn = &h02         'RFID Read Data ON
 const   .pvEvTrgOn  = &h04
 const   .pvEvtCmOn  = &h08
 const   .pvEvTma0   = &h10
@@ -77,7 +109,7 @@ const   .pnMgLng    = &h4
 
 const   .pvSysMSG   = &h00
 const   .pvEnglish  = &h01
-const   .pvChinese	= &h02
+const   .pvChinese  = &h02
 
 '===== Alphabet Entry (Software Keyboard for BHT-100 Series) ==============
 const   .pnAlpCtrl  = &h5
@@ -141,7 +173,8 @@ const   .pnTmPOff   = &h6030
 
 '===== Effective Held-down Time of BS/C  Key ==============================
 const   .pnBSCTime  = &h6031
-
+'===== Effective Held-down Time of Menu  Key ==============================
+const   .pnMENUTime = &h6032
 
 '===== Magic Key State ====================================================
 const   .pnMKey     = &h6040
@@ -151,6 +184,7 @@ const   .pvM2kyOn   = &h02
 const   .pvM3kyOn   = &h04
 const   .pvM4kyOn   = &h08
 const   .pvM5kyOn   = &h10
+const   .pvM6kyOn   = &h20
 const   .pvMNkyOn   = &h10
 
 '===== Other Key State ====================================================
@@ -192,6 +226,12 @@ const   .pnCursor   = &h6082
 
 '===== Font Size Width ====================================================
 const   .pnFont.Width = &h6083
+
+'===== Display method =====================================================
+const   .pnDispMtd  = &h6085
+
+const   .pvDispOn   = &h00
+const   .pvDispOff  = &h01
 
 '===== Beeper/Vibrator ====================================================
 const   .pnBprVib   = &h6090
@@ -297,6 +337,10 @@ const   .pvMarkNrm  = &h00
 const   .pvMarkOn   = &h01
 const   .pvMarkOff  = &h02
 
+'===== RFID ===============================================================
+const   .pnRFlDpt    = &h6400
+const   .pvRFIDrtend = &h01         'RFID Access Complete
+
 '===== PHS ================================================================
 const   .pnPSMode   = &h7100
 const   .pnPSDSend  = &h7101
@@ -369,6 +413,10 @@ const   .fcFontInf  = 5
 const   .fcCReset   = 11
 const   .fcCLkGet   = 12
 const   .fcCMdRqst  = 21
+const   .fcBackup   = 31
+const   .fcRestore  = 32
+const   .fcBackupInfGet  = 33
+const   .fcRestoreHisGet = 34
 
 '+--------------------------------------+
 '|  Setting Numeric Data                |
@@ -392,6 +440,7 @@ const   .syMkySF    = 3
 const   .syMkyBL    = 4
 const   .syMkyTel   = 5
 const   .syMkyMenu  = 6
+const   .syMkyClr   = 7
 
 '=====  Black-and-White Inverted Label Reading  ==========================
 const   .syBarInvt  = 6
@@ -576,6 +625,7 @@ const   .syUlkTmr  = 45
 
 '=====  Transmission speed between the BHT and LAN-support CU  ===========
 const   .syDvSpd   = 46
+const   .syOp4M     = 9
 
 '=====  Ymodem Protocol CR/LF Code =======================================
 const   .syYmLFcode = 47
@@ -630,10 +680,22 @@ const   .sySnsrOn     = 31
 const   .syBLNormal    = 71
 const   .syBLPowerSave = 72
 const   .syBLPSTime    = 73
+const   .syBLDevSel    = 77
+
+const   .syBLNoDe      = 0
+const   .syBLLcd       = 1
+const   .syBLKey       = 2
+const   .syBLLcdKey    = 3
 
 '=====  Key ==============================================================
 const   .syM5key      = 74
 const   .syBSCKey     = 75
+const   .syM6key      = 76
+
+'=====  MENU =============================================================
+const   .syMenuActive = 78
+const   .syMenuEnv    = 0
+const   .syMenuDis    = 1
 
 '=====  DPM ==============================================================
 const   .syDPMFilter  = 84
@@ -648,6 +710,583 @@ const   .syDPMF77Blk  = 6
 const   .syDPMF33Wht  = 7
 const   .syDPMF55Wht  = 8
 const   .syDPMF77Wht  = 9
+
+'=====  SQRC =============================================================
+const   .sySQRCMenu   = 91
+const   .sySMenuDis   = 0
+const   .sySMenuEnv   = 1
+
+'=====  Key Click ========================================================
+const   .syKeyClick   = 93
+const   .syKCliOff    = 0
+const   .syKCliVol1   = 1
+const   .syKCliVol2   = 2
+const   .syKCliVol3   = 3
+
+'=====  Logo =============================================================
+const   .syLogoDispTime = 94
+
+'=====  Clone ============================================================
+const   .syCloneArea  = 96
+const   .clAreaNone   = 0
+const   .clAreaOS     = 1
+
+const   .syCloneMode  = 104
+const   .clClone      = 0
+const   .clHTCopy     = 1
+
+const   .syCloneSlave = 105
+const   .clMenu       = 0
+const   .clReboot     = 1
+
+'=====  RPC (BHT Manager) ================================================
+const   .syUserLog        = 107
+const   .ulEnable         = 1
+const   .ulDisable        = 0
+
+const   .syRPCTransport   = 109
+const   .rpctSerial       = 1
+const   .rpctTCPIP        = 2
+
+const   .syRPCRmtWup      = 110
+const   .rpcrwDisable     = 0
+const   .rpcrwEnable      = 1
+
+const   .syRPCScheWup     = 111
+const   .rpcswDisable     = 0
+const   .rpcswEnable      = 1
+
+const   .syRPCTimeout     = 112
+
+const   .syRPCComDev      = 113
+const   .rpcdCOM1         = 0
+
+const   .syRPCServicePort = 114
+const   .syRPCRmtSynPort  = 115
+
+'=====  MENU key =========================================================
+const   .syMENUKey        = 117
+
+'=====  Power off backup =================================================
+const   .syPWOffBackup    = 127
+const   .pwbDisable       = 0
+const   .pwbEnable        = 1
+
+'=====  Block erase icon =================================================
+const   .syBlockEraseIcon = 129
+const   .beiEnable        = 0
+const   .beiDisable       = 1
+
+'=====  Open "BAR:" setting  ==============================================
+const   .syRdMode         = 130
+const   .syAutoOff        = 0
+const   .syMom            = 1
+const   .syAlt            = 2
+const   .syCnt            = 3
+
+const   .syRdBprVib       = 131
+const   .syBprVibOff      = 0
+const   .syBprVibOn       = 1
+
+const   .syRdLed          = 132
+const   .syLedOff         = 0
+const   .syLedOn          = 1
+
+const   .syRdEANUPC       = 133
+const   .syReadOff        = 0
+const   .syReadOn         = 1
+
+const   .syRdEAN13UPCA    = 134
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdEAN13UPCA1st = 135
+const   .syHeadWdCd       = 10
+
+const   .syRdEAN13UPCA2nd = 136
+'const   .syHeadWdCd      = 10
+
+const   .syRdEAN13UPCAAddon = 137
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdEAN13UPCAAddOnly = 138
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdEAN13UPCAAddDgt = 139
+const   .syAddOnly25      = 0
+const   .syAddOnly2       = 1
+const   .syAddOnly5       = 2
+
+const   .syRdEAN8         = 140
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdEAN81st      = 141
+'const   .syHeadWdCd      = 10
+
+const   .syRdEAN82nd      = 142
+'const   .syHeadWdCd      = 10
+
+const   .syRdEAN8Addon    = 143
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdEAN8AddOnly  = 144
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdEAN8AddDgt   = 145
+'const   .syAddOnly25     = 0
+'const   .syAddOnly2      = 1
+'const   .syAddOnly5      = 2
+
+const   .syRdUPCE         = 146
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdUPCE1st      = 147
+'const   .syHeadWdCd      = 10
+
+const   .syRdUPCE2nd      = 148
+'const   .syHeadWdCd      = 10
+
+const   .syRdUPCEAddon    = 149
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdUPCEAddOnly  = 150
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdUPCEAddDgt   = 151
+'const   .syAddOnly25     = 0
+'const   .syAddOnly2      = 1
+'const   .syAddOnly5      = 2
+
+const   .syRdITF          = 152
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdITFMin       = 153
+
+const   .syRdITFMax       = 154
+
+const   .syRdITFCD        = 155
+const   .syCDOff          = 0
+const   .syCDOn           = 1
+
+const   .syRdNW7          = 156
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdNW7Min       = 157
+
+const   .syRdNW7Max       = 158
+
+const   .syRdNW7StCd      = 159
+const   .syStcdWdCd       = 0
+const   .syStCdA          = 1
+const   .syStCdB          = 2
+const   .syStCdC          = 3
+const   .syStCdD          = 4
+
+const   .syRdNW7SpCd      = 160
+'const   .syStcdWdCd      = 0
+'const   .syStCdA         = 1
+'const   .syStCdB         = 2
+'const   .syStCdC         = 3
+'const   .syStCdD         = 4
+
+const   .syRdNW7CD        = 161
+'const   .syCDOff         = 0
+'const   .syCDOn          = 1
+
+const   .syRdCd39         = 162
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdCd39Min      = 163
+
+const   .syRdCd39Max      = 164
+
+const   .syRdCd39CD       = 165
+'const   .syCDOff         = 0
+'const   .syCDOn          = 1
+
+const   .syRdCd93         = 166
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdCd93Min      = 167
+
+const   .syRdCd93Max      = 168
+
+const   .syRdCd128        = 169
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdCd128Min     = 170
+
+const   .syRdCd128Max     = 171
+
+const   .syRdRSS          = 176
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdRSS14        = 177
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdRSS14St      = 178
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdRSSLm        = 179
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdRSSEx        = 180
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdRssExMin     = 181
+
+const   .syRdRssExMax     = 182
+
+const   .syRdRSSExSt      = 183
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdQR           = 184
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdQRSplit      = 185
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdQRSpMd       = 186
+const   .syQREdit         = 0
+const   .syQRBATCH        = 1
+const   .syQRNoEdit       = 2
+
+const   .syRdQR1          = 187
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdQR1Min       = 188
+
+const   .syRdQR1Max       = 189
+
+const   .syRdQR2          = 190
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdQR2Min         = 191
+
+const   .syRdQR2Max         = 192
+
+const   .syRdMQR          = 193
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdMQRMin       = 194
+
+const   .syRdMQRMax       = 195
+
+const   .syRdSQRC         = 196
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdSQRCMin      = 197
+
+const   .syRdSQRCMax      = 198
+
+const   .syRdSQRCPbl      = 199
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdiQR          = 200
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdiQRSplit     = 201
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdiQRSpMd      = 202
+'const   .syQREdit        = 0
+'const   .syQRNoEdit      = 2
+
+const   .syRdiQRSqu       = 203
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdiQRSquMin    = 204
+
+const   .syRdiQRSquMax    = 205
+
+const   .syRdiQRRct       = 206
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdiQRRctMin    = 207
+
+const   .syRdiQRRctMax    = 208
+
+const   .syRdPDF          = 209
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdPDF417       = 210
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdMicroPDF417  = 211
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdMaxi         = 212
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdDMX          = 213
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdDMXSqu       = 214
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdDMXSquMin    = 215
+
+const   .syRdDMXSquMax    = 216
+
+const   .syRdDMXRct       = 217
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdDMXRctMin    = 218
+
+const   .syRdDMXRctMax    = 219
+
+const   .syRdCmp          = 220
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdMltLine      = 221
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const   .syRdML1Code      = 222
+const   .syMLEAN13UPCA    = 1
+const   .syMLEAN8         = 2
+const   .syMLUPCE         = 3
+const   .syMLITF          = 4
+const   .syMLNW7          = 5
+const   .syMLCd39         = 6
+const   .syMLCd93         = 7
+const   .syMLCd128        = 8
+
+const   .syRdML11st       = 223
+'const   .syHeadWdCd      = 10
+
+const   .syRdML12nd       = 224
+'const   .syHeadWdCd      = 10
+
+const   .syRdML1Min       = 225
+
+const   .syRdML1Max       = 226
+
+const   .syRdML1Start     = 227
+'const   .syStcdWdCd      = 0
+'const   .syStCdA         = 1
+'const   .syStCdB         = 2
+'const   .syStCdC         = 3
+'const   .syStCdD         = 4
+
+const   .syRdML1Stop      = 228
+'const   .syStcdWdCd      = 0
+'const   .syStCdA         = 1
+'const   .syStCdB         = 2
+'const   .syStCdC         = 3
+'const   .syStCdD         = 4
+
+const   .syRdML1CD        = 229
+'const   .syCDOff         = 0
+'const   .syCDOn          = 1
+
+const   .syRdML2Code      = 230
+'const   .syMLEAN13UPCA   = 1
+'const   .syMLEAN8        = 2
+'const   .syMLUPCE        = 3
+'const   .syMLITF         = 4
+'const   .syMLNW7         = 5
+'const   .syMLCd39        = 6
+'const   .syMLCd93        = 7
+'const   .syMLCd128       = 8
+
+const    .syRdML21ST      = 231
+'const   .syHeadWdCd      = 10
+
+const    .syRdML22ND      = 232
+'const   .syHeadWdCd      = 10
+
+const    .syRdML2Min      = 233
+
+const    .syRdML2Max      = 234
+
+const    .syRdML2Start    = 235
+'const   .syStcdWdCd      = 0
+'const   .syStCdA         = 1
+'const   .syStCdB         = 2
+'const   .syStCdC         = 3
+'const   .syStCdD         = 4
+
+const    .syRdML2Stop     = 236
+'const   .syStcdWdCd      = 0
+'const   .syStCdA         = 1
+'const   .syStCdB         = 2
+'const   .syStCdC         = 3
+'const   .syStCdD         = 4
+
+const    .syRdML2CD       = 237
+'const   .syCDOff         = 0
+'const   .syCDOn          = 1
+
+const    .syRdML3Code     = 238
+const    .syMLNone        = 0
+'const   .syMLEAN13UPCA   = 1
+'const   .syMLEAN8        = 2
+'const   .syMLUPCE        = 3
+'const   .syMLITF         = 4
+'const   .syMLNW7         = 5
+'const   .syMLCd39        = 6
+'const   .syMLCd93        = 7
+'const   .syMLCd128       = 8
+
+const    .syRdML31ST      = 239
+
+const    .syRdML32ND      = 240
+
+const    .syRdML3Min      = 241
+
+const    .syRdML3Max      = 242
+
+const    .syRdML3Start    = 243
+'const   .syStcdWdCd      = 0
+'const   .syStCdA         = 1
+'const   .syStCdB         = 2
+'const   .syStCdC         = 3
+'const   .syStCdD         = 4
+
+const    .syRdML3Stop     = 244
+'const   .syStcdWdCd      = 0
+'const   .syStCdA         = 1
+'const   .syStCdB         = 2
+'const   .syStCdC         = 3
+'const   .syStCdD         = 4
+
+const    .syRdML3CD       = 245
+'const   .syCDOff         = 0
+'const   .syCDOn          = 1
+
+const    .syRdSTF         = 249
+'const   .syReadOff       = 0
+'const   .syReadOn        = 1
+
+const    .syRdSTFMin      = 250
+
+const    .syRdSTFMax      = 251
+
+const    .syRdSTFCD       = 252
+'const   .syCDOff         = 0
+'const   .syCDOn          = 1
+
+const    .syRdSTFType     = 253
+const    .sySTFTypeBoth   = 0
+const    .sySTFTypeNorm   = 1
+const    .sySTFTypeShort  = 2
+
+'=====  Code mark type  ===================================================
+const    .syCodeMark      = 246
+const    .syCdMkType1     = 0
+const    .syCdMkType2     = 1
+
+'=====  Confirmation screen of program restart  ===========================
+const    .syRestDlg       = 247
+const    .syRstDlgOff     = 0
+const    .syRstDlgOn      = 1
+
+'=====  Illumination control  =============================================
+const    .syIllCtr       = 248
+const    .syIllBlink     = 0
+const    .syIllOn        = 1
+const    .syIllLowpw     = 2
+
+'=====  Open "COM:" setting  ==============================================
+const    .syOpnComSet     = 256
+const    .syFromAPI       = 0
+const    .syFromSys       = 1
+
+'=====  Function limit Receive file =======================================
+const    .syMtpLimitRcv   = 265
+
+'=====  Function limit Delete file  =======================================
+const    .syMtpLimitDel   = 266
+
+'=====  Function limit Change file name ===================================
+const    .syMtpLimitRnm   = 267
+const    .syMtpOff        = 0
+const    .syMtpOn         = 1
+
+'=====  New line record ===================================================
+const    .syMtpTranCrlf   = 268
+const    .syMtpCRLF       = 0
+const    .syMtpLF         = 1
+const    .syMtpCR         = 2
+const    .syMtpNone       = 3
+
+'=====  Operation of new line code during the recording ===================
+const    .syMtpTranRcd    = 269
+const    .syMtpRSepa      = 0
+const    .syMtpRData      = 1
+
+'=====  Operation of space at the end of record ===========================
+const    .syMtpTranSpc    = 270
+const    .syMtpSpIgnr     = 0
+const    .syMtpSpData     = 1
+
+'=====  Filter Data file attributes =======================================
+const    .syMtpAttrDat    = 272
+
+'=====  Filter Application attributes =====================================
+const    .syMtpAttrApl    = 273
+
+'=====  Filter Font file attributes =======================================
+const    .syMtpAttrFnt    = 274
+
+'=====  Filter Other attributes ===========================================
+const    .syMtpAttrAno    = 275
+
+'=====  Filter Specify file extension display =============================
+const    .syMtpExtDisp    = 280
+const    .syMtpYes        = 0
+const    .syMtpNo         = 1
+
+'=====  COM1 Used Device =============================
+const    .syCom1UsedDev   = 283
+const    .syCom1Cradle    = 0
+const    .syCom1Irda      = 1
+
+'=====  Model Infomation =============================
+const    .syModelInf      = 284
+const    .syModel2D       = &h0001
+const    .syModelWlan     = &h0002
+const    .syModelBt       = &h0004
+
 
 '+--------------------------------------+
 '|  Setting String Data                 |
@@ -685,6 +1324,15 @@ const   .syCPNoGet  = 11
 '=====  Logo Filename ====================================================
 const   .syLogoFile  = 12
 
+'=====  Clone ============================================================
+const   .syCloneNumber  = 14
+
+'=====  RPC (BHT Manager) ================================================
+const   .syRPCRmtIP    = 15
+const   .syRPCWupSched = 16
+
+'=====  Filter Specify file extension  =============================
+const   .syMtpExtStr   = 22
 
 
 '+------------------------------------------------------+
@@ -694,6 +1342,17 @@ const   .syNgLk     = 0
 const   .syOkLk     = 1
 const   .syOkOthLk  = 2
 const   .syLkNoRes  = 3
+
+
+'=====  Function .fcRestore ============================================
+const   .fcRstOs      = &h01
+const   .fcRstFile    = &h02
+const   .fcRstPrmStup = &h04
+const   .fcRstPrmCln  = &h08
+const   .fcRstPrmAll  = &h0C
+const   .fcDelfile    = 0
+const   .fcNotDelfile = 1
+
 
 '****************************************
 '*  SYSMDFY.FN3 Parameters Definition   *
@@ -777,6 +1436,9 @@ const   .fcDotGet   = 6
 'const   .cnDGray    = &h0040
 'const   .cnLGray    = &h0080
 'const   .cnWhite    = &h00FF
+
+'=====  Function #10  ======================================================
+const   .fcInversion = 10
 
 '=====  Function #11  =====================================================
 const   .fcFKey     = 11
@@ -894,7 +1556,7 @@ const   .soSndBuff  = 8
 const   .soRcvBuff  = 9
 const   .soKATime   = 15
 const   .soMaxRT    = 26
-const   .soTIMEWAIT = 29
+const   .soTIMEWAIT    = 29
 const   .soRTODef   = 30
 const   .soRTOMin   = 31
 const   .soRTOMax   = 32
@@ -1041,18 +1703,25 @@ const   .fcTDiscnn  = 43
 '=====  Function #44  =====================================================
 const   .fcTSysGet  = 44
 
-const   .soPmIPAdr  = 1
-const   .soPmNtMsk  = 2
-const   .soPmDGWay  = 3
-const   .soPPPAuth  = 4
-const   .soPPPUser  = 5
-const   .soPPPPw    = 6
-const   .soDHCPTout = 7
-const   .soDvGet    = 100
-const   .soLyGet    = 200
-const   .soPPPAuthNo= 0
-const   .soPPPPAP   = 1
-const   .soPPPCHAP  = 2
+const   .soPmIPAdr     = 1
+const   .soPmNtMsk     = 2
+const   .soPmDGWay     = 3
+const   .soPPPAuth     = 4
+const   .soPPPUser     = 5
+const   .soPPPPw       = 6
+const   .soDHCPTout    = 7
+const   .soDHCPLeased  = 8
+const   .soPmDNSPri    = 10
+const   .soPmDNSSec    = 11
+const   .soPmDNSDomNam = 12
+const   .soPnDNSDomUse = 13
+const   .soDvGet       = 100
+const   .soLyGet       = 200
+const   .soPPPAuthNo   = 0
+const   .soPPPPAP      = 1
+const   .soPPPCHAP     = 2
+const   .soRelease     = 0
+const   .soReuse       = 1
 
 '=====  Function #45  =====================================================
 const   .fcTSysSet  = 45
@@ -1070,6 +1739,30 @@ const   .fcTPrmGet  = 48
 'const   .soPmIPAdr  = 1
 'const   .soPmNtMsk  = 2
 'const   .soPmDGWay  = 3
+
+'=====  Function #51  =====================================================
+const   .fcNameToIP = 51
+
+'=====  Function #60  =====================================================
+const   .fcSSLInit         = 60
+
+'=====  Function #61  =====================================================
+const   .fcSSLSessionOpen  = 61
+
+const   .ftSSLVer30 = 1
+const   .ftSSLVer31 = 2
+
+'=====  Function #62  =====================================================
+const   .fcSSLClientStart  = 62
+
+'=====  Function #63  =====================================================
+const   .fcSSLClientEnd    = 63
+
+'=====  Function #64  =====================================================
+const   .fcSSLSessionClose = 64
+
+'=====  Function #65  =====================================================
+const   .fcSSLUninit       = 65
 
 '****************************************
 '*  FTP.FN3 Parameters Definition       *
@@ -1127,8 +1820,6 @@ const   .ftUsrNm    = 2
 const   .ftPswd     = 3
 const   .ftDefDir   = 4
 const   .ftDialNo   = 10
-const	.ftDisable  = 0
-const   .ftEnable   = 1
 
 '=====  Function #9  ======================================================
 const   .fcFSysSet  = 9
@@ -1150,6 +1841,9 @@ const   .fcSTORC    = 14
 
 '=====  Function #15  =====================================================
 const   .fcFTPPasv  = 15
+
+const   .ftDisable  = 0
+const   .ftEnable   = 1
 
 '****************************************
 '*  SS.FN3 Parameters Definition        *
@@ -1378,17 +2072,27 @@ const   .fcBTGetSvc = 21
 '*  FILE.FN3 Parameters Definition      *
 '****************************************
 '=====  Function Numbers  ================================================
-'const   .fcVersion  = 0
-const   .fcInfGetF   = 1
-const   .fcInfGetD   = 2
-const   .fcFNumGet   = 3
-const   .fcRename    = 4
-const   .fcCopy      = 5
-const   .fcInfGetF40 = 11
-const   .fcInfGetD40 = 12
-const   .fcWRcNumGet = 13
-const   .fcRcDelete  = 14
-const   .fcFOptimize = 15
+'const   .fcVersion    = 0
+const   .fcInfGetF     = 1
+const   .fcInfGetD     = 2
+const   .fcFNumGet     = 3
+const   .fcRename      = 4
+const   .fcCopy        = 5
+const   .fcInfGetF40   = 11
+const   .fcInfGetD40   = 12
+const   .fcWRcNumGet   = 13
+const   .fcRcDelete    = 14
+const   .fcFOptimize   = 15
+const   .fcVerGetPD4   = 20
+const   .fcInfGetPD4   = 21
+const   .fcExePNameGet = 22
+const   .fcLDFnameGet  = 23
+const   .fcGetDateTime = 24
+const   .fcFormat      = 41
+const   .fcCreateFolder= 42
+const   .fcDeleteFolder= 43
+const   .fcFsFirst     = 44
+const   .fcFsNext      = 45
 
 '=====  Set Values  ======================================================
 const   .fiDriveA   = 1
@@ -1396,6 +2100,11 @@ const   .fiDriveB   = 2
 
 const   .fiOPNoDsp  = 0
 const   .fiOPGraph  = 256
+
+'=====  Function .fcFsFirst ==========================================
+const   .fiFile     = &h00
+const   .fiFolder   = &h10
+
 
 '****************************************
 '*  GRAPH.FN3 Parameters Definition     *
@@ -1408,6 +2117,7 @@ const   .fiOPGraph  = 256
 'const   .fcRectFil  = 4
 'const   .fcRect     = 5
 'const   .fcDotGet   = 6
+'const   .fcInversion = 10
 
 const   .fcGetTextColor = 31
 const   .fcSetTextColor = 32
@@ -1420,14 +2130,15 @@ const   .grBlack    = 1
 const   .grReverse  = 2
 
 '=====  Function .fcGetTextColor ==========================================
-const   .grColor.White   = &hFFFFFF00
-const   .grColor.Red     = &hFF000000
-const   .grColor.Green   = &h00FF0000
-const   .grColor.Blue    = &h0000FF00
-const   .grColor.Black   = &h00000000
-const   .grColor.Cyan    = &h00FFFF00
-const   .grColor.Magenta = &hFF00FF00
-const   .grColor.Yellow  = &hFFFF0000
+const   .grColor.White       = &hFFFFFF00
+const   .grColor.Red         = &hFF000000
+const   .grColor.Green       = &h00FF0000
+const   .grColor.Blue        = &h0000FF00
+const   .grColor.Black       = &h00000000
+const   .grColor.Cyan        = &h00FFFF00
+const   .grColor.Magenta     = &hFF00FF00
+const   .grColor.Yellow      = &hFFFF0000
+const   .grColor.Transparent = &h00000001
 
 'const   .pvEmph.Off  = &h00
 'const   .pvEmph.On   = &h01
@@ -1448,6 +2159,8 @@ const    .grFit.Center= 3
 'const   .fcVersion  = 0
 const   .fcAndSrch  = 1
 const   .fcOrSrch   = 2
+const   .fcAndSrchN = 11
+const   .fcOrSrchN = 12
 
 '****************************************
 '*  BSEARCH.FN3 Parameters Definition   *
@@ -1566,6 +2279,19 @@ const   .fcScrnGet   = 1
 const   .fcScrnSet   = 2
 
 '****************************************
+'*  SOUND.FN3 Parameters Definition     *
+'****************************************
+'=====  Function Numbers  ================================================
+'const   .fcVersion    =  0
+const   .fcSndPlay     =  1
+const   .fcSndStop     =  2
+const   .fcSndCheck    =  3
+const   .fcSndPlaySync = 11
+
+const   .sndStop       =  0
+const   .sndPlay       =  1
+
+'****************************************
 '*  PROGRAM.FN3 Parameters Definition   *
 '****************************************
 '=====  Function Numbers  ================================================
@@ -1613,4 +2339,172 @@ const   .caPtBg       = 1
 const   .caPtTitle    = 2
 const   .caPtStatus   = 4
 const   .caPtGuide    = 8
+
+'****************************************
+'*  IME.FN3 Parameters Definition       *
+'****************************************
+'=====  Function Numbers  ================================================
+'const   .fcVersion        = 0
+const   .fcIMERun          = 1
+const   .fcIMERunTextField = 2
+
+'=====  Function .fcIMERun and fcIMERunTextField =========================
+const   .imeKanaKanji      = 1
+const   .imeZenKana        = 2
+const   .imeHanKana        = 4
+const   .imeZenAlpha       = 8
+const   .imeHanAlpha       = 16
+const   .imeNum            = 32
+const   .imeKigou          = 64
+
+'****************************************
+'*  UHFRFID.FN3 Parameters Definition   *
+'****************************************
+'=====  Function Numbers  ================================================
+'const   .fcVersion  = 0
+const   .fcUHFParaInit     = 1
+const   .fcUHFParaIGet     = 2
+const   .fcUHFParaISet     = 3
+const   .fcUHFGetPC        = 6
+const   .fcUHFGetLen       = 7
+const   .fcUHFClrRRD       = 8
+const   .fcUHFSetArea      = 10
+const   .fcUHFSetFilter    = 11
+const   .fcUHFResult       = 12
+const   .fcUHFSetFilterOr  = 13
+const   .fcUHFSetFilterAnd = 14
+const   .fcUHFReadTagCtrl  = 15
+const   .fcUHFRead         = 20
+const   .fcUHFWrite        = 21
+const   .fcUHFSetPwd       = 22
+const   .fcUHFPwdLock      = 23
+const   .fcUHFPermaLock    = 24
+const   .fcUHFSetUII       = 25
+const   .fcUHFKill         = 26
+
+'+--------------------------------------+
+'|  Setting Numeric Data                |
+'+--------------------------------------+
+'===== Parameter Number  ===================================================
+const   .uhfCh           = 1
+const   .uhfQparam       = 2
+const   .uhfSession      = 3
+const   .uhfSessionInit  = 4
+const   .uhfCmdTimeOut   = 5
+const   .uhfAntiReRead   = 6
+const   .uhfReadPowerLv  = 10
+const   .uhfWritePowerLv = 11
+const   .uhfPowerSave    = 12
+
+'===== Parameter(uhfSession)  ===============================================
+const   .uhfS0           = 0
+const   .uhfS1           = 1
+const   .uhfS2           = 2
+const   .uhfS3           = 3
+
+'===== Parameter(uhfSessionInit)  ============================================
+const   .uhfDisable      = 0
+const   .uhfEnable       = 1
+
+'===== Parameter(uhfAntiReRead)  ============================================
+'const  .uhfDisable      = 0
+const   .uhfClrTrgOn     = 1
+const   .uhfClrOpen      = 2
+
+'===== Parameter(uhfPowerSave)  ============================================
+const   .uhfPSOff        = 0
+const   .uhfPSOn         = 1
+
+'=====  Function .fcUHFResult ============================================
+const   .uhfRetSuccess   = &h0000      'NormalEnd
+const   .uhfRetMaxSize   = &h0001
+const   .uhfRetTmout     = &h0002
+const   .uhfRetMemOver   = &h0003
+const   .uhfRetMemLock   = &h0004
+const   .uhfRetLCarrier  = &h000B
+const   .uhfRetTagErr    = &h000F
+const   .uhfRetInvalid   = &h0010
+
+'=====  Function .fcSetFilter ============================================
+'=====  Function .fcRead =================================================
+const   .uhfRSVbank      = 0    'Reserved bank
+
+'=====  Function .fcUHFPwdLock ===========================================
+'=====  Function .fcUHFPermaLock =========================================
+const   .uhfRSVKill      = 1    'Kill Password area
+const   .uhfRSVAcc       = 2    'Access Password area
+const   .uhfUIIbank      = 10   'UII bank
+const   .uhfTIDbank      = 20   'TID bank
+const   .uhfUSERbank     = 30   'USER bank
+
+'=====  Function .fcUHFSetPwd ============================================
+const   .uhfKillPwd      = 1    'Kill Password
+const   .uhfAccPwd       = 2    'Access Password
+
+'=====  Function .fcUHFPwdLock ===========================================
+const   .uhfUnLock       = 0    'Unlock
+const   .uhfPwdLock      = 1    'Pwd Lock
+
+'=====  Function .fcUHFPermaLock =========================================
+const   .uhfPmUnLock     = 0    'Permanent Unlock
+const   .uhfPmLock       = 1    'Permanent Lock
+
+'****************************************
+'*  USB.FN3 Parameters Definition       *
+'****************************************
+'=====  Function Numbers  ================================================
+'const   .fcVersion      = 0
+const   .fcUSBSetClass   = 1
+const   .fcUSBGetClass   = 2
+const   .fcUSBGetStatus  = 3
+const   .fcCRADLEGetStt  = 4
+const   .fcMTPStart      = 20
+const   .fcMTPStartWay   = 22
+
+'=====  Function .fcUSBSetClass and fcUSBGetClass ========================
+const   .usbMTPClass     = 0
+const   .usbCOMClass     = 1
+
+'=====  Function .fcUSBGetStatus  ========================================
+const   .usbDisconnect   = 0
+const   .usbStandby      = 1
+const   .usbActive       = 2
+
+'=====  Function .fcMTPStart =============================================
+const   .mtpCancel       = 0
+const   .mtpPullUSB      = 1
+const   .mtpPowerOff     = 2
+
+'=====  Function .fcMTPStartWay ==========================================
+const   .mtpAutoStart    = 0
+const   .mtpAprStart     = 1
+
+'****************************************
+'*  DEVCTRL.FN3 Parameters Definition   *
+'****************************************
+'=====  Function Numbers  ================================================
+'const   .fcVersion      = 0
+const   .fcLedCtl        = 1
+const   .fcLedBlink      = 2
+
+'****************************************
+'*  CRYPT.FN3 Parameters Definition     *
+'****************************************
+'=====  Function Numbers  ================================================
+'const   .fcVersion      = 0
+const   .fcEncMD5        = 1
+const   .fcEncDesEcb     = 2
+const   .fcDecDesEcb     = 3
+const   .fcEncTDesEcb    = 4
+const   .fcDecTDesEcb    = 5
+const   .fcEncDesCbc     = 6
+const   .fcDecDesCbc     = 7
+const   .fcEncTDesCbc    = 8
+const   .fcDecTDesCbc    = 9
+const   .fcEncAesEcb     = 10
+const   .fcDecAesEcb     = 11
+const   .fcEncAesCbc     = 12
+const   .fcDecAesCbc     = 13
+
+
 

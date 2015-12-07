@@ -68,6 +68,7 @@ Main
   while k$<>"0"
     call Screen.Init
     call Screen.Footer
+    locate 1,1
     print ""
     for i%=0 to (menuLength-1)
       'р╩ап

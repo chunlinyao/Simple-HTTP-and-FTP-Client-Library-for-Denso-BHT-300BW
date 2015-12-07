@@ -98,19 +98,25 @@
     end if
     print "]ѡ [ENT]ȷ"
   end sub
- 
+  
+ sub Screen.Color(c&, bg&)
+    call "graph.fn3" .fcSetTextColor c&, bg&
+ end sub
 '--------------------------------------------------------------------------
 ' Header display
 '-------------------------------------------------------------------------- 
   sub Screen.Header(title$)
     locate 1,1
+    Screen.Color(&h1f2b6f00,&h70f96900)
     OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
-    screen ,Lc.RAT.REVERSE
+    'screen ,Lc.RAT.REVERSE
     print INPUT.EMPTYLINE$;
     locate 1
     print Util.TruncateStr$(title$,1,16)
     OUT .pnFont.Emph, .pvEmph.Off ' &h6081,0 ' Bold display
-    screen ,Lc.RAT.NORMAL
+    Screen.Color(.grColor.Black, .grColor.White) 
+    'screen ,Lc.RAT.NORMAL
+    
   end sub
   
   sub Screen.H1(title$)
@@ -131,6 +137,7 @@
  function Screen.Field%(label$, value$, type$, rev%)
     
     Screen.Field% = csrlin
+    Screen.Color(&h1f2b6f00,.grColor.White)
     'OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
     if rev% then
       screen ,Lc.RAT.REVERSE
@@ -166,7 +173,9 @@
       case "link"
       case "cmd"
       case "checkbox"
-    end select 
+    end select
+    Screen.Color(.grColor.Black,.grColor.White)
+     
     exit function
 FIELD.CHKBOX
     print Util.TruncateStr$(label$,1,len(INPUT.EMPTYLINE$)-7);

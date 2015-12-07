@@ -10,6 +10,7 @@
 '$include:'barcode.def'
 '$include:'util.def'
 '$include:'util.inc'
+'$include:'screen.inc'
 
 '--------------------------------------------------------------------------
 ' (private) get max len
@@ -44,6 +45,7 @@
     private pos%:pos%=pos(0)
     private lin%:lin%=csrlin
 
+    Screen.Color(.grColor.Black, .grColor.Yellow)
     print "             ";
     locate pos%
     print default$;
@@ -109,6 +111,7 @@
 endinput
   cursor off
   out .pnKeyMd, .pvKMNm
+  Screen.Color(.grColor.Black, .grColor.White)
   return
   
   end function

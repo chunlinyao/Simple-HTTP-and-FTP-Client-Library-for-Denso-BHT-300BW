@@ -27,7 +27,7 @@
       private cnt%: cnt%=3
       private idx%
       private ret%: ret%=0
-               
+      private pos%: pos%=0   
       
       labels$(0)="用户名"
       labels$(1)="密码"
@@ -44,19 +44,24 @@
       for idx%=0 to cnt%-1
           fieldpos%(idx%)= Screen.Field%(labels$(idx%),values$(idx%),types$(idx%),0)
       next
-        
+
+continue
       while 1
-        ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,ret%,cnt%)
-        select types$(ret%)
+        ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,pos%,cnt%)
+        if ret% = -1 then
+           goto continue
+        end if
+        pos%=ret%
+        select types$(pos%)
           case "cmd"
             gosub LOGIN.SAVE
             exit sub
           case "text"
-            locate 3,fieldpos%(ret%)+2
-            values$(ret%)=Barcode.BarcodeKeySen$(values$(ret%))
-            if ret%=0 and instr(values$(ret%), DELIMITER$) then
+            locate 3,fieldpos%(pos%)+2
+            values$(pos%)=Barcode.BarcodeKeySen$(values$(pos%))
+            if pos%=0 and instr(values$(pos%), DELIMITER$) then
             '用户名密码一起
-               dim tmp$[100]: tmp$=values$(ret%)
+               dim tmp$[100]: tmp$=values$(pos%)
                dim x%
                x%=Util.Split%(tmp$, values$, DELIMITER$)
                gosub LOGIN.SAVE

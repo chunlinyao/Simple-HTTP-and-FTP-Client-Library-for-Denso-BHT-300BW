@@ -22,7 +22,7 @@
     out .pnSysSts, .pvStsOn ' show system status
     out .pnARKey,0          ' auto key repeat OFF
     out .pnMgLng, .pvChinese ' Chinese message
-
+	out .pnKeyEnt, .pvKyAlpNm ' &h60B0,1 英文数字输入方式
     screen Lc.SCR.KANJI,Lc.WAT.NORMAL
     cls
   end sub
@@ -135,7 +135,7 @@
     if rev% then
       screen ,Lc.RAT.REVERSE
     end if
-    print INPUT.EMPTYLINE$;
+    'print INPUT.EMPTYLINE$;
     locate 1
     select type$
       case "link"

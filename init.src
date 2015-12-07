@@ -1,6 +1,7 @@
 '------------------------------------------------------------
 ' init driver
 '------------------------------------------------------------
+'$include:'bhtdef.inc'
 '$include:'com.def'
 '$include:'com.inc'
 '$include:'input.inc'
@@ -58,24 +59,33 @@ Main
   private ret$[40]
   private dat$[13]
   private src.selectionData$(MENULENGTH)
-
-  src.selectionData$(0) = "1.进入系统"
+  private port%
+  
+  src.selectionData$(0) = "正在进入系统"
 
   '------ init ------
   k$="1"
   while k$<>"0"
     call Screen.Init
     call Screen.Footer
+    print ""
     for i%=0 to (menuLength-1)
       '一列
       'locate (i% mod 2)*12+1,2*(i%/2)+1
       locate 3, 2*i% + 1
       print src.selectionData$(i%)
     next i%
-    locate ,,1 : cursor on
+    'locate ,,1 : cursor on
     print ""
-    print "请选择"; 
-    k$ = input$(1)
+    
+    timea=10
+    wait .pnEvent, (.pvEvKeyOn + .pvEvTma0)
+    port%=inp(.pnEvent)  
+    if (port% and .PvEvTma0) = .pvEvTma0 then
+      k$="1"
+    else
+      k$ = input$(1)
+    end if
     select k$
       case "1"
         APP.func%=APP.FUNC.INBOUND%

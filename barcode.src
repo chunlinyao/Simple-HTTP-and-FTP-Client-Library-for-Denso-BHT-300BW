@@ -48,6 +48,7 @@
     locate pos%
     print default$;
     cursor on
+    OUT .pnKeyMd, .pvKMNm
     while 1
       if bar3$<>"" then
         open "BAR:" as #f.no% code bar$,bar2$,bar3$
@@ -66,7 +67,7 @@
         print rt$;
         Barcode.BarcodeKey3Def$ = Util.Trim$(rt$) 
         close #f.no%
-        cursor off
+        gosub endinput
         exit function
       else
         close #f.no%
@@ -74,13 +75,13 @@
         while kb$<>""
           if instr(esc$, kb$) then
             Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
-            cursor off
+            gosub endinput
             exit function
           endif
           select kb$
           case chr$(13)
             Barcode.BarcodeKey3Def$ = Util.Trim$(rt$)
-            cursor off
+            gosub endinput
             exit function
           case chr$(8)
             if len(rt$) then
@@ -104,6 +105,12 @@
         wend
       endif
     wend
+    exit function
+endinput
+  cursor off
+  out .pnKeyMd, .pvKMNm
+  return
+  
   end function
 '--------------------------------------------------------------------------
 ' barcode.or.key

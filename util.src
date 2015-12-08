@@ -33,7 +33,7 @@
 '--------------------------------------------------------------------------
 ' trim spaces
 '--------------------------------------------------------------------------
-  function Util.Trim$(src$)
+  function Util.Trim$(src$)[200]
     if len(src$)=0 then
       Util.Trim$=src$
       exit function
@@ -249,7 +249,7 @@
 '--------------------------------------------------------------------------
 ' is 1st shift-jis
 '--------------------------------------------------------------------------
-  function Util.Is1stShiftJis%(ch$)
+  function Util.Is1stShiftJis%(byref ch$)
     private v%: v%=asc(ch$)
     if v%>=&h81 and v%<=&h9f or v%>=&he0 and v%<=&hef then
       Util.Is1stShiftJis%=1
@@ -258,7 +258,7 @@
     end if
   end function
 
-  function Util.Is1stGB%(ch$)
+  function Util.Is1stGB%(byref ch$)
     private v%: v%=asc(ch$)
     if v%>=&h81 and v%<=&hfe then
       Util.Is1stGB%=1
@@ -267,7 +267,7 @@
     end if
   end function
   
-  function Util.IsCJK%(ch$)
+  function Util.IsCJK%(byref ch$)
     if Util.Is1stGB%(ch$) =1 then
         Util.IsCJK%=1
         exit function
@@ -305,11 +305,11 @@
 '--------------------------------------------------------------------------
 ' truncate a string
 '--------------------------------------------------------------------------
-  function Util.TruncateStr$(src$,iniPos%,maxlen%)[100]
+  function Util.TruncateStr$(src$,iniPos%,maxlen%)[200]
     private pos%:
     private ch$
     private slen%
-    private tmpStr$[100]
+    private tmpStr$[200]
     private skip%
 
     slen%=len(mid$(src$,iniPos%))
@@ -346,7 +346,7 @@
 '--------------------------------------------------------------------------
 ' padding a string
 '--------------------------------------------------------------------------
-  function Util.PadLeftStr$(src$,maxlen%)[100]
+  function Util.PadLeftStr$(src$,maxlen%)[200]
     Util.PadLeftStr$=right$("                 " + src$, maxlen%)
   end function
 

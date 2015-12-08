@@ -37,7 +37,7 @@
 '--------------------------------------------------------------------------
 ' barcode.or.key
 '--------------------------------------------------------------------------
-  function Barcode.BarcodeKey3Def$(bar$,bar2$,bar3$,default$)
+  function Barcode.BarcodeKey3Def$(bar$,bar2$,bar3$,default$)[200]
     private f.no%: f.no% = 1
     private esc$: esc$ = Input.CODE.ESC$
     private rt$[200]:rt$=default$
@@ -207,6 +207,6 @@ endinput
 '--------------------------------------------------------------------------
 ' barcode.or.key sen
 '--------------------------------------------------------------------------
-  function Barcode.BarcodeKeySen$(default$)
+  function Barcode.BarcodeKeySen$(default$)[200]
     Barcode.BarcodeKeySen$=Barcode.BarcodeKey3Def$(Barcode.QR$, Barcode.CODE39$, Barcode.CODE128$, default$)
   end function

@@ -22,7 +22,6 @@
 
 '--------------------------------------------------------------------------
  sub Login
-    Screen.Header("登录系统")
     private fieldpos%(10)
       private labels$(10)[30]
       private values$(10)[200]
@@ -43,13 +42,16 @@
       types$(0)="text"
       types$(1)="text"
       types$(2)="cmd"
-     
+      Screen.Header("登录系统")
       for idx%=0 to cnt%-1
           fieldpos%(idx%)= Screen.Field%(labels$(idx%),values$(idx%),types$(idx%),0)
       next
 
 continue
       while 1
+        cls
+        Screen.Footer
+        Screen.Header("登录系统")
         ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,pos%,cnt%)
         if ret% = -1 then
            goto continue
@@ -79,14 +81,72 @@ LOGIN.SAVE
     return
  end sub
  
+ 
+  function Render%(ret$, byref nextscreen$)
+   Render%=Com.Status.SocketConnected
+   Input.InputAnyKey
+  end function
+  
+ function SendTestData%(status%)
+   dim content$[8192]:content$="ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVW" + chr$(10) 
+   dim i%
+   for i%=1 to 7
+     content$=content$ + content$
+   next i%
+   for i%=1 to 3
+     print "sending .. :" + str$(i%)
+     SendTestData%=Com.Sen.SendData%(content$,status%)
+   next i%
+  end function
+  
  sub MainLoop
     Com.ReadConfig
+    
 'nextscreen=主画面
+    private nextscreen$[200]: nextscreen$=Com.Server.MainScreen$
 '错误恢复入口
+    private startTime$[8]
+    private endTime$[8]
+    private ret$[Com.RECVSIZE]
+
+    private status%
+    
+    goto connect
+    
+errorresume
+connect
     '打开连接
+    status%=Com.Status.Init '-- init status
+    '-- state machine
+    while status%<>Com.Status.DeviceClosed
+      select status%
+        case Com.Status.Init
+          status%=Com.TcpIp.OpenDevice%(status%)
+        case Com.Status.DeviceOpened
+          status%=Com.TcpIp.Open%(status%)
+        case Com.Status.Opened
+          status%=Com.TcpIp.OpenSocketSen%(status%)
+        case Com.Status.SocketConnected
+          '发送nextscreen请求
+          'dim c$:c$="content"
+          'status%=Com.Sen.SendData%(c$,status%)
+          status%=SendTestData%(status%)
+        case Com.Status.DataSent
+          '接受请求
+          print "wait recv"
+          status%=Com.Sen.RecvData%(ret$,status%)
+        case Com.Status.DataReceived
+          print "wait render"
+          status%=Render%(ret$,nextscreen$)
+        case Com.Status.DataReceivedEnd
+          status%=Com.TcpIp.CloseSocket%(status%)
+        case Com.Status.SocketClosed
+          status%=Com.TcpIp.Close%(status%)
+        case Com.Status.Closed
+          status%=Com.TcpIp.CloseDevice%(status%)
+      end select
+    wend
 'while 1
-    '发送nextscreen请求
-    '接受请求
     '解析请求
     '有Error就显示
 

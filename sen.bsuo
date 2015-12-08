@@ -1,88 +1,24 @@
-<?xml version="1.0" encoding="shift_jis" standalone="yes"?>
+<?xml version="1.0" encoding="gb2312" standalone="yes"?>
 <BHT_Solution_Information>
+  <BreakPointInformation>
+    <BreakPoint>
+      <File>util.src</File>
+      <Line>36</Line>
+      <Enable>1</Enable>
+    </BreakPoint>
+    <BreakPoint>
+      <File>sen.src</File>
+      <Line>66</Line>
+      <Enable>1</Enable>
+    </BreakPoint>
+  </BreakPointInformation>
   <OpenFileInformation>
-    <OpenInfo>
-      <FileName>util.def</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>init2.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>wh.def</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>init.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>com.def</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>com.inc</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
     <OpenInfo>
       <FileName>com.src</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
-      <FileName>input.inc</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>wh.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>testsen.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>barcode.inc</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>barcode.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>barcode.def</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>input.def</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>testinpu.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>const.inc</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>util.inc</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>screen.inc</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>util.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>input.src</FileName>
-      <EditorType>0</EditorType>
-    </OpenInfo>
-    <OpenInfo>
-      <FileName>screen.src</FileName>
+      <FileName>sen.src</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
   </OpenFileInformation>
@@ -97,7 +33,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>com</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
@@ -139,14 +75,14 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>screen</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>sen</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
@@ -188,7 +124,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>testsen</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>0</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
@@ -202,7 +138,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>util</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
@@ -215,6 +151,6 @@
         <LibraryExpand>1</LibraryExpand>
       </ProjectExpand>
     </ProjectExpands>
-    <RelatedExpand>0</RelatedExpand>
+    <RelatedExpand>1</RelatedExpand>
   </SolutionExpand>
 </BHT_Solution_Information>

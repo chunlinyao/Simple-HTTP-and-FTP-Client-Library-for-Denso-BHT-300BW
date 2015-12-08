@@ -14,6 +14,7 @@
 '$include:'bhtdef.inc'
 '$include:'const.inc'
 '$include:'util.inc'
+'$include:'util.def'
 '$include:'screen.def'
 '$include:'com.def'
 
@@ -139,6 +140,65 @@ tcpopen.resume:
 tcpclose.resume:
     Com.TcpIp.Close%=Com.Status.Closed
   end function
+  
+'------------------------------------------------------------ 
+' open socket
+'------------------------------------------------------------ 
+  function Com.TcpIp.OpenSocketSen%(status%)
+    private family%
+    private type%
+    private protocol%
+    private nport%
+
+    if status% <> Com.Status.Opened then
+      werr=-1
+      Util.errlog("Com.TcpIp.OpenSocketSen",werr,status%)
+      goto socketopensen.resume
+    end if
+
+    on error goto socketopensen.err
+
+    '-- create a socket
+    family%=.soINet
+    type%=.soStream
+    protocol%=.soTCP
+    call "socket.fn3" .fcSocket family%,type%,protocol%,sockfd%
+    status%=Com.Status.SocketCreated
+
+    private option
+    private option%
+    private optname%
+
+    '-- no keep tcp socket
+    optname%=.soTIMEWAIT
+    option=0
+    call "socket.fn3" .fcSSckOpt sockfd%,optname%,option
+    '-- keep alive
+    optname%=.soKepAliv
+    option%=.soEnable
+    call "socket.fn3" .fcSSckOpt sockfd%,optname%,option%
+    
+    '-- connect to socket
+    call "socket.fn3" .fcHToNS Com.Server.PORT%,nport%
+    call "socket.fn3" .fcConnect sockfd%,family%,nport%,Com.Server.ADDRESS$
+    status%=Com.Status.SocketConnected
+
+    Com.TcpIp.OpenSocketSen%=status%
+    on error goto 0
+    exit function
+
+socketopensen.err:
+    werr = err
+    Util.errlog("Com.TcpIp.OpenSocketSen",werr,status%)
+    resume socketopensen.resume
+
+socketopensen.resume:
+    on error goto 0
+    Com.TcpIp.OpenSocketSen%=Com.TcpIp.Close%(status%)
+    if (werr<>&h105) and (werr<>&h450) then
+      Com.TcpIp.OpenSocketSen%=Com.Status.DeviceOpened
+    end if
+  end function
 
 '------------------------------------------------------------ 
 ' open socket
@@ -203,10 +263,13 @@ socketopen.resume:
       Util.errlog("Com.TcpIp.CloseSocket",werr,status%)
       goto socketclose.resume
     end if
-
+    on error goto socketclose.resume
     call "socket.fn3" .fcClose sockfd%
-
-socketclose.resume:    
+    Com.TcpIp.CloseSocket%=Com.Status.SocketClosed
+    on error goto 0
+    exit function
+socketclose.resume: 
+    on error goto 0   
     Com.TcpIp.CloseSocket%=Com.Status.SocketClosed
   end function
 
@@ -335,6 +398,104 @@ recvdata.resume:
       Com.Http.RecvData%=Com.Status.Opened
     end if
   end function
+
+'------------------------------------------------------------ 
+' send data
+'------------------------------------------------------------ 
+  function Com.Sen.SendData%(byref content$, status%)
+    if status% <>Com.Status.SocketConnected then
+      werr=-1
+      Util.errlog("Com.Sen.SendData",werr,status%)
+      goto sen.senddata.resume
+    end if
+
+    on error goto sen.senddata.err
+    content$ = content$ + Com.Sen.NUL$ 
+    private sendlen%:sendlen%=len(content$)
+    private totalsend%: totalsend%=0
+    private sendmode%: sendmode%=.soSdNrm
+    private sendsize%
+    while sendlen% > 0
+        'print "Try send:" + str$(sendlen%)
+        Com.Http.Sendbuff$=mid$(content$, totalsend% + 1)
+        call "socket.fn3" .fcSend sockfd%,Com.Http.Sendbuff$,sendlen%,sendmode%,sendsize%
+        totalsend% = totalsend% + sendsize%
+        sendlen% = sendlen% - sendsize%
+        'if sendlen% > 0 then
+        '   print "Loop Send:" + str$(sendlen%)
+        'end if
+    wend
+    status%=Com.Status.DataSent
+    Com.Sen.SendData%=status%
+    on error goto 0
+    exit function
+
+sen.senddata.err:
+    werr = err
+    Util.errlog("Com.Sen.SendData",werr,status%)
+    resume sen.senddata.resume
+
+sen.senddata.resume:
+    on error goto 0
+    Com.Sen.SendData%=Com.TcpIp.CloseSocket%(status%)
+    '不重试
+    'if (werr <> &h105) and (werr<>&h106) and (werr<>&h108) and (werr<>&h450) then
+    '  Com.Sen.SendData%=Com.Status.Opened
+    'end if
+  end function
+
+
+'------------------------------------------------------------ 
+' sen receive data
+'------------------------------------------------------------ 
+  function Com.Sen.RecvData%(byref ret$,status%)
+    private recvlen%
+    private recvmode%
+    private recvsize%
+    private recvflag%
+
+    if status% <> Com.Status.DataSent then
+      werr=-1
+      Util.errlog("Com.Sen.RecvData",werr,status%)
+      goto sen.recvdata.resume
+    end if
+
+    on error goto sen.recvdata.err
+
+    '-- receive data
+    recvlen%=Com.RECVSIZE
+    recvmode%=.soRvNrm
+    recvflag%=.soRvWrite
+    ret$=""
+    while instr(ret$, Com.Sen.NUL$)=0
+      call "socket.fn3" .fcRecv sockfd%,Com.Http.Recvbuff$,recvlen%,recvmode%,recvsize%,recvflag%
+      ret$=ret$+Com.Http.Recvbuff$
+      print "received" + ret$
+      if recvsize%=0 then
+        goto sen.recvdata.resume
+      end if
+    wend
+    ret$=left$(ret$, len(ret$)-1)
+    status%=Com.Status.DataReceived
+    Com.Sen.RecvData%=status%
+    on error goto 0
+    exit function
+
+sen.recvdata.err:
+    werr = err
+    Util.errlog("Com.Sen.RecvData",werr,status%)
+    resume sen.recvdata.resume
+
+sen.recvdata.resume:
+    on error goto 0
+    Com.Sen.RecvData%=Com.TcpIp.CloseSocket%(status%)
+    '不重试
+    'if (werr <> &h105) and (werr<>&h106) and (werr<>&h108) and (werr<>&h450) then
+    '  Com.Sen.RecvData%=Com.Status.Opened
+    'end if
+  end function
+
+
 
 '------------------------------------------------------------ 
 ' open FTP
@@ -622,39 +783,39 @@ recvfile.resume:
       print "URL未设置";
       input r$
     else
-      print "URL:["+Com.Http.URLPREFIX$+"]"
+      'print "URL:["+Com.Http.URLPREFIX$+"]"
     end if
     if Com.Http.ADDRESS$="" then
       print "HTTP地址未设置";
       input r$
     else
-      print "HTTP:["+Com.Http.ADDRESS$+"]"
+      'print "HTTP:["+Com.Http.ADDRESS$+"]"
     end if
     if Com.Http.PORT%=0 then
       print "HTTP端口未设置";
       input r$
     else
-      print "HTTP端口:["+str$(Com.Http.PORT%)+"]"
+      'print "HTTP端口:["+str$(Com.Http.PORT%)+"]"
       '--input r$
     end if
     if Com.Server.ADDRESS$="" then
       print "Server地址未设置";
       input r$
     else
-      print "Server:["+Com.Server.ADDRESS$+"]"
+      'print "Server:["+Com.Server.ADDRESS$+"]"
     end if
     if Com.Server.PORT%=0 then
       print "Server端口未设置";
       input r$
     else
-      print "Server端口:["+str$(Com.Server.PORT%)+"]"
+      'print "Server端口:["+str$(Com.Server.PORT%)+"]"
       '--input r$
     end if
     if Com.Server.MainScreen$="" then
       print "Server 主画面未设置";
       input r$
     else
-      print "Server 主画面:["+Com.Server.MainScreen$+"]"
+      'print "Server 主画面:["+Com.Server.MainScreen$+"]"
       '--input r$
     end if
   end sub

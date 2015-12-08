@@ -10,19 +10,21 @@
     <File>screen.bprj</File>
     <File>util.bprj</File>
   </LibraryFileList>
-  <IncludeFileList />
+  <IncludeFileList>
+    <File>bhtdef.inc</File>
+  </IncludeFileList>
   <Option>
     <Language>BHT-BASIC4.0</Language>
     <Build>Program</Build>
     <DebugOut>0</DebugOut>
-    <ListOut>0</ListOut>
+    <ListOut>1</ListOut>
     <TblOut>0</TblOut>
     <CrossOut>0</CrossOut>
     <SizeOut>0</SizeOut>
     <ExInclude>0</ExInclude>
     <MapOut>0</MapOut>
-    <UnDefVar>0</UnDefVar>
-    <JoinListOut>0</JoinListOut>
+    <UnDefVar>1</UnDefVar>
+    <JoinListOut>1</JoinListOut>
     <ErrorOut>0</ErrorOut>
     <PrgFormat>0</PrgFormat>
     <ErrorScope>0</ErrorScope>

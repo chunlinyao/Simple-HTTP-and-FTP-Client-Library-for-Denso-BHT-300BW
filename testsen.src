@@ -18,6 +18,10 @@
  sub testScreenHeader
     Screen.Header("长字段名字段名字段名字段名")
  end sub
+ sub testScreenHeaderUDLR
+    Screen.HeaderUDLR(1,1)
+    Input.InputAnyKey
+ end sub
  sub testScreenH1
     Screen.H1("#121241字段名字段")
  end sub
@@ -29,7 +33,7 @@
     ret%=Screen.Field%("长字段名字段名字段名字段名", "12asdfas4", "text", 1)
     call Screen.P("长字段名字段名段名字段")
     call Screen.Span("单行文本单行文本单行文本单行文本单行文本")
-    ret%=Screen.Field%("", "124", "num", 1)
+    ret%=Screen.Field%("aa", "124", "num", 1)
     locate 3, ret%+2
   end sub
 
@@ -86,6 +90,7 @@ Main
   Test.Start
   
   testScreenHeader
+  testScreenHeaderUDLR
   testScreenH1
   testScreenField
   testInputBarcode

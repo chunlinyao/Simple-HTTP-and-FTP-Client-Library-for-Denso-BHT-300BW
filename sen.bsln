@@ -6,7 +6,7 @@
     <IsConfigTool>0</IsConfigTool>
   </SolutionInformation>
   <ProjectInformation>
-    <StartupProjectName>testsen</StartupProjectName>
+    <StartupProjectName>init</StartupProjectName>
     <Project>barcode.bprj</Project>
     <Project>com.bprj</Project>
     <Project>init.bprj</Project>
@@ -26,6 +26,14 @@
     <Project>util.bprj</Project>
     <Project>wh.bprj</Project>
   </ProjectInformation>
+  <RelatedFileInformation>
+    <RelatedFile>
+      <File>CCONFIG.DAT</File>
+      <Field>16,64</Field>
+      <EndSpace>0</EndSpace>
+      <LineFeed>0</LineFeed>
+    </RelatedFile>
+  </RelatedFileInformation>
   <DebugInformation>
     <Mode>0</Mode>
     <SimulateDebugSetting>

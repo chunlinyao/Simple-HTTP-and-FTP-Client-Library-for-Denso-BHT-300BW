@@ -136,7 +136,6 @@
 '--------------------------------------------------------------------------
  function Screen.Field%(label$, value$, type$, rev%)
     
-    Screen.Field% = csrlin
     Screen.Color(&h1f2b6f00,.grColor.White)
     'OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
     if rev% then
@@ -184,6 +183,7 @@ FIELD.CHKBOX
     else
       print ":[   ]"
     end if
+    Screen.Field% = csrlin-2
     return
     
 FIELD.LBLINPUT
@@ -192,6 +192,7 @@ FIELD.LBLINPUT
       print ":"
     else
       gosub FIELD.TXTNUM
+      Screen.Field% = csrlin-2
     end if
     return
     
@@ -200,6 +201,7 @@ FIELD.LBLCMD
     tmp$="<" + Util.TruncateStr$(label$,1,len(INPUT.EMPTYLINE$)-4) + ">"
     locate (16 - len(tmp$)) / 2
     print tmp$
+    Screen.Field% = csrlin - 2
     return
      
 FIELD.TXTNUM
@@ -212,7 +214,7 @@ FIELD.TXTNUM
       else
         print Util.TruncateStr$(value$,1,maxLen%)
       end if
-    
+      Screen.Field% = csrlin - 4
     return
   
  end function

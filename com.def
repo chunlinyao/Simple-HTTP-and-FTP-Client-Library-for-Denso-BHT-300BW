@@ -17,7 +17,7 @@ const Com.Http.PostMode=1
 const Com.Ftp.GetMode=0
 const Com.Ftp.PostMode=0
 
-const Com.SENDSIZE=512
+const Com.SENDSIZE=8192
 const Com.RECVSIZE=8192
 
 const Com.TcpIp.Http=0
@@ -40,6 +40,9 @@ const Com.Status.DeviceClosed=10
   global Com.Http.EOL$: Com.Http.EOL$ = chr$(13)+chr$(10)
   global Com.Http.EOLEOL$: Com.Http.EOLEOL$ = Com.Http.EOL$+Com.Http.EOL$
   global Com.Http.LENGTH$: Com.Http.LENGTH$="Content-Length: "
+
+  global Com.Sen.EOL$: Com.Sen.EOL$ = chr$(10)
+  global Com.Sen.NUL$: Com.Sen.NUL$ = chr$(0)
 
   global Com.ConfigFileName$[20]: Com.ConfigFileName$="CCONFIG.DAT"
 

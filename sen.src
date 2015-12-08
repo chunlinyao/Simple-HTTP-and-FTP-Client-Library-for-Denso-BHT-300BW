@@ -93,11 +93,8 @@ LOGIN.SAVE
    for i%=1 to 7
      content$=content$ + content$
    next i%
-   for i%=1 to 3
-     print "sending .. :" + str$(i%)
      SendTestData%=Com.Sen.SendData%(content$,status%)
-   next i%
-  end function
+   end function
   
  sub MainLoop
     Com.ReadConfig

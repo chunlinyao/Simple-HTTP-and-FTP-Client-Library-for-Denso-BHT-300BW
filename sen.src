@@ -17,9 +17,11 @@
 '$include:'com.inc'
 
 
-  global username$[100]
-  global password$[100]
+  private username$[100]
+  private password$[100]
 
+  
+    
 '--------------------------------------------------------------------------
  sub Login
     private fieldpos%(10)
@@ -81,12 +83,182 @@ LOGIN.SAVE
     return
  end sub
  
+  '-------
+  '编辑选定的字段或者触发按钮
+  '-------
+  function EditField%(pos%,byref nextscreen$,byref fieldpos%(), byref values$(), byref types$())
+    select types$(pos%)
+          case "cmd"
+            gosub firecmd
+          case "link"
+            gosub firecmd
+          case "text"
+            gosub inputtext
+          case "num"
+            gosub inputtext
+          case "checkbox"
+            gosub inputcheckbox
+    end select
+    exit function
+firecmd
+      nextscreen$=values$(pos%) 
+      EditField%=1
+      return        
+inputtext
+      private oldValue$[200]:oldValue$=values$(pos%)
+      locate 3,fieldpos%(pos%)+2
+      values$(pos%)=Barcode.BarcodeKeySen$(values$(pos%))
+      if values$(pos%)=oldValue$ then
+          EditField%=0
+      else
+          EditField%=1
+      endif
+      return
+inputcheckbox
+      values$(pos%)=Input.Toggle$(values$(pos%))
+      EditField%=1
+      return
+  end function
  
-  function Render%(ret$, byref nextscreen$)
+  '--------------------------------
+  '处理画面显示和用户操作
+  '---------------------------------
+  function Render%(byref ret$, byref nextscreen$, byref refreshscreen$, byref keys$(), byref values$(), byref cnt%)
+      private fieldpos%(10)
+      private labels$(10)[30]
+      private fieldvalues$(10)[200]
+      private types$(10)[10]
+      private fieldkeys$(10)
+      private fieldcnt%: fieldcnt%=0
+
+      private idx%
+
+      private layout$(20)
+      private layoutvalues$(20)[30]
+      private layoutcnt%: layoutcnt%=0
+      private autosubmit$(10)[200]
+      private autofocus$
+      
+      private ret%: ret%=0
+      private pos%: pos%=0   
+      private changed%
+   '解析请求
+   'TODO
+
+      labels$(0)="用户名"
+      labels$(1)="密码"
+      labels$(2)="登录"
+      
+      fieldvalues$(0)=""
+      fieldvalues$(1)="111"
+      fieldvalues$(2)="/m/scan"
+      
+      fieldkeys$(0)="key1"
+      fieldkeys$(1)="key2"
+      fieldkeys$(2)="key3"
+
+      types$(0)="text"
+      types$(1)="text"
+      types$(2)="cmd"
+ 
+      fieldcnt%=3
+      layout$(0)="header" 
+      layout$(1)="field" 
+      layout$(2)="field" 
+      layout$(3)="field" 
+
+      layoutvalues$(0)="假话面" 
+      layoutcnt%=4
+   'TODO 有Error就显示
+
+   '循环下一个画面的请求 while nextscreen=""
+   nextscreen$=""
+   dim first%: first%=1
+   while nextscreen$=""
+        '渲染画面
+        gosub dorender
+        if first% > 0 then
+          '如果是首次渲染，有autofocus的进入编辑状态
+          if autofocus$ <> "" then
+              for ret% = 0 to (fieldcnt% - 1)
+                if fieldkeys$(ret%) = autofocus$ then
+                 ' goto fieldselected
+                end if
+              next
+          end if
+          first% = 0
+        end if
+        '进入SelectField
+        ret%=Input.SelectField%(fieldpos%,labels$,fieldvalues$,types$,pos%,fieldcnt%)
+
+fieldselected
+        if ret% >=0 then
+            '不是取消
+            pos%=ret%
+            'EDITField
+            changed%=EditField%(pos%,nextscreen$,fieldpos%,fieldvalues$,types$)
+            if changed%>0 and autosubmit$(pos%) <> "" then
+                nextscreen$=autosubmit$(pos%)
+            end if
+        end if
+            
+   wend
+   '准备key$和values$
+   'ssend submited command button
+   keys$(cnt%)="submit"
+   values$(cnt%)=fieldkeys$(pos%)
+   cnt%=cnt%+1
+   for idx%=0 to (fieldcnt% -1)
+       if types$(idx%)<> "cmd" and types$(idx%) <> "link" then
+           keys$(cnt%)=fieldkeys$(idx%)
+           values$(cnt%)=fieldvalues$(idx%)
+           cnt%=cnt%+1
+       end if
+   next
+
    Render%=Com.Status.SocketConnected
-   Input.InputAnyKey
+   Screen.Header("发送中...")
+   exit function
+
+'-----------
+' 
+dorender
+  cls
+  Screen.Footer
+  fieldcnt%=0
+  for idx%=0 to (layoutcnt%-1)
+    select layout$(idx%)
+      case "header"
+           Screen.Header(layoutvalues$(idx%))
+      case "p"
+           Screen.P(layoutvalues$(idx%))
+      case "h1"
+           Screen.H1(layoutvalues$(idx%))
+      case "span"
+           Screen.Span(layoutvalues$(idx%))
+      case "field"
+           fieldpos%(fieldcnt%)=Screen.Field%(labels$(fieldcnt%), fieldvalues$(fieldcnt%), types$(fieldcnt%), 0)
+           fieldcnt%=fieldcnt%+1
+    end select
+  next
+  return
   end function
   
+  '-------------------------------------------------
+  ' 询问是否重试
+  '--------------------------------------------------
+  function RetryYesNo$[1]
+    cls
+    Screen.Footer
+    Screen.Header("网络错误")
+    Screen.P("是否重试出错页面，[是]重试，[否]返回主页面")
+    Screen.FooterYesNo
+    RetryYesNo$ = Input.InputYesNo$
+  end function
+  
+  '-----------------------------------
+  '测试数据
+  '-----------------------------------
  function SendTestData%(status%)
    dim content$[8192]:content$="ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVW" + chr$(10) 
    dim i%
@@ -95,22 +267,39 @@ LOGIN.SAVE
    next i%
      SendTestData%=Com.Sen.SendData%(content$,status%)
    end function
-  
+ 
+ 'generate send data for sen format 
+ function GenerateSendData$(byref nextscreen$, byref keys$(), byref values$(), byref cnt%)[Com.SENDSIZE]
+   private idx%
+   private ret$[Com.SENDSIZE]:ret$=""
+   ret$=ret$ + "screenName" + DELIMITER$ + nextscreen$ + Com.Sen.EOL$ 
+   ret$=ret$ + "authUsername" + DELIMITER$ + username$ + Com.Sen.EOL$ 
+   ret$=ret$ + "authPassword" + DELIMITER$ + password$ + Com.Sen.EOL$ 
+   for idx%=0 to (cnt% -1)
+     ret$=ret$ + keys$(idx%) + DELIMITER$ + values$(idx%) + Com.Sen.EOL$ 
+   next
+   GenerateSendData$=ret$
+ end function 
+  '--------------------------------
+  '主程序，请求，渲染循环
+  '--------------------------------
  sub MainLoop
     Com.ReadConfig
     
 'nextscreen=主画面
     private nextscreen$[200]: nextscreen$=Com.Server.MainScreen$
+    private refreshscreen$[200]: refreshscreen$=nextscreen$
+    private cnt%: cnt%=0
+    private keys$(30)
+    private values$(30)[200]
 '错误恢复入口
     private startTime$[8]
     private endTime$[8]
     private ret$[Com.RECVSIZE]
+    private content$[Com.SENDSIZE]
 
     private status%
     
-    goto connect
-    
-errorresume
 connect
     '打开连接
     status%=Com.Status.Init '-- init status
@@ -125,16 +314,15 @@ connect
           status%=Com.TcpIp.OpenSocketSen%(status%)
         case Com.Status.SocketConnected
           '发送nextscreen请求
-          'dim c$:c$="content"
-          'status%=Com.Sen.SendData%(c$,status%)
-          status%=SendTestData%(status%)
+          content$=GenerateSendData$(nextscreen$,keys$,values$,cnt%)
+          status%=Com.Sen.SendData%(content$,status%)
+          cnt%=0    '清空参数
         case Com.Status.DataSent
           '接受请求
-          print "wait recv"
+          Screen.Header("等待回复...")
           status%=Com.Sen.RecvData%(ret$,status%)
         case Com.Status.DataReceived
-          print "wait render"
-          status%=Render%(ret$,nextscreen$)
+          status%=Render%(ret$,nextscreen$,refreshscreen$,keys$,values$,cnt%)
         case Com.Status.DataReceivedEnd
           status%=Com.TcpIp.CloseSocket%(status%)
         case Com.Status.SocketClosed
@@ -143,22 +331,20 @@ connect
           status%=Com.TcpIp.CloseDevice%(status%)
       end select
     wend
-'while 1
-    '解析请求
-    '有Error就显示
-
-'循环下一个画面的请求 while nextscreen=""
-    '渲染画面
-    '如果是首次渲染，有autofocus的进入编辑状态
-    '进入SelectField
-    '处理对应的选择，编辑或者提交 nextscreen=buton.value
-    '编辑后自动提交的控件，自动提交 nextscreen=field.autosubmit
-    
-'错误处理
-  '关闭连接
+  '到这个地方说明网络断了  
   'if 网络错误 问用户从0开始还是刷新刚才的页面
   ' nextscreen=refresnurl
   ' 否则nextscreen=主画面
+  if RetryYesNo$ = "Y" then
+      nextscreen$=refreshscreen$
+  else
+      nextscreen$=Com.Server.MainScreen$
+  end if 
+  '清空参数
+  cnt%=0
+  '重新连接
+  goto connect
+  
  end sub
 
   

@@ -470,7 +470,6 @@ sen.senddata.resume:
     while instr(ret$, Com.Sen.NUL$)=0
       call "socket.fn3" .fcRecv sockfd%,Com.Http.Recvbuff$,recvlen%,recvmode%,recvsize%,recvflag%
       ret$=ret$+Com.Http.Recvbuff$
-      print "received" + ret$
       if recvsize%=0 then
         goto sen.recvdata.resume
       end if

@@ -10,6 +10,7 @@
 '$include:'util.def'
 '$include:'util.inc'
 '$include:'input.def'
+'$include:'input.inc'
 
 
 '--------------------------------------------------------------------------
@@ -107,6 +108,22 @@
   
  sub Screen.Color(c&, bg&)
     call "graph.fn3" .fcSetTextColor c&, bg&
+ end sub
+ 
+ sub Screen.ShowError(byref msg$)
+    locate 1,1
+    Screen.Color(.grColor.Yellow,.grColor.Red)
+    OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
+    print INPUT.EMPTYLINE$;
+    locate 1
+    print "出错啦"
+    OUT .pnFont.Emph, .pvEmph.Off ' &h6081,0 ' Bold display
+    screen ,Lc.RAT.REVERSE
+    print msg$
+    screen ,Lc.RAT.NORMAL
+    print "按任意键继续"
+    Screen.Color(.grColor.Black, .grColor.White) 
+    Input.InputAnyKey
  end sub
 '--------------------------------------------------------------------------
 ' Header display

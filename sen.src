@@ -165,6 +165,8 @@ inputcheckbox
       private changed%
       private bypassselect%
       
+      private errmsg$[1000]:errmsg$="asdljaksdjgkjahiue假的出错信息"
+      
       on key (30) gosub KEY.MAIN.M1
       key (30) on
       key 30, "M" 'allow .pvEvKeyOn be triggered
@@ -196,7 +198,9 @@ inputcheckbox
       layoutvalues$(0)="假话面" 
       layoutcnt%=4
    'TODO 有Error就显示
-
+   if errmsg$ <> "" then
+       Screen.ShowError(errmsg$)
+   end if
    '循环下一个画面的请求 while nextscreen=""
    nextscreen$=""
    dim first%: first%=1

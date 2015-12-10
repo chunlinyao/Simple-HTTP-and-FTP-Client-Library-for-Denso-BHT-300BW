@@ -4,6 +4,7 @@
     <File>testinit.src</File>
   </SourceFileList>
   <LibraryFileList>
+    <File>input.bprj</File>
     <File>screen.bprj</File>
     <File>util.bprj</File>
   </LibraryFileList>

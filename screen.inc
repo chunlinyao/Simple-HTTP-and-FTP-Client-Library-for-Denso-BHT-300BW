@@ -16,3 +16,4 @@
   declare sub Screen.P(title$)
   declare sub Screen.Span(title$)
   declare sub Screen.Color(c&,bg&)
+  declare sub Screen.ShowError(byref msg$)

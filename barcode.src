@@ -37,7 +37,7 @@
 '--------------------------------------------------------------------------
 ' barcode.or.key
 '--------------------------------------------------------------------------
-  function Barcode.BarcodeKey3Def$(bar$,bar2$,bar3$,default$)[200]
+  function Barcode.BarcodeKey3Def$(bar$,bar2$,bar3$,default$, byref enter%)[200]
     private f.no%: f.no% = 1
     private esc$: esc$ = Input.CODE.ESC$
     private rt$[200]:rt$=default$
@@ -45,6 +45,7 @@
     private pos%:pos%=pos(0)
     private lin%:lin%=csrlin
 
+    enter%=0 
     Screen.Color(.grColor.Black, .grColor.Yellow)
     print "             ";
     locate pos%
@@ -64,6 +65,7 @@
       wait .pnEvent, (.pvEvKeyOn or .pvEvBarOn)
       if loc(f.no%) then
         beep
+        enter%=1
         rt$ =input$(loc(f.no%), #f.no%)
         locate pos%,lin%
         print rt$;
@@ -76,12 +78,14 @@
         kb$ = inkey$
   
        if Input.M1Pressed% = 1 then
+          enter% = 0 '取消
           Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
           gosub endinput
           exit function
        end if
        while kb$<>""
           if instr(esc$, kb$) or (Input.M1Pressed% = 1)  then
+            enter% = 0 '取消
             Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
             gosub endinput
             exit function
@@ -89,6 +93,7 @@
           select kb$
           case chr$(13)
             Barcode.BarcodeKey3Def$ = Util.Trim$(rt$)
+            enter% = 1
             gosub endinput
             exit function
           case chr$(8)
@@ -213,6 +218,6 @@ endinput
 '--------------------------------------------------------------------------
 ' barcode.or.key sen
 '--------------------------------------------------------------------------
-  function Barcode.BarcodeKeySen$(default$)[200]
-    Barcode.BarcodeKeySen$=Barcode.BarcodeKey3Def$(Barcode.QR$, Barcode.CODE39$, Barcode.CODE128$, default$)
+  function Barcode.BarcodeKeySen$(default$,byref enter%)[200]
+    Barcode.BarcodeKeySen$=Barcode.BarcodeKey3Def$(Barcode.QR$, Barcode.CODE39$, Barcode.CODE128$, default$, enter%)
   end function

@@ -45,7 +45,9 @@
 
   sub testInputBarcode
     dim ret$
-    ret$=Barcode.BarcodeKeySen$("4567")
+    dim enter%
+    
+    ret$=Barcode.BarcodeKeySen$("4567", enter%)
     print
     print ret$
   end sub

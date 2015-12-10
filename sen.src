@@ -31,7 +31,8 @@
       private idx%
       private ret%: ret%=0
       private pos%: pos%=0   
-      
+      private enter%: enter%=0
+      private bypassselect%
       labels$(0)="用户名"
       labels$(1)="密码"
       labels$(2)="登录"
@@ -53,18 +54,28 @@ continue
         cls
         Screen.Footer
         Screen.Header("登录系统")
-        ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,pos%,cnt%)
-        if ret% = -1 then
-           goto continue
+        
+        if bypassselect% = 0 then
+            ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,pos%,cnt%)
+            if ret% = -1 then
+               goto continue
+            end if
+            pos%=ret%
+        else
+           for idx%=0 to cnt%-1
+              fieldpos%(idx%)= Screen.Field%(labels$(idx%),values$(idx%),types$(idx%),0)
+           next
         end if
-        pos%=ret%
+        
+        bypassselect% = 0
+        
         select types$(pos%)
           case "cmd"
             gosub LOGIN.SAVE
             exit sub
           case "text"
             locate 3,fieldpos%(pos%)+2
-            values$(pos%)=Barcode.BarcodeKeySen$(values$(pos%))
+            values$(pos%)=Barcode.BarcodeKeySen$(values$(pos%), enter%)
             if pos%=0 and instr(values$(pos%), DELIMITER$) then
             '用户名密码一起
                dim tmp$[100]: tmp$=values$(pos%)
@@ -72,6 +83,14 @@ continue
                x%=Util.Split%(tmp$, values$, DELIMITER$)
                gosub LOGIN.SAVE
                exit sub
+            end if
+            if enter% = 1 then
+               pos% = pos% + 1
+               pos% = pos% mod cnt%
+               ret% = pos%
+               if types$(pos%) = "text" then
+                   bypassselect%=1
+               end if
             end if
         end select
       wend
@@ -85,7 +104,8 @@ LOGIN.SAVE
   '-------
   '编辑选定的字段或者触发按钮
   '-------
-  function EditField%(pos%,byref nextscreen$,byref fieldpos%(), byref values$(), byref types$())
+  function EditField%(pos%,byref nextscreen$,byref fieldpos%(), byref values$(), byref types$(), byref enter%)
+    enter% = 0
     select types$(pos%)
           case "cmd"
             gosub firecmd
@@ -102,11 +122,12 @@ LOGIN.SAVE
 firecmd
       nextscreen$=values$(pos%) 
       EditField%=1
+      enter% = 1
       return        
 inputtext
       private oldValue$[200]:oldValue$=values$(pos%)
       locate 3,fieldpos%(pos%)+2
-      values$(pos%)=Barcode.BarcodeKeySen$(values$(pos%))
+      values$(pos%)=Barcode.BarcodeKeySen$(values$(pos%), enter%)
       if values$(pos%)=oldValue$ then
           EditField%=0
       else
@@ -116,6 +137,7 @@ inputtext
 inputcheckbox
       values$(pos%)=Input.Toggle$(values$(pos%))
       EditField%=1
+      enter% = 1
       return
   end function
  
@@ -141,6 +163,8 @@ inputcheckbox
       private ret%: ret%=0
       private pos%: pos%=0   
       private changed%
+      private bypassselect%
+      
       on key (30) gosub KEY.MAIN.M1
       key (30) on
       key 30, "M" 'allow .pvEvKeyOn be triggered
@@ -176,6 +200,7 @@ inputcheckbox
    '循环下一个画面的请求 while nextscreen=""
    nextscreen$=""
    dim first%: first%=1
+   dim enter%
    while nextscreen$=""
         '渲染画面
         gosub dorender
@@ -185,7 +210,9 @@ inputcheckbox
               ret% = 0
               while ret% < fieldcnt%
                 if fieldkeys$(ret%) = autofocus$ then
-                 ' goto fieldselected
+                    pos%=ret%
+                    bypassselect% = 1
+                    goto selectfield
                 end if
                 ret%=ret%+1
               wend
@@ -193,15 +220,28 @@ inputcheckbox
           first% = 0
         end if
         '进入SelectField
-        ret%=Input.SelectField%(fieldpos%,labels$,fieldvalues$,types$,pos%,fieldcnt%)
-fieldselected
+selectfield
+        if bypassselect% = 0 then
+            ret%=Input.SelectField%(fieldpos%,labels$,fieldvalues$,types$,pos%,fieldcnt%)
+        end if
+        bypassselect% = 0
         if ret% >=0 then
             '不是取消
             pos%=ret%
             'EDITField
-            changed%=EditField%(pos%,nextscreen$,fieldpos%,fieldvalues$,types$)
+            changed%=EditField%(pos%,nextscreen$,fieldpos%,fieldvalues$,types$, enter%)
             if changed%>0 and autosubmit$(pos%) <> "" then
                 nextscreen$=autosubmit$(pos%)
+            end if
+            
+            if nextscreen$ = "" and enter% = 1 then
+                '下一个控件
+                pos% = pos% + 1
+                pos% = pos% mod fieldcnt%
+                if types$(pos%) = "text" or types$(pos%) = "num" then
+                    ret% = pos%
+                    bypassselect% = 1
+                end if
             end if
         end if
         if  Input.M1Pressed%=1 then

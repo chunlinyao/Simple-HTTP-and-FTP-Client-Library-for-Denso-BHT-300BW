@@ -88,14 +88,14 @@
     wend
     Input.InputYesNo$=k$
     exit function
-KEY.YN.M1
+KEY.YN.M1:
     k$="Y"
     key (30) off
     key (31) off
     key 30, ""
     key 31, ""
     return
-KEY.YN.M2
+KEY.YN.M2:
     k$="N"
     key (30) off
     key (31) off

@@ -220,7 +220,7 @@ FIELD.CHKBOX
     Screen.Field% = csrlin-2
     return
     
-FIELD.LBLINPUT
+FIELD.LBLINPUT:
     if label$ <> "" then
       print Util.TruncateStr$(label$,1,len(INPUT.EMPTYLINE$)-1);
       print ":"
@@ -230,7 +230,7 @@ FIELD.LBLINPUT
     end if
     return
     
-FIELD.LBLCMD
+FIELD.LBLCMD:
     dim tmp$[20]
     tmp$="<" + Util.TruncateStr$(label$,1,len(INPUT.EMPTYLINE$)-4) + ">"
     locate (16 - len(tmp$)) / 2
@@ -238,7 +238,7 @@ FIELD.LBLCMD
     Screen.Field% = csrlin - 2
     return
      
-FIELD.TXTNUM
+FIELD.TXTNUM:
     
       print " [             ]";
       locate 3

@@ -119,7 +119,7 @@
       endif
     wend
     exit function
-endinput
+endinput:
   cursor off
   out .pnKeyMd, .pvKMNm
   Screen.Color(.grColor.Black, .grColor.White)

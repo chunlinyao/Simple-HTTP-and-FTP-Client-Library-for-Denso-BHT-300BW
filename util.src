@@ -450,6 +450,10 @@ layout.field
 ' error log
 '--------------------------------------------------------------------------
   sub Util.errlog(prefix$,werr,status%)
+    if werr = &h105 then
+        'ignore power off err, when resume
+        exit sub
+    end if
     private a$[1]
     print "ERR: "+prefix$+": =>"+ hex$(erl) + "&" +hex$(werr)+"@"+mid$(str$(status%),2)
     input "以上信息请通知系统管理员: "; a$

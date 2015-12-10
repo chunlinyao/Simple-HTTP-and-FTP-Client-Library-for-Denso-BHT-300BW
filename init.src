@@ -54,7 +54,7 @@
 '------------------------------------------------------------
   const MENULENGTH = 1
 
-Main
+Main:
   private i%
   private k$[1]
   private ret$[40]

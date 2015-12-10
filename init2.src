@@ -23,8 +23,8 @@
     addProgram(cnt%, programs$, APP.ProgramName$)
     'addProgram(cnt%, programs$, APP.ProgramName2$)
     'addProgram(cnt%, programs$, APP.ProgramName3$)
-    addProgram(cnt%, programs$, APP.TestLoaderName$)
-    addProgram(cnt%, programs$, APP.TestName1$)
+    'addProgram(cnt%, programs$, APP.TestLoaderName$)
+    'addProgram(cnt%, programs$, APP.TestName1$)
     'addProgram(cnt%, programs$, APP.TestName2$)
     'addProgram(cnt%, programs$, APP.TestName3$)
 

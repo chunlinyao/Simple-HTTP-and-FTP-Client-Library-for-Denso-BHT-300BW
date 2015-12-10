@@ -36,6 +36,7 @@
   </RelatedFileInformation>
   <DebugInformation>
     <Mode>0</Mode>
+    <EncodeName>GB2312</EncodeName>
     <SimulateDebugSetting>
       <Barcode>
         <Type>0</Type>
@@ -56,7 +57,7 @@
         </VirtualCOMs>
       </Serial>
       <Socket>
-        <Type>0</Type>
+        <Type>1</Type>
       </Socket>
       <IsSystemInit>0</IsSystemInit>
     </SimulateDebugSetting>

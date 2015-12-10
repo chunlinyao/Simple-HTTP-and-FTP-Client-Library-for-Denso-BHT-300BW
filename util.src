@@ -126,7 +126,6 @@
     Util.ParseListTabData%=cnt%
   end function
 
-
 '--------------------------------------------------------------------------
 ' parse tab separated list data to store into ids$, names$, quantities%
 ' and has_enough
@@ -218,6 +217,88 @@
     cnt%=cnt%+1
     Util.Split%=cnt% 
   end function
+
+  '------------------------------------------------------
+  ' Parse layout data
+  '-------------------------------------------------------
+  sub Util.ParseLayout(byref src$,byref layout$(),byref layoutvalues$(),byref layoutcnt%,byref labels$(),byref fieldkeys$(),byref fieldvalues$(),byref types$(), byref autosubmit$(),byref fieldcnt%,byref keys$(),byref values$(),byref cnt%,byref autofocus$,byref errmsg$,byref refreshscreen$)
+    private ptr%
+    private lineEnd%
+    private srcLen%: srcLen%=len(src$)
+    private tmpstr$[1000]
+    private result$(5)[1000]
+    private resultcnt%
+    layoutcnt%=0
+    fieldcnt%=0
+    cnt%=0
+    
+    ptr% = 1 'string pointer  
+    while ptr%<>0 and ptr%<srcLen%
+      lineEnd% = instr(ptr%, src$, STREOL$)
+      if lineEnd% > 0 then
+          tmpstr$ = mid$(src$, ptr%, lineEnd% - ptr%)
+          'Parse Each line
+          resultcnt%=Util.Split%(tmpstr$, result$, DELIMITER$)
+          if resultcnt%>1 then
+              select result$(0)
+                  case "error"
+                     errmsg$=result$(1)
+                  case "autofocus"
+                     autofocus$=result$(1)
+                  case "refreshscreen"
+                     autofocus$=result$(1)
+                  case "header"
+                     gosub layout.layout
+                  case "h1"
+                     gosub layout.layout
+                  case "p"
+                     gosub layout.layout
+                  case "span"
+                     gosub layout.layout
+                  case "text"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "num"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "checkbox"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "cmd"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "link"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "hidden"
+                     keys$(cnt%)=result$(1)
+                     values$(cnt%)=result$(2)
+                     cnt% = cnt% + 1
+              end select 
+          end if
+      end if
+      ptr%=lineEnd%
+      if ptr% > 0 then
+         ptr% = ptr% + 1
+      end if
+    wend
+    exit sub
+layout.layout
+    layout$(layoutcnt%) = result$(0)
+    layoutvalues$(layoutcnt%) = result$(1)
+    layoutcnt% = layoutcnt% + 1
+    return
+layout.field
+    types$(fieldcnt%) = result$(0)
+    labels$(fieldcnt%) = result$(1)
+    fieldkeys$(fieldcnt%) = result$(2)
+    fieldvalues$(fieldcnt%) = result$(3)
+    if resultcnt% > 4 then
+        autosubmit$(fieldcnt%) = result$(4)
+    end if
+    fieldcnt% = fieldcnt% + 1
+    return
+  end sub
   
   '----------------------------
   function Util.ParseListData%(byref src$, byref lines$())

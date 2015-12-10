@@ -12,9 +12,43 @@
 '$include:'test.inc'
 '$include:'input.def'
 '$include:'wh.def'
+'$include:'util.def'
+'$include:'util.inc'
 
  private test%: test%=0
 '--------------------------------------------------------------------------
+ sub testParser
+    private src$[1000]
+    src$="error" + DELIMITER$ + "Test Error display" + STREOL$
+    src$ = src$ + "header" + DELIMITER$ + "²âÊÔ»­Ãæ" + STREOL$
+    src$ = src$ + "h1" + DELIMITER$ + "#100001" + STREOL$
+    src$ = src$ + "p" + DELIMITER$ + "this is a test p" + STREOL$
+    src$ = src$ + "span" + DELIMITER$ + "this is a test span" + STREOL$
+    src$ = src$ + "text" + DELIMITER$ + "Text1" + DELIMITER$ + "name" + DELIMITER$ + "foo" + STREOL$
+    src$ = src$ + "cmd" + DELIMITER$ + "Submit" + DELIMITER$ + "calc" + DELIMITER$ + "/app/submitcalc" + STREOL$
+    src$ = src$ + "num" + DELIMITER$ + "Age" + DELIMITER$ + "age" + DELIMITER$ + "" + DELIMITER$ + "/app/autoage" + STREOL$
+    
+    private fieldpos%(10)
+      private labels$(10)[30]
+      private fieldvalues$(10)[200]
+      private types$(10)[10]
+      private fieldkeys$(10)
+      private fieldcnt%: fieldcnt%=0
+      private keys$(10)[30]
+      private values$(10)[200]
+      private cnt%: cnt%=0
+      
+      private layout$(20)
+      private layoutvalues$(20)[30]
+      private layoutcnt%: layoutcnt%=0
+      private autosubmit$(10)[200]
+      private autofocus$
+      private errmsg$[1000]
+      private refreshscreen$[100]
+      
+    Util.ParseLayout(src$,layout$,layoutvalues$,layoutcnt%,labels$,fieldkeys$, fieldvalues$,types$,autosubmit$,fieldcnt%,keys$,values$,cnt%,autofocus$,errmsg$,refreshscreen$) 
+    Input.InputAnyKey
+ end sub
  sub testScreenHeader
     Screen.Header("³¤×Ö¶ÎÃû×Ö¶ÎÃû×Ö¶ÎÃû×Ö¶ÎÃû")
  end sub
@@ -109,7 +143,7 @@ Main
   Screen.Init
   Test.Start
   
-  testScreenHeader
+  testParser
   outtest
   testScreenH1
   testScreenField

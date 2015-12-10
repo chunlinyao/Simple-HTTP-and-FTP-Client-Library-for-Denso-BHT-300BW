@@ -1,24 +1,72 @@
 <?xml version="1.0" encoding="gb2312" standalone="yes"?>
 <BHT_Solution_Information>
-  <BreakPointInformation>
-    <BreakPoint>
-      <File>util.src</File>
-      <Line>36</Line>
-      <Enable>1</Enable>
-    </BreakPoint>
-    <BreakPoint>
-      <File>sen.src</File>
-      <Line>66</Line>
-      <Enable>1</Enable>
-    </BreakPoint>
-  </BreakPointInformation>
   <OpenFileInformation>
     <OpenInfo>
-      <FileName>com.src</FileName>
+      <FileName>barcode.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>util.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>util.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>barcode.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>barcode.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>init.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>input.def</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
     <OpenInfo>
       <FileName>sen.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>util.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>input.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>screen.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>screen.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>testsen.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>CCONFIG.DAT</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>com.inc</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>com.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>com.src</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
   </OpenFileInformation>
@@ -26,7 +74,7 @@
     <ProjectExpands>
       <ProjectExpand>
         <Name>barcode</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
@@ -84,7 +132,7 @@
         <Name>sen</Name>
         <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
-        <IncludeExpand>0</IncludeExpand>
+        <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
@@ -138,7 +186,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>util</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>

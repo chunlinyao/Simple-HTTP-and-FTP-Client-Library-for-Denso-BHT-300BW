@@ -18,6 +18,15 @@
 '--------------------------------------------------------------------------
   sub Screen.Init
     power 180               ' auto power ON
+    dim para%
+    dim data%
+    para%=.syResm
+    data%=.syResmOn
+    call "system.fn3" .fcSysISet para%, data% 'enable resume
+    para%=.syScanMode
+    data%=.syScnPoint
+    call "system.fn3" .fcSysISet para%, data% '点扫描模式
+    
     out .pnBLCtrl, .pvBLOn  ' backlight ON for 5 seconds
     out .pnBLTime, 5
     out .pnSysSts, .pvStsOn ' show system status
@@ -112,6 +121,7 @@
  
  sub Screen.ShowError(byref msg$)
     locate 1,1
+    cls
     Screen.Color(.grColor.Yellow,.grColor.Red)
     OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
     print INPUT.EMPTYLINE$;
@@ -123,6 +133,7 @@
     screen ,Lc.RAT.NORMAL
     print "按任意键继续"
     Screen.Color(.grColor.Black, .grColor.White) 
+    beep 10,1,1,650
     Input.InputAnyKey
  end sub
 '--------------------------------------------------------------------------

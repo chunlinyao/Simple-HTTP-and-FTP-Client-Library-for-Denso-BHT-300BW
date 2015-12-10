@@ -38,7 +38,7 @@ SIDE_REV=0
 CODEMARK=0
 LIGHT_MODE=1
 ILLM_LED=0
-SCAN_MODE=0
+SCAN_MODE=1
 RDMODE=0
 RD_BEEP_VIB=1
 RD_LED=1
@@ -186,7 +186,7 @@ MenuSet=0
 MENUThreshold=10
 KEYCOMPATI=0
 [BHT]
-EXCPRG=                                                                                     
+EXCPRG=                                                                                                    
 RESUME=1
 SYSMDFYFILE_BHT=B:_BHTOS.FN3
 SYSMDFYFILE_CU=B:C0NDN.DAT

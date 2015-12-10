@@ -165,39 +165,16 @@ inputcheckbox
       private changed%
       private bypassselect%
       
-      private errmsg$[1000]:errmsg$="asdljaksdjgkjahiue假的出错信息"
+      private errmsg$[1000]:errmsg$=""
       
       on key (30) gosub KEY.MAIN.M1
       key (30) on
       key 30, "M" 'allow .pvEvKeyOn be triggered
    '解析请求
-   'TODO
+   '
 
-      labels$(0)="用户名"
-      labels$(1)="密码"
-      labels$(2)="登录"
-      
-      fieldvalues$(0)=""
-      fieldvalues$(1)="111"
-      fieldvalues$(2)="/m/scan"
-      
-      fieldkeys$(0)="key1"
-      fieldkeys$(1)="key2"
-      fieldkeys$(2)="key3"
-
-      types$(0)="text"
-      types$(1)="text"
-      types$(2)="cmd"
- 
-      fieldcnt%=3
-      layout$(0)="header" 
-      layout$(1)="field" 
-      layout$(2)="field" 
-      layout$(3)="field" 
-
-      layoutvalues$(0)="假话面" 
-      layoutcnt%=4
-   'TODO 有Error就显示
+      Util.ParseLayout(ret$,layout$,layoutvalues$,layoutcnt%,labels$,fieldkeys$, fieldvalues$,types$,autosubmit$,fieldcnt%,keys$,values$,cnt%,autofocus$,errmsg$,refreshscreen$) 
+   '有Error就显示
    if errmsg$ <> "" then
        Screen.ShowError(errmsg$)
    end if
@@ -291,13 +268,25 @@ dorender
            Screen.H1(layoutvalues$(idx%))
       case "span"
            Screen.Span(layoutvalues$(idx%))
-      case "field"
-           fieldpos%(fieldcnt%)=Screen.Field%(labels$(fieldcnt%), fieldvalues$(fieldcnt%), types$(fieldcnt%), 0)
-           fieldcnt%=fieldcnt%+1
+      case "text"
+           gosub dorender.field
+      case "num"
+           gosub dorender.field
+      case "checkbox"
+           gosub dorender.field
+      case "cmd"
+           gosub dorender.field
+      case "link"
+           gosub dorender.field
+      
     end select
   next
   return
 
+dorender.field
+  fieldpos%(fieldcnt%)=Screen.Field%(labels$(fieldcnt%), fieldvalues$(fieldcnt%), types$(fieldcnt%), 0)
+  fieldcnt%=fieldcnt%+1
+  return
 KEY.MAIN.M1
   Input.M1Pressed%=1
   return

@@ -135,9 +135,15 @@ tcpopen.resume:
       Util.errlog("Com.TcpIp.Close",werr,status%)
       goto tcpclose.resume
     end if
+    on error goto tcpclose.err
 
     call "socket.fn3" .fcTDiscnn interface%
+    Com.TcpIp.Close%=Com.Status.Closed
+    exit function
+tcpclose.err:
+    resume tcpclose.resume
 tcpclose.resume:
+    on error goto 0
     Com.TcpIp.Close%=Com.Status.Closed
   end function
   
@@ -263,11 +269,13 @@ socketopen.resume:
       Util.errlog("Com.TcpIp.CloseSocket",werr,status%)
       goto socketclose.resume
     end if
-    on error goto socketclose.resume
+    on error goto socketclose.err
     call "socket.fn3" .fcClose sockfd%
     Com.TcpIp.CloseSocket%=Com.Status.SocketClosed
     on error goto 0
     exit function
+socketclose.err:
+    resume socketclose.resume
 socketclose.resume: 
     on error goto 0   
     Com.TcpIp.CloseSocket%=Com.Status.SocketClosed

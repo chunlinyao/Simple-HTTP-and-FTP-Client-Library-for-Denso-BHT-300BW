@@ -18,3 +18,5 @@
   declare function Util.ParseListTabData2%(byref src$, byref meta$, byref ids$(), byref names$(), byref quantities%(), byref hasEnough%())
   declare function Util.GetSeconds%(startTime$, endTime$)
   declare function Util.Split%(byref src$, byref secs$(), d$)
+  declare sub Util.ParseLayout(byref ret$,byref layout$(),byref layoutvalues$(),byref layoutcnt%,byref labels$(),byref fieldkeys$(),byref fieldvalues$(),byref types$(), byref autosubmit$(),byref fieldcnt%,byref keys$(),byref values$(),byref cnt%,byref autofocus$,byref errmsg$,byref refreshscreen$)
+      

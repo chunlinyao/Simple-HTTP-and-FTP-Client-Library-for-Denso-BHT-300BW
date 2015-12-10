@@ -77,9 +77,14 @@
     on key (31) gosub KEY.YN.M2
     key (30) on
     key (31) on
+    key 30, "Y"
+    key 31, "N"
+    'while k$=""
+    '  timea=5
+    '  wait .pnEvent, .pvEvTma0
+    'wend
     while k$=""
-      timea=5
-      wait .pnEvent, .pvEvTma0
+        wait .pnEvent, .pvEvKeyOn
     wend
     Input.InputYesNo$=k$
     exit function
@@ -87,11 +92,15 @@ KEY.YN.M1
     k$="Y"
     key (30) off
     key (31) off
+    key 30, ""
+    key 31, ""
     return
 KEY.YN.M2
     k$="N"
     key (30) off
     key (31) off
+    key 30, ""
+    key 31, ""
     return
   end function
 
@@ -104,7 +113,7 @@ KEY.YN.M2
     while inkey$<>""
     wend
     'detect any key
-    while inkey$=""
+    while inkey$="" and not (Input.M1Pressed% = 1)
       wait .pnEvent, (.pvEvKeyOn)
     wend
   end sub
@@ -120,6 +129,11 @@ KEY.YN.M2
     while 1
       wait .pnEvent, (.pvEvKeyOn)
       k$=inkey$
+      
+      if Input.M1Pressed% = 1 then
+          Input.InputUDLR$="D"
+          exit function
+      end if
       select k$
         case "D"
           Input.InputUDLR$=k$

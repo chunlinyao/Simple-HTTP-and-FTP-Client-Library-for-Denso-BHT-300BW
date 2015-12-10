@@ -13,15 +13,21 @@
 '$include:'input.def'
 '$include:'wh.def'
 
-
+ private test%: test%=0
 '--------------------------------------------------------------------------
  sub testScreenHeader
     Screen.Header("³¤×Ö¶ÎÃû×Ö¶ÎÃû×Ö¶ÎÃû×Ö¶ÎÃû")
  end sub
  sub testScreenHeaderUDLR
     Screen.HeaderUDLR(1,1)
+    dim ret$
+    ret$=Input.InputUDLR$
+    print ret$
     Input.InputAnyKey
  end sub
+ 
+
+
  sub testScreenH1
     Screen.H1("#121241×Ö¶ÎÃû×Ö¶Î")
  end sub
@@ -82,7 +88,19 @@
       ret%=Input.SelectField%(fieldpos%,labels$,values$,types$,0,cnt%)
       ok(ret%=1,"field.select")
   end sub
-  
+
+ sub outtest
+   key 30,"M"
+    key (30) on
+    on key (30) gosub testm1
+   
+ testScreenHeaderUDLR
+ exit sub
+testm1
+   print "m1 pressed"
+   test%=1
+   return
+ end sub
 '--------------------------------------------------------------------------
 
 Main
@@ -90,7 +108,7 @@ Main
   Test.Start
   
   testScreenHeader
-  testScreenHeaderUDLR
+  outtest
   testScreenH1
   testScreenField
   testInputBarcode
@@ -103,3 +121,5 @@ Main
   
   Test.Finish
   chain APP.TestLoaderName$
+
+

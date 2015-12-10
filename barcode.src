@@ -74,8 +74,14 @@
       else
         close #f.no%
         kb$ = inkey$
-        while kb$<>""
-          if instr(esc$, kb$) then
+  
+       if Input.M1Pressed% = 1 then
+          Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
+          gosub endinput
+          exit function
+       end if
+       while kb$<>""
+          if instr(esc$, kb$) or (Input.M1Pressed% = 1)  then
             Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
             gosub endinput
             exit function

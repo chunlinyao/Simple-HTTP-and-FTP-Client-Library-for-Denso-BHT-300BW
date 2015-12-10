@@ -20,7 +20,6 @@
   private username$[100]
   private password$[100]
 
-  
     
 '--------------------------------------------------------------------------
  sub Login
@@ -142,6 +141,9 @@ inputcheckbox
       private ret%: ret%=0
       private pos%: pos%=0   
       private changed%
+      on key (30) gosub KEY.MAIN.M1
+      key (30) on
+      key 30, "M" 'allow .pvEvKeyOn be triggered
    '解析请求
    'TODO
 
@@ -180,17 +182,18 @@ inputcheckbox
         if first% > 0 then
           '如果是首次渲染，有autofocus的进入编辑状态
           if autofocus$ <> "" then
-              for ret% = 0 to (fieldcnt% - 1)
+              ret% = 0
+              while ret% < fieldcnt%
                 if fieldkeys$(ret%) = autofocus$ then
                  ' goto fieldselected
                 end if
-              next
+                ret%=ret%+1
+              wend
           end if
           first% = 0
         end if
         '进入SelectField
         ret%=Input.SelectField%(fieldpos%,labels$,fieldvalues$,types$,pos%,fieldcnt%)
-
 fieldselected
         if ret% >=0 then
             '不是取消
@@ -201,7 +204,12 @@ fieldselected
                 nextscreen$=autosubmit$(pos%)
             end if
         end if
-            
+        if  Input.M1Pressed%=1 then
+            nextscreen$=Com.Server.MainScreen$
+            cnt%=0
+            Input.M1Pressed%=0
+            goto render.to.send
+        end if    
    wend
    '准备key$和values$
    'ssend submited command button
@@ -216,15 +224,18 @@ fieldselected
        end if
    next
 
+render.to.send
    Render%=Com.Status.SocketConnected
    Screen.Header("发送中...")
+   key (30) off
+   key 30, ""
    exit function
 
 '-----------
 ' 
 dorender
   cls
-  Screen.Footer
+  Screen.FooterM1
   fieldcnt%=0
   for idx%=0 to (layoutcnt%-1)
     select layout$(idx%)
@@ -242,6 +253,11 @@ dorender
     end select
   next
   return
+
+KEY.MAIN.M1
+  Input.M1Pressed%=1
+  return
+
   end function
   
   '-------------------------------------------------
@@ -299,7 +315,7 @@ dorender
     private content$[Com.SENDSIZE]
 
     private status%
-    
+    'M1返回主画面
 connect
     '打开连接
     status%=Com.Status.Init '-- init status
@@ -344,7 +360,6 @@ connect
   cnt%=0
   '重新连接
   goto connect
-  
  end sub
 
   

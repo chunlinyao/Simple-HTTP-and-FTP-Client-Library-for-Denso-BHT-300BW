@@ -60,6 +60,12 @@
 
     screen Lc.SCR.KANJI,Lc.WAT.NORMAL
   end sub
+  sub Screen.FooterM1
+    Screen.Footer
+    locate 1,19
+'----------1234567890123456-------
+    print "[M1]»ØÖ÷²Ëµ¥    ";    
+  end sub
 
 '--------------------------------------------------------------------------
 ' footer Y/N

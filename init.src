@@ -5,6 +5,7 @@
 '$include:'com.def'
 '$include:'com.inc'
 '$include:'input.inc'
+'$include:'input.def'
 '$include:'screen.def'
 '$include:'screen.inc'
 '$include:'wh.def'

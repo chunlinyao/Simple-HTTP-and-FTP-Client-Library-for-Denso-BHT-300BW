@@ -84,7 +84,7 @@
           exit function
        end if
        while kb$<>""
-          if instr(esc$, kb$) or (Input.M1Pressed% = 1)  then
+          if instr(esc$, kb$) or (Input.M1Pressed% = 1) then
             enter% = 0 'È¡Ïû
             Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
             gosub endinput

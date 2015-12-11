@@ -130,7 +130,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>sen</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>

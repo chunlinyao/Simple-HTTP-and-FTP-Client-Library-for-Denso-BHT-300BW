@@ -70,11 +70,15 @@
 
     screen Lc.SCR.KANJI,Lc.WAT.NORMAL
   end sub
+  
+  '--------------
+  '主画面
+  '--------------
   sub Screen.FooterM1
     Screen.Footer
     locate 1,19
 '----------1234567890123456-------
-    print "[M1]回主菜单    ";    
+    print "[M1]主    [M2]退";    
   end sub
 
 '--------------------------------------------------------------------------

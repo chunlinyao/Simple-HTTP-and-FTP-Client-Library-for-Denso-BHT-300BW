@@ -3,7 +3,7 @@
 ' test input.src
 '
 '##########################################################################
-
+'$include:'bhtdef.inc'
 '$include:'barcode.inc'
 '$include:'barcode.def'
 '$include:'screen.inc'
@@ -141,6 +141,38 @@ inputcheckbox:
       return
   end function
  
+  '---------------
+  '
+  '---------------
+  sub ExitProgram
+    dim row%
+    dim col%
+    col%=pos(0)
+    row%=csrlin 
+    
+    dim oldc&
+    dim oldbg&
+    
+    call "graph.fn3" .fcGetTextColor oldc&, oldbg&
+    
+    Screen.Color(.grColor.Yellow, .grColor.Red)
+    locate 1,19
+'----------1234567890123456-------
+    print "                ";
+    locate 1
+    print "[M1]确定退出";
+    key (30) off
+    key (31) off
+    if input$(1)="M" then
+        end
+    end if
+    key (30) on
+    key (31) on
+    Screen.Color(.grColor.Black, .grColor.White)
+    Screen.FooterM1
+    Screen.Color(oldc&, oldbg&)
+    locate col%,row%
+  end sub
   '--------------------------------
   '处理画面显示和用户操作
   '---------------------------------
@@ -170,6 +202,10 @@ inputcheckbox:
       on key (30) gosub KEY.MAIN.M1
       key (30) on
       key 30, "M" 'allow .pvEvKeyOn be triggered
+      
+      on key (31) gosub KEY.MAIN.M2
+      key (31) on
+      key 31, "N" 'allow .pvEvKeyOn be triggered
    '解析请求
    '
 
@@ -250,6 +286,8 @@ render.to.send:
    Screen.Header("发送中...")
    key (30) off
    key 30, ""
+   key (31) off
+   key 31, ""
    exit function
 
 '-----------
@@ -290,7 +328,9 @@ dorender.field:
 KEY.MAIN.M1:
   Input.M1Pressed%=1
   return
-
+KEY.MAIN.M2:
+  ExitProgram
+  return
   end function
   
   '-------------------------------------------------

@@ -391,9 +391,11 @@ KEY.MAIN.M2:
     private endTime$[8]
     private ret$[Com.RECVSIZE]
     private content$[Com.SENDSIZE]
-
+    private werr
     private status%
     'M1返回主画面
+    
+    on error goto main.err
 connect:
     '打开连接
     status%=Com.Status.Init '-- init status
@@ -438,6 +440,11 @@ connect:
   cnt%=0
   '重新连接
   goto connect
+  
+main.err:
+  werr = err
+  Util.errlog("MainLoop",werr,status%)
+  end
  end sub
 
   

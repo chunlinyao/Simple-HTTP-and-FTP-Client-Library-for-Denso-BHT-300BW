@@ -246,7 +246,7 @@
                   case "autofocus"
                      autofocus$=result$(1)
                   case "refreshscreen"
-                     autofocus$=result$(1)
+                     refreshscreen$=result$(1)
                   case "header"
                      gosub layout.layout
                   case "h1"

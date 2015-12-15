@@ -104,7 +104,7 @@ LOGIN.SAVE:
   '-------
   '编辑选定的字段或者触发按钮
   '-------
-  function EditField%(pos%,byref nextscreen$,byref fieldpos%(), byref values$(), byref types$(), byref enter%)
+  function EditField%(pos%,byref nextscreen$,byref fieldpos%(),byref labels$(), byref values$(), byref types$(), byref enter%)
     enter% = 0
     select types$(pos%)
           case "cmd"
@@ -126,7 +126,11 @@ firecmd:
       return        
 inputtext:
       private oldValue$[200]:oldValue$=values$(pos%)
-      locate 3,fieldpos%(pos%)+2
+      if labels$(pos%) <> "" then
+          locate 3,fieldpos%(pos%)+2
+      else
+          locate 3,fieldpos%(pos%)
+      end if
       values$(pos%)=Barcode.BarcodeKeySen$(values$(pos%), enter%)
       if values$(pos%)=oldValue$ then
           EditField%=0
@@ -181,16 +185,16 @@ inputcheckbox:
       private labels$(10)[30]
       private fieldvalues$(10)[200]
       private types$(10)[10]
-      private fieldkeys$(10)
+      private fieldkeys$(10)[40]
       private fieldcnt%: fieldcnt%=0
 
       private idx%
 
       private layout$(20)
-      private layoutvalues$(20)[30]
+      private layoutvalues$(20)[40]
       private layoutcnt%: layoutcnt%=0
       private autosubmit$(10)[200]
-      private autofocus$
+      private autofocus$[40]
       
       private ret%: ret%=0
       private pos%: pos%=0   
@@ -222,6 +226,7 @@ inputcheckbox:
         '渲染画面
         gosub dorender
         if first% > 0 then
+          first% = 0
           '如果是首次渲染，有autofocus的进入编辑状态
           if autofocus$ <> "" then
               ret% = 0
@@ -234,7 +239,6 @@ inputcheckbox:
                 ret%=ret%+1
               wend
           end if
-          first% = 0
         end if
         '进入SelectField
 selectfield:
@@ -246,7 +250,7 @@ selectfield:
             '不是取消
             pos%=ret%
             'EDITField
-            changed%=EditField%(pos%,nextscreen$,fieldpos%,fieldvalues$,types$, enter%)
+            changed%=EditField%(pos%,nextscreen$,fieldpos%,labels$,fieldvalues$,types$, enter%)
             if changed%>0 and autosubmit$(pos%) <> "" then
                 nextscreen$=autosubmit$(pos%)
             end if
@@ -295,6 +299,7 @@ render.to.send:
 dorender:
   cls
   Screen.FooterM1
+  locate 1,1
   fieldcnt%=0
   for idx%=0 to (layoutcnt%-1)
     select layout$(idx%)
@@ -361,7 +366,7 @@ KEY.MAIN.M2:
  function GenerateSendData$(byref nextscreen$, byref keys$(), byref values$(), byref cnt%)[Com.SENDSIZE]
    private idx%
    private ret$[Com.SENDSIZE]:ret$=""
-   ret$=ret$ + "screenName" + DELIMITER$ + nextscreen$ + Com.Sen.EOL$ 
+   ret$=ret$ + "screenPath" + DELIMITER$ + nextscreen$ + Com.Sen.EOL$ 
    ret$=ret$ + "authUsername" + DELIMITER$ + username$ + Com.Sen.EOL$ 
    ret$=ret$ + "authPassword" + DELIMITER$ + password$ + Com.Sen.EOL$ 
    for idx%=0 to (cnt% -1)
@@ -379,7 +384,7 @@ KEY.MAIN.M2:
     private nextscreen$[200]: nextscreen$=Com.Server.MainScreen$
     private refreshscreen$[200]: refreshscreen$=nextscreen$
     private cnt%: cnt%=0
-    private keys$(30)
+    private keys$(30)[40]
     private values$(30)[200]
 '错误恢复入口
     private startTime$[8]

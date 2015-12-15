@@ -274,6 +274,8 @@
                      keys$(cnt%)=result$(1)
                      values$(cnt%)=result$(2)
                      cnt% = cnt% + 1
+                  case "beep"
+                     beep 2,1,1,val(result$(1))
               end select 
           end if
       end if

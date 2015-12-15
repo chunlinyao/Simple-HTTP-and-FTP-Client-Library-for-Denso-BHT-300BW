@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="gb2312" standalone="yes"?>
 <BHT_Solution_Information>
+  <BreakPointInformation>
+    <BreakPoint>
+      <File>util.src</File>
+      <Line>273</Line>
+      <Enable>1</Enable>
+    </BreakPoint>
+  </BreakPointInformation>
   <OpenFileInformation>
     <OpenInfo>
       <FileName>barcode.def</FileName>

@@ -251,7 +251,7 @@ selectfield:
             pos%=ret%
             'EDITField
             changed%=EditField%(pos%,nextscreen$,fieldpos%,labels$,fieldvalues$,types$, enter%)
-            if changed%>0 and autosubmit$(pos%) <> "" then
+            if enter%>0 and autosubmit$(pos%) <> "" then
                 nextscreen$=autosubmit$(pos%)
             end if
             
@@ -350,17 +350,6 @@ KEY.MAIN.M2:
     RetryYesNo$ = Input.InputYesNo$
   end function
   
-  '-----------------------------------
-  '测试数据
-  '-----------------------------------
- function SendTestData%(status%)
-   dim content$[8192]:content$="ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVW" + chr$(10) 
-   dim i%
-   for i%=1 to 7
-     content$=content$ + content$
-   next i%
-     SendTestData%=Com.Sen.SendData%(content$,status%)
-   end function
  
  'generate send data for sen format 
  function GenerateSendData$(byref nextscreen$, byref keys$(), byref values$(), byref cnt%)[Com.SENDSIZE]
@@ -392,6 +381,7 @@ KEY.MAIN.M2:
     private ret$[Com.RECVSIZE]
     private content$[Com.SENDSIZE]
     private werr
+    private senderr
     private status%
     'M1返回主画面
     
@@ -410,13 +400,18 @@ connect:
           status%=Com.TcpIp.OpenSocketSen%(status%)
         case Com.Status.SocketConnected
           '发送nextscreen请求
+          senderr = 0
           content$=GenerateSendData$(nextscreen$,keys$,values$,cnt%)
-          status%=Com.Sen.SendData%(content$,status%)
-          cnt%=0    '清空参数
+          status%=Com.Sen.SendData%(content$,status%,werr)
+          if Com.Status.DataSent = status% then
+             cnt%=0    '清空参数
+          else
+             senderr = 1
+          end if
         case Com.Status.DataSent
           '接受请求
           Screen.Header("等待回复...")
-          status%=Com.Sen.RecvData%(ret$,status%)
+          status%=Com.Sen.RecvData%(ret$,status%,werr)
         case Com.Status.DataReceived
           status%=Render%(ret$,nextscreen$,refreshscreen$,keys$,values$,cnt%)
         case Com.Status.DataReceivedEnd
@@ -431,6 +426,9 @@ connect:
   'if 网络错误 问用户从0开始还是刷新刚才的页面
   ' nextscreen=refresnurl
   ' 否则nextscreen=主画面
+  if senderr = 1 and werr = &h105 then
+      goto connect
+  end if
   if RetryYesNo$ = "Y" then
       nextscreen$=refreshscreen$
   else

@@ -31,6 +31,23 @@ const Com.Status.FtpClosed=6
   private sockfd%
   private ftpHandle%
 
+
+'------------------------------------------------------------ 
+' close device
+'------------------------------------------------------------ 
+  function Com.TcpIp.CloseDevice%(status%)
+    if status% < Com.Status.DeviceOpened then
+      werr=-1
+      Util.errlog("Com.TcpIp.CloseDevice",werr,status%)
+      goto closedevice.resume
+    end if
+
+    close #hCom3%
+
+closedevice.resume:
+    Com.TcpIp.CloseDevice%=Com.Status.DeviceClosed
+  end function
+
 '------------------------------------------------------------ 
 ' open device
 '------------------------------------------------------------ 
@@ -62,7 +79,9 @@ const Com.Status.FtpClosed=6
     call "ss.fn3" .fcSyncInf timeout%, assoc%
     if assoc% = -1 then
       werr=-1
-      Util.errlog("Com.TcpIp.OpenDevice",werr,status%)
+      if werr <> &h37 then
+          Util.errlog("Com.TcpIp.OpenDevice",werr,status%)
+      end if
       goto opendevice.resume
     endif
 
@@ -76,23 +95,10 @@ opendevice.err:
 
 opendevice.resume:
     on error goto 0
-    Com.TcpIp.OpenDevice%=Com.Status.Init
-  end function
-
-'------------------------------------------------------------ 
-' close device
-'------------------------------------------------------------ 
-  function Com.TcpIp.CloseDevice%(status%)
-    if status% < Com.Status.DeviceOpened then
-      werr=-1
-      Util.errlog("Com.TcpIp.CloseDevice",werr,status%)
-      goto closedevice.resume
+    if werr = &h37 then
+       status%=Com.TcpIp.CloseDevice%(Com.Status.DeviceOpened)
     end if
-
-    close #hCom3%
-
-closedevice.resume:
-    Com.TcpIp.CloseDevice%=Com.Status.DeviceClosed
+    Com.TcpIp.OpenDevice%=Com.Status.Init
   end function
 
 '------------------------------------------------------------ 
@@ -410,7 +416,7 @@ recvdata.resume:
 '------------------------------------------------------------ 
 ' send data
 '------------------------------------------------------------ 
-  function Com.Sen.SendData%(byref content$, status%)
+  function Com.Sen.SendData%(byref content$, status%, byref oerr)
     if status% <>Com.Status.SocketConnected then
       werr=-1
       Util.errlog("Com.Sen.SendData",werr,status%)
@@ -440,6 +446,7 @@ recvdata.resume:
 
 sen.senddata.err:
     werr = err
+    oerr = werr
     Util.errlog("Com.Sen.SendData",werr,status%)
     resume sen.senddata.resume
 
@@ -456,7 +463,7 @@ sen.senddata.resume:
 '------------------------------------------------------------ 
 ' sen receive data
 '------------------------------------------------------------ 
-  function Com.Sen.RecvData%(byref ret$,status%)
+  function Com.Sen.RecvData%(byref ret$,status%, byref oerr)
     private recvlen%
     private recvmode%
     private recvsize%
@@ -490,6 +497,7 @@ sen.senddata.resume:
 
 sen.recvdata.err:
     werr = err
+    oerr = werr
     Util.errlog("Com.Sen.RecvData",werr,status%)
     resume sen.recvdata.resume
 

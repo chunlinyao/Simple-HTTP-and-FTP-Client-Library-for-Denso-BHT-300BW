@@ -31,7 +31,7 @@
   declare function Com.Http.SendData%(mode%,req$,param$,status%)
   declare function Com.Http.RecvData%(byref ret$,status%)
 
-  declare function Com.Sen.RecvData%(byref ret$,status%)
-  declare function Com.Sen.SendData%(byref content$, status%)
+  declare function Com.Sen.RecvData%(byref ret$,status%,byref oerr)
+  declare function Com.Sen.SendData%(byref content$, status%,byref oerr)
   declare function Com.TcpIp.OpenSocketSen%(status%)
 

@@ -114,6 +114,10 @@
             kb$=""
           else
             kb$=inkey$
+            while kb$="" and not (Input.M1Pressed% = 1)
+                wait .pnEvent, (.pvEvKeyOn)
+                kb$=inkey$
+    		wend
           endif
         wend
       endif

@@ -9,6 +9,18 @@
   </BreakPointInformation>
   <OpenFileInformation>
     <OpenInfo>
+      <FileName>screen.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>wh.src</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
+      <FileName>wh.def</FileName>
+      <EditorType>0</EditorType>
+    </OpenInfo>
+    <OpenInfo>
       <FileName>barcode.def</FileName>
       <EditorType>0</EditorType>
     </OpenInfo>
@@ -95,7 +107,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>init</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>1</LibraryExpand>
@@ -130,14 +142,14 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>screen</Name>
-        <Expand>0</Expand>
+        <Expand>1</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
       </ProjectExpand>
       <ProjectExpand>
         <Name>sen</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>
@@ -193,7 +205,7 @@
       </ProjectExpand>
       <ProjectExpand>
         <Name>util</Name>
-        <Expand>1</Expand>
+        <Expand>0</Expand>
         <SourceExpand>1</SourceExpand>
         <IncludeExpand>1</IncludeExpand>
         <LibraryExpand>0</LibraryExpand>

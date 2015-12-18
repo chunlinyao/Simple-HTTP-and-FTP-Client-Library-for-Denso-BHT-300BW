@@ -143,10 +143,23 @@ Main
   Screen.Init
   Test.Start
   
-  testParser
-  outtest
-  testScreenH1
-  testScreenField
+  'testParser
+  'outtest
+  'testScreenH1
+  'testScreenField
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
+  testInputBarcode
   testInputBarcode
   testInputYesNo
   

@@ -39,12 +39,11 @@
 '--------------------------------------------------------------------------
   function Barcode.BarcodeKey3Def$(bar$,bar2$,bar3$,default$, byref enter%)[200]
     private f.no%: f.no% = 1
-    private esc$: esc$ = Input.CODE.ESC$
     private rt$[200]:rt$=default$
     private kb$[1]
     private pos%:pos%=pos(0)
     private lin%:lin%=csrlin
-
+    private esc: esc=0
     enter%=0 
     Screen.Color(.grColor.Black, .grColor.Yellow)
     print "             ";
@@ -52,6 +51,9 @@
     print default$;
     cursor on
     OUT .pnKeyMd, .pvKMNm
+    key (4) on
+    on key (4) gosub barcode.esc
+    
     while 1
       if bar3$<>"" then
         open "BAR:" as #f.no% code bar$,bar2$,bar3$
@@ -77,14 +79,14 @@
         close #f.no%
         kb$ = inkey$
   
-       if Input.M1Pressed% = 1 then
+       if Input.M1Pressed% = 1 or esc=1 then
           enter% = 0 '取消
           Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
           gosub endinput
           exit function
        end if
        while kb$<>""
-          if instr(esc$, kb$) or (Input.M1Pressed% = 1) then
+          if esc=1 or (Input.M1Pressed% = 1) then
             enter% = 0 '取消
             Barcode.BarcodeKey3Def$ = Util.Trim$(default$)
             gosub endinput
@@ -114,7 +116,7 @@
             kb$=""
           else
             kb$=inkey$
-            while kb$="" and not (Input.M1Pressed% = 1)
+            while kb$="" and not (Input.M1Pressed% = 1 or esc=1)
                 wait .pnEvent, (.pvEvKeyOn)
                 kb$=inkey$
     		wend
@@ -123,10 +125,15 @@
       endif
     wend
     exit function
+    
+barcode.esc
+  esc=1
+  return
 endinput:
   cursor off
   out .pnKeyMd, .pvKMNm
   Screen.Color(.grColor.Black, .grColor.White)
+  key (4) off
   return
   
   end function

@@ -258,6 +258,12 @@
                   case "text"
                      gosub layout.layout
                      gosub layout.field
+                  case "min-text"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "min-num"
+                     gosub layout.layout
+                     gosub layout.field
                   case "num"
                      gosub layout.layout
                      gosub layout.field

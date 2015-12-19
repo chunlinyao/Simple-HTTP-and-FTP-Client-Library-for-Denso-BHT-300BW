@@ -2,6 +2,6 @@ http.path       /ecadmin/barcode
 http.address    192.168.1.193
 http.port       8765
 http.hostname   www.example.com
-server.address  172.28.1.168
+server.address  10.20.20.182
 server.port     5150
 server.main     /apps/sen/s

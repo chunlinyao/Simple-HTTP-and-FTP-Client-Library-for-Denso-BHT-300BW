@@ -46,7 +46,9 @@
     private esc: esc=0
     enter%=0 
     Screen.Color(.grColor.Black, .grColor.Yellow)
-    print "             ";
+    while pos(0) < 16
+        print " ";
+    wend
     locate pos%
     print default$;
     cursor on

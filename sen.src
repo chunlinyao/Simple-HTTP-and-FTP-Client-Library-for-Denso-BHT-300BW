@@ -115,6 +115,10 @@ LOGIN.SAVE:
             gosub inputtext
           case "num"
             gosub inputtext
+          case "min-text"
+            gosub inputtext
+          case "min-num"
+            gosub inputtext
           case "checkbox"
             gosub inputcheckbox
     end select
@@ -127,7 +131,11 @@ firecmd:
 inputtext:
       private oldValue$[200]:oldValue$=values$(pos%)
       if labels$(pos%) <> "" then
-          locate 3,fieldpos%(pos%)+2
+          if types$(pos%) = "min-text" or types$(pos%) = "min-num" then
+              locate 9,fieldpos%(pos%)
+          else
+              locate 3,fieldpos%(pos%)+2
+          end if
       else
           locate 3,fieldpos%(pos%)
       end if
@@ -314,6 +322,10 @@ dorender:
       case "text"
            gosub dorender.field
       case "num"
+           gosub dorender.field
+      case "min-text"
+           gosub dorender.field
+      case "min-num"
            gosub dorender.field
       case "checkbox"
            gosub dorender.field

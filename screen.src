@@ -173,7 +173,7 @@
 ' Field display
 '--------------------------------------------------------------------------
  function Screen.Field%(label$, value$, type$, rev%)
-    
+    private maxLen%:
     Screen.Color(&h1f2b6f00,.grColor.White)
     'OUT .pnFont.Emph, .pvEmph.On ' &h6081, 1 ' Bold display
     if rev% then
@@ -192,6 +192,10 @@
         gosub FIELD.LBLINPUT
       case "text"
         gosub FIELD.LBLINPUT
+      case "min-num"
+        gosub FIELD.LBLMINI
+      case "min-text"
+        gosub FIELD.LBLMINI
     end select
     if rev% then
       screen ,Lc.RAT.NORMAL
@@ -207,6 +211,16 @@
         if label$<>"" then
           gosub FIELD.TXTNUM
         end if
+      case "min-text"
+        if label$<>"" then
+          gosub FIELD.MINTXTNUM
+        end if
+      
+      case "min-num"
+        if label$<>"" then
+          gosub FIELD.MINTXTNUM
+        end if
+      
       case "link"
       case "cmd"
       case "checkbox"
@@ -223,7 +237,15 @@ FIELD.CHKBOX
     end if
     Screen.Field% = csrlin-2
     return
-    
+FIELD.LBLMINI:
+    if label$ <> "" then
+      print Util.PadLeftStr$(Util.TruncateStr$(label$,1,6),6);
+      print ":";
+    else
+      gosub FIELD.TXTNUM
+      Screen.Field% = csrlin-2
+    end if
+    return
 FIELD.LBLINPUT:
     if label$ <> "" then
       print Util.TruncateStr$(label$,1,len(INPUT.EMPTYLINE$)-1);
@@ -246,13 +268,23 @@ FIELD.TXTNUM:
     
       print " [             ]";
       locate 3
-      private maxLen%: maxLen%=len(INPUT.EMPTYLINE$)-3
-      if type$ = "num" then
+      maxLen%=len(INPUT.EMPTYLINE$)-3
+      if type$ = "num" or type$ = "min-num" then
         print Util.PadLeftStr$(Util.TruncateStr$(value$,1,maxLen%),maxLen%)
       else
         print Util.TruncateStr$(value$,1,maxLen%)
       end if
       Screen.Field% = csrlin - 4
     return
-  
+FIELD.MINTXTNUM:
+      print "[       ]";
+      locate 9
+      maxLen%=len(INPUT.EMPTYLINE$)-9
+      if type$ = "num" or type$ = "min-num" then
+        print Util.PadLeftStr$(Util.TruncateStr$(value$,1,maxLen%),maxLen%)
+      else
+        print Util.TruncateStr$(value$,1,maxLen%)
+      end if
+      Screen.Field% = csrlin - 2
+    return  
  end function

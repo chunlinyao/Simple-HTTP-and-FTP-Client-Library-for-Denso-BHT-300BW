@@ -9,6 +9,19 @@
 '$include:'util.def'
 
 '--------------------------------------------------------------------------
+' error log
+'--------------------------------------------------------------------------
+  sub Util.errlog(prefix$,werr,status%)
+    if werr = &h105 then
+        'ignore power off err, when resume
+        exit sub
+    end if
+    private a$[1]
+    print "ERR: "+prefix$+": =>"+ hex$(erl) + "&" +hex$(werr)+"@"+mid$(str$(status%),2)
+    input "以上信息请通知系统管理员: "; a$
+  end sub
+  
+'--------------------------------------------------------------------------
 ' max
 '--------------------------------------------------------------------------
   function Util.Max(a%,b%)
@@ -218,95 +231,6 @@
     Util.Split%=cnt% 
   end function
 
-  '------------------------------------------------------
-  ' Parse layout data
-  '-------------------------------------------------------
-  sub Util.ParseLayout(byref src$,byref layout$(),byref layoutvalues$(),byref layoutcnt%,byref labels$(),byref fieldkeys$(),byref fieldvalues$(),byref types$(), byref autosubmit$(),byref fieldcnt%,byref keys$(),byref values$(),byref cnt%,byref autofocus$,byref errmsg$,byref refreshscreen$)
-    private ptr%
-    private lineEnd%
-    private srcLen%: srcLen%=len(src$)
-    private tmpstr$[1000]
-    private result$(5)[1000]
-    private resultcnt%
-    layoutcnt%=0
-    fieldcnt%=0
-    cnt%=0
-    
-    ptr% = 1 'string pointer  
-    while ptr%<>0 and ptr%<srcLen%
-      lineEnd% = instr(ptr%, src$, STREOL$)
-      if lineEnd% > 0 then
-          tmpstr$ = mid$(src$, ptr%, lineEnd% - ptr%)
-          'Parse Each line
-          resultcnt%=Util.Split%(tmpstr$, result$, DELIMITER$)
-          if resultcnt%>1 then
-              select result$(0)
-                  case "error"
-                     errmsg$=result$(1)
-                  case "autofocus"
-                     autofocus$=result$(1)
-                  case "refreshscreen"
-                     refreshscreen$=result$(1)
-                  case "header"
-                     gosub layout.layout
-                  case "h1"
-                     gosub layout.layout
-                  case "p"
-                     gosub layout.layout
-                  case "span"
-                     gosub layout.layout
-                  case "text"
-                     gosub layout.layout
-                     gosub layout.field
-                  case "min-text"
-                     gosub layout.layout
-                     gosub layout.field
-                  case "min-num"
-                     gosub layout.layout
-                     gosub layout.field
-                  case "num"
-                     gosub layout.layout
-                     gosub layout.field
-                  case "checkbox"
-                     gosub layout.layout
-                     gosub layout.field
-                  case "cmd"
-                     gosub layout.layout
-                     gosub layout.field
-                  case "link"
-                     gosub layout.layout
-                     gosub layout.field
-                  case "hidden"
-                     keys$(cnt%)=result$(1)
-                     values$(cnt%)=result$(2)
-                     cnt% = cnt% + 1
-                  case "beep"
-                     beep 2,1,1,val(result$(1))
-              end select 
-          end if
-      end if
-      ptr%=lineEnd%
-      if ptr% > 0 then
-         ptr% = ptr% + 1
-      end if
-    wend
-    exit sub
-layout.layout
-    layout$(layoutcnt%) = result$(0)
-    layoutvalues$(layoutcnt%) = result$(1)
-    layoutcnt% = layoutcnt% + 1
-    return
-layout.field
-    types$(fieldcnt%) = result$(0)
-    labels$(fieldcnt%) = result$(1)
-    fieldkeys$(fieldcnt%) = result$(2)
-    fieldvalues$(fieldcnt%) = result$(3)
-    if resultcnt% > 4 then
-        autosubmit$(fieldcnt%) = result$(4)
-    end if
-    fieldcnt% = fieldcnt% + 1
-    return
-  end sub
   
   '----------------------------
   function Util.ParseListData%(byref src$, byref lines$())
@@ -402,7 +326,7 @@ layout.field
     private skip%
 
     slen%=len(mid$(src$,iniPos%))
-    slen%=Util.Min(30,slen%)
+    slen%=Util.Min(200,slen%)
     tmpStr$=mid$(src$,iniPos%,slen%)
 
     slen%=len(tmpStr$)
@@ -454,16 +378,97 @@ layout.field
     Util.GetSeconds% = (endTs-startTs)
   end function
 
-'--------------------------------------------------------------------------
-' error log
-'--------------------------------------------------------------------------
-  sub Util.errlog(prefix$,werr,status%)
-    if werr = &h105 then
-        'ignore power off err, when resume
-        exit sub
+
+  '------------------------------------------------------
+  ' Parse layout data
+  '-------------------------------------------------------
+  sub Util.ParseLayout(byref src$,byref layout$(),byref layoutvalues$(),byref layoutcnt%,byref labels$(),byref fieldkeys$(),byref fieldvalues$(),byref types$(), byref autosubmit$(),byref fieldcnt%,byref keys$(),byref values$(),byref cnt%,byref autofocus$,byref errmsg$,byref refreshscreen$)
+    private ptr%
+    private lineEnd%
+    private srcLen%: srcLen%=len(src$)
+    private tmpstr$[1000]
+    private result$(5)[1000]
+    private resultcnt%
+    layoutcnt%=0
+    fieldcnt%=0
+    cnt%=0
+    
+    on error goto parselayout.err
+    ptr% = 1 'string pointer  
+    while ptr%<>0 and ptr%<srcLen%
+      lineEnd% = instr(ptr%, src$, STREOL$)
+      if lineEnd% > 0 then
+          tmpstr$ = mid$(src$, ptr%, lineEnd% - ptr%)
+          'Parse Each line
+          resultcnt%=Util.Split%(tmpstr$, result$, DELIMITER$)
+          if resultcnt%>1 then
+              select result$(0)
+                  case "error"
+                     errmsg$=result$(1)
+                  case "autofocus"
+                     autofocus$=Util.TruncateStr$(result$(1),1,40)
+                  case "refreshscreen"
+                     refreshscreen$=Util.TruncateStr$(result$(1),1,200)
+                  case "header"
+                     gosub layout.layout
+                  case "h1"
+                     gosub layout.layout
+                  case "p"
+                     gosub layout.layout
+                  case "span"
+                     gosub layout.layout
+                  case "text"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "min-text"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "min-num"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "num"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "checkbox"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "cmd"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "link"
+                     gosub layout.layout
+                     gosub layout.field
+                  case "hidden"
+                     keys$(cnt%)=result$(1)
+                     values$(cnt%)=result$(2)
+                     cnt% = cnt% + 1
+                  case "beep"
+                     beep 2,1,1,val(result$(1))
+              end select 
+          end if
+      end if
+      ptr%=lineEnd%
+      if ptr% > 0 then
+         ptr% = ptr% + 1
+      end if
+    wend
+    exit sub
+layout.layout
+    layout$(layoutcnt%) = result$(0)
+    layoutvalues$(layoutcnt%) = Util.TruncateStr$(result$(1),1,40)
+    layoutcnt% = layoutcnt% + 1
+    return
+layout.field:
+    types$(fieldcnt%) = result$(0)
+    labels$(fieldcnt%) = Util.TruncateStr$(result$(1),1,30)
+    fieldkeys$(fieldcnt%) = result$(2)
+    fieldvalues$(fieldcnt%) = result$(3)
+    if resultcnt% > 4 then
+        autosubmit$(fieldcnt%) = result$(4)
     end if
-    private a$[1]
-    print "ERR: "+prefix$+": =>"+ hex$(erl) + "&" +hex$(werr)+"@"+mid$(str$(status%),2)
-    input "以上信息请通知系统管理员: "; a$
+    fieldcnt% = fieldcnt% + 1
+    return
+parselayout.err:
+    Util.errlog("ParseLayout",err,ptr%)
   end sub
 

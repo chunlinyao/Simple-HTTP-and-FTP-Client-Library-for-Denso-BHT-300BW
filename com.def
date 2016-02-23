@@ -53,7 +53,7 @@ const Com.Status.DeviceClosed=10
   global Com.Server.ADDRESS$[15]
   global Com.Http.PORT%
   global Com.Server.PORT%
-  global Com.Server.MainScreen$[100]
+  global Com.Server.MainScreen$[200]
   global Com.Http.URLPREFIX$[100]
   global Com.Http.HOSTNAME$[100]
   global Com.EmptyFiles$(1)[10]

@@ -27,6 +27,8 @@
     src$ = src$ + "text" + DELIMITER$ + "Text1" + DELIMITER$ + "name" + DELIMITER$ + "foo" + STREOL$
     src$ = src$ + "cmd" + DELIMITER$ + "Submit" + DELIMITER$ + "calc" + DELIMITER$ + "/app/submitcalc" + STREOL$
     src$ = src$ + "num" + DELIMITER$ + "Age" + DELIMITER$ + "age" + DELIMITER$ + "" + DELIMITER$ + "/app/autoage" + STREOL$
+    src$ = src$ + "refreshscreen" + DELIMITER$ + "/app/autoage/asdfasdfasdfasdfasdfasdfasdf/ddd/eee/aaa/aaa/aaa/aaa/aaa/aaa/fff/"
+    src$ = src$ + "/app/autoage/asdf/ddd/eee/fff/kkk/" + STREOL$
     
     private fieldpos%(10)
       private labels$(10)[30]
@@ -44,9 +46,10 @@
       private autosubmit$(10)[200]
       private autofocus$
       private errmsg$[1000]
-      private refreshscreen$[100]
+      private refreshscreen$[200]
       
     Util.ParseLayout(src$,layout$,layoutvalues$,layoutcnt%,labels$,fieldkeys$, fieldvalues$,types$,autosubmit$,fieldcnt%,keys$,values$,cnt%,autofocus$,errmsg$,refreshscreen$) 
+      Screen.ShowError(refreshscreen$)
     Input.InputAnyKey
  end sub
  sub testScreenHeader
@@ -145,17 +148,18 @@ Main
   
   'testParser
   'outtest
-  testScreenH1
-  testScreenField
-  testInputYesNo
-  testInputBarcode
+  'testScreenH1
+  'testScreenField
+  'testInputYesNo
+  'testInputBarcode
   
-  testInputYesNo
+  'testInputYesNo
   
   Screen.Init
-  testScreenHeader
-  testScreenH1
-  testFieldSelect
+  testParser
+  'testScreenHeader
+  'testScreenH1
+  'testFieldSelect
   
   Test.Finish
   chain APP.TestLoaderName$
